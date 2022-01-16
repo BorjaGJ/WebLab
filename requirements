@@ -1,7 +1,4 @@
-django-mathfilters
-django-recaptcha
-
-django==1.11.29
+django==2.2.0
 django-suit
 Pillow
 argparse
@@ -20,9 +17,6 @@ django-map-widgets
 django-robots
 django-hitcount
 
-django-private-storage
-
-
 
 pytz
 six
@@ -31,18 +25,7 @@ sqlparse
 static
 
 
-xhtml2pdf
-python-dateutil
-pycrypto
-stripe
 
-django-sslserver
 
-social-auth-app-django
-
-django-colorfield
-
-google
-dkimpy
 
 

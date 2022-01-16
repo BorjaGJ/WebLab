@@ -14,27 +14,35 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from email import message
+
 from django.conf.urls import url, include
 from django.contrib import admin
 # from django.urls import path, include, re_path
 from django.conf.urls.static import static
-# from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import views as auth_views
+from django.contrib import messages
 
-# from ckeditor_uploader import views as vistas_ckeditor
 
 import web
 
 from django.conf.urls.i18n import i18n_patterns
 
 from configuracion import settings
-from web.views import Index
-
+from web.forms import WebLabLoginForm
+from web import views as web_views
+from django.contrib.auth.decorators import login_required
 admin.autodiscover()
 
 urlpatterns = [
     # url(r'^jet/', include('jet.urls', 'jet')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', Index.as_view(), name='index'),
+    # url(r'^admin/', admin.site.urls),
+    url(r'^$', login_required(web_views.Index.as_view()), name='index'),
+
+    url(r'^login/$', web_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+
+    url(r'^reactivos$', login_required(web_views.ReactivosView.as_view()), name='reactivos'),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 

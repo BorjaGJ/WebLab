@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.contrib import messages
+
 from configuracion import local_settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -38,37 +40,16 @@ INSTALLED_APPS = [
     # 'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
+    'web.templates.registration',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
     'ckeditor_uploader',
-    # 'bootstrapform',
-    # 'datetimewidget',
-    # 'bootstrap3_datetime',
-    'easy_thumbnails',
-    'image_cropping',
-    # 'mathfilters',
-    # 'captcha',
-    # 'django_simple_cookie_consent',
-    # 'blog',
     'web',
-    # 'dsociales'
-    # 'twitter_tag', Hay que hacer lo de la key con una cuenta de twitter
 
 ]
-
-RECAPTCHA_PUBLIC_KEY = '6Ldp6-8bAAAAAAy1m-4xHJj03zQIMUMtYmlQYTT5'
-RECAPTCHA_PRIVATE_KEY = '6Ldp6-8bAAAAAHVPsPywsxPmZrYopa6c7hPsH2T5'
-
-from easy_thumbnails.conf import Settings as thumbnail_settings
-
-THUMBNAIL_PROCESSORS = (
-                           'image_cropping.thumbnail_processors.crop_corners',
-                       ) + thumbnail_settings.THUMBNAIL_PROCESSORS
-
-IMAGE_CROPPING_JQUERY_URL = None
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,6 +84,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'configuracion.wsgi.application'
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }
 
 LANGUAJES = (
     ('en', _('English')),
@@ -218,18 +207,8 @@ CKEDITOR_CONFIGS = {
 }
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/login/'
-
-#
-# DEFAULT_FROM_EMAIL = 'Jornadas pts <dreamsappscreative@gmail.com>'
-# SERVER_EMAIL = DEFAULT_FROM_EMAIL
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'ssl0.ovh.net'
-# EMAIL_HOST_USER = 'dreamsappscreative@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Toledano500*'
-# EMAIL_PORT = 587
-#
-
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 TIME_ZONE = 'Europe/Madrid'
 
