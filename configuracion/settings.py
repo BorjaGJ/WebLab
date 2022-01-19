@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'web',
-
+    'productos',
+    'evaluables',
 ]
 
 MIDDLEWARE = [

@@ -36,10 +36,10 @@ admin.autodiscover()
 
 urlpatterns = [
     # url(r'^jet/', include('jet.urls', 'jet')),
-    # url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^$', login_required(web_views.Index.as_view()), name='index'),
 
-    url(r'^login/$', web_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
+    url(r'^login/$', auth_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
     url(r'^reactivos$', login_required(web_views.ReactivosView.as_view()), name='reactivos'),
