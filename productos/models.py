@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
+from evaluables.models import Proveedor
 
 
 class Producto(models.Model):
@@ -11,6 +12,7 @@ class Producto(models.Model):
     cantidad = models.CharField(max_length=50)
     ficha_seguridad = models.FileField(null=True, blank=True)
     ubicacion = RichTextUploadingField()
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
 
 
     class Meta:

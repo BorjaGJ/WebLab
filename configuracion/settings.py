@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.apps import AppConfig
 from django.contrib import messages
+from django.db import models
+from django.template.backends import django
 
 from configuracion import local_settings
 from django.utils.translation import ugettext_lazy as _
@@ -30,13 +33,13 @@ SECRET_KEY = '_eg)$l@t9%y1uz&1a7e)$)-s*vxlcw430xo@4ndxy&4p(%5092'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['toledano.dreamsappscreative.es']
 
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jet',
     # 'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
     'web',
     'productos',
     'evaluables',
+    'material'
 ]
 
 MIDDLEWARE = [
@@ -149,64 +153,6 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'skin': 'office2013',
-        # 'skin': 'office2013',
-        'toolbar_Basic': [
-            ['Source', '-', 'Bold', 'Italic']
-        ],
-        'toolbar_YourCustomToolbarConfig': [
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo', '-']},
-            {'name': 'editing', 'items': ['Replace' 'SelectAll']},
-            {'name': 'tools', 'items': ['Maximize']},
-            {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'RemoveFormat']},
-            {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
-                       'Language']},
-            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
-            {'name': 'insert',
-             'items': ['Image', 'Table', 'HorizontalRule', 'Youtube']},
-            {'name': 'styles', 'items': ['Styles', 'Format', 'FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-
-            # '/',   put this to force next toolbar on new line
-            {'name': 'yourcustomtools', 'items': [
-                # put the name of your editor.ui.addButton here
-
-            ]},
-        ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        # 'height': 291,
-        'width': '100%',
-        # 'filebrowserWindowHeight': 725,
-        # 'filebrowserWindowWidth': 940,
-        # 'toolbarCanCollapse': True,
-        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
-        'tabSpaces': 4,
-        'extraPlugins': ','.join(
-            [
-                # your extra plugins here
-                'div',
-                'autolink',
-                'autoembed',
-                'embedsemantic',
-                'autogrow',
-                'youtube',
-                # 'devtools',
-                'widget',
-                'lineutils',
-                'clipboard',
-                'dialog',
-                'dialogui',
-                'elementspath'
-            ]),
-    }
-}
-
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -222,10 +168,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 MEDIA_URL = '/media/'
-
 FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
 
 try:

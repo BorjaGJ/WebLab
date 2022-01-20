@@ -1,6 +1,8 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-from floppyforms import RegexField
+from regex_field.fields import RegexField
 
 
 class Proveedor(models.Model):
@@ -11,31 +13,64 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
 
-class Evaulacion(models.Model):
-    fecha = models.DateField(auto_now_add=True)
-    puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.fecha.__str__() + self.proveedor.nombre
-
-
-
-class Cliente(models.Model):
+class Persona(models.Model):
     nombre = models.CharField(max_length=100)
-    dni = models.CharField(max_length=100)
+    dni = models.CharField(validators=[RegexValidator(r'^[0-9]{8,8}[A-Za-z]$', 'DNI  introducido no valido')],
+                           max_length=9)
     cp = models.CharField(max_length=10)
     poblacion = models.CharField(max_length=50)
-    telefono = RegexField(regex=r'^\+?1?\d{9,15}$', error_message="Lo introducido no es un número de telefono válido")
+    telefono = RegexField(validators=[RegexValidator(r'^\+?1?\d{9,15}$', 'Telefono introducido no valido')],
+                          max_length=15)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.nombre
+
+
+class Cliente(Persona):
+    pass
+
+
+class Trabajador(Persona):
+    fecha_incorporacion = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+
+
+class Pedido(models.Model):
+    fecha_pedido = models.DateField()
+    fecha_recibido = models.DateField(auto_now_add=True, blank=True, null=True)
+    albaran = models.FileField(blank=True, null=True)
+    contenido = RichTextUploadingField()
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
+
+    def __str__(self):
+        return self.fecha_pedido.__str__() + self.proveedor.nombre
 
 
 class Analisis(models.Model):
     nombre = models.CharField(max_length=100)
+    fecha_pedido = models.DateField(auto_now_add=True)
+    resguardo = models.FileField(blank=True, null=True)
+    resultado = models.FileField(blank=True, null=True)
     factura = models.FileField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     def __str__(self):
+        return self.nombre + self.cliente.nombre
+
+
+class Documentos(models.Model):
+    nombre = models.CharField(max_length=100)
+    archivo = models.FileField()
+
+    def __str__(self):
         return self.nombre
+
+
