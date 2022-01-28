@@ -66,7 +66,7 @@ class Analisis(models.Model):
         return self.nombre + self.cliente.nombre
 
 
-class Documentos(models.Model):
+class Documento(models.Model):
     nombre = models.CharField(max_length=100)
     archivo = models.FileField()
 

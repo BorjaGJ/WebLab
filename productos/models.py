@@ -1,11 +1,13 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from evaluables.models import Proveedor
 
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
+    nombre_slug = models.SlugField(unique=True, blank=True, editable=False)
     CAS = models.CharField(max_length=50, blank=True)
     codigo_laboratorio = models.CharField(max_length=100)
     organico = models.BooleanField(default=False)
@@ -13,6 +15,7 @@ class Producto(models.Model):
     ficha_seguridad = models.FileField(null=True, blank=True)
     ubicacion = RichTextUploadingField()
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
+    fecha_caducidad = models.DateField(blank=True, null=True)
 
 
     class Meta:
@@ -20,6 +23,11 @@ class Producto(models.Model):
 
     def __str__(self):
         return u"%s" % self.nombre
+
+
+    def save(self, *args, **kwargs):
+        self.nombre_slug = slugify(self.nombre)
+        super(Producto, self).save(*args, **kwargs)
 
 
 

@@ -6,6 +6,6 @@ admin.site.register(models.Cliente)
 admin.site.register(models.Trabajador)
 admin.site.register(models.Pedido)
 admin.site.register(models.Analisis)
-admin.site.register(models.Documentos)
+admin.site.register(models.Documento)
 
 

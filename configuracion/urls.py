@@ -42,9 +42,10 @@ urlpatterns = [
     url(r'^login/$', auth_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
-    url(r'^reactivos$', login_required(web_views.ReactivosView.as_view()), name='reactivos'),
+    url(r'^productos/', include('productos.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url('^qr_code/', include('qr_code.urls', namespace="qr_code")),
 
 ]
 

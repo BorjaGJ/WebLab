@@ -27,3 +27,12 @@ class Miscelania(Material):
     pass
 
 
+class Intrumento(Material):
+    Manual = models.FileField(blank=True, null=True)
+    Certificado_de_calibracion = models.FileField(blank=True, null=True)
+    Metodo_calibracion = models.FileField(blank=True, null=True)
+    Ultima_revision = models.DateField(blank=True, null=True)
+    Proxima_revision = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nombre

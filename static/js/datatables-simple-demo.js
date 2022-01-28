@@ -7,3 +7,11 @@ window.addEventListener('DOMContentLoaded', event => {
         new simpleDatatables.DataTable(datatablesSimple);
     }
 });
+
+$(document).ready(function() {
+    $('#datatablesSimple').DataTable({
+        language: {
+            url: 'dataTables.german.json'
+        }
+    });
+})
