@@ -7,9 +7,9 @@ from evaluables.models import Proveedor
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
-    nombre_slug = models.SlugField(unique=True, blank=True, editable=False)
+    nombre_slug = models.SlugField(blank=True, editable=False)
     CAS = models.CharField(max_length=50, blank=True)
-    codigo_laboratorio = models.CharField(max_length=100)
+    codigo_laboratorio = models.CharField(unique=True, max_length=100)
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
     ficha_seguridad = models.FileField(null=True, blank=True)

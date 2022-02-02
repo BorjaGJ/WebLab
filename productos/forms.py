@@ -10,8 +10,6 @@ class ReactivoForm(ModelForm):
         model = Reactivo
         exclude = {}
 
-
-
     def __init__(self, *args, **kwargs):
         super(ReactivoForm, self).__init__(*args, **kwargs)
 

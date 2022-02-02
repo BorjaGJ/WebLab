@@ -1,9 +1,10 @@
-{% extends 'plantilla_productos.html' %}
+{% extends 'plantilla_para_tablas.html' %}
 {% load qr_code %}
 
 {% block content2 %}
 
     <h1 class="mt-4">Reactivos</h1>
+
 
     <ol class="breadcrumb mb-4 col-lg-3">
         <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
@@ -16,10 +17,12 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            <btn class="btn btn-primary col-lg-2">Añadir</btn>
+            <button class="btn btn-primary col-lg-2">
+                <a class="text-decoration-none text-white" href="{% url 'add_reactivo' %}">Añadir</a>
+            </button>
         </div>
         <div class="card-body container">
-            <table class="table table-hover table-bordered text-center">
+            <table class="table table-hover table-bordered text-center table-responsive-sm">
                 <thead class="text-white">
                 <tr bgcolor="#212529">
                     <th>Nombre</th>
@@ -66,9 +69,25 @@
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                    onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
+
+                            <div class="d-none mb-2" id={{ producto.codigo_laboratorio}} >
+                                <p class="bold mt-3">¿Estás seguro de eliminar esta entrada?</p>
+                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'delete_reactivo' producto.codigo_laboratorio %}">Borrar
+                                <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
+                                </a>
+                            </button>
+                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
+                                <i class="fas fa-backspace text-white" aria-hidden="true"></i>
+                                </a>
+                            </button>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
