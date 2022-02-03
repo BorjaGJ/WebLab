@@ -1,4 +1,5 @@
 from annoying.functions import get_object_or_None
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -14,15 +15,6 @@ class ReactivosView(CreateView):
     def get(self, request, *args, **kwargs):
         reactivos = Reactivo.objects.all()
         return render(request, self.template_name, {"productos": reactivos})
-
-
-# class ReactivosDetailView(DetailView):
-#     template_name = 'reactivos_edit.html'
-#     model = Reactivo
-#
-#     def get(self, request, *args, **kwargs):
-#         entrada = get_object_or_None(self.model, codigo_laboratorio=self.kwargs['codigo_laboratorio'])
-#         return render(request, self.template_name, {"producto": entrada})
 
 
 class ReactivosEditView(CreateView):
@@ -49,15 +41,6 @@ class ReactivosEditView(CreateView):
         return render(request, self.template_name, {})
 
 
-def DeleteReactivo(request, *args, **kwargs):
-
-    model = Reactivo
-    entrada = Reactivo.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
-    entrada.delete()
-
-    return redirect('reactivos')
-
-
 class AddReactivo(CreateView):
     template_name = 'add_reactivo.html'
 
@@ -77,21 +60,43 @@ class AddReactivo(CreateView):
         return render(request, self.template_name, {})
 
 
+def DeleteReactivo(request, *args, **kwargs):
+
+    entrada = Reactivo.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
+    entrada.delete()
+
+    return redirect('reactivos')
+
+
+def searchReactivo(request):
+
+    if request.method == 'GET':
+        buscado = request.GET.get('buscarReactivo')
+
+        reactivos = Reactivo.objects.filter(
+            Q(nombre__icontains=buscado) | Q(CAS__icontains=buscado) |
+            Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
+        )
+        return render(request, 'reactivos.html', {"productos": reactivos})
+
+    else:
+        reactivos = Reactivo.objects.all()
+        return render(request, "reactivos.html", {"productos": reactivos})
+
 
 class DisolventesView(CreateView):
     template_name = 'disolventes.html'
 
     def get(self, request, *args, **kwargs):
-
         disolventes = Disolvente.objects.all()
 
         return render(request, self.template_name, {"productos": disolventes})
+
 
 class PatronesView(CreateView):
     template_name = 'patrones.html'
 
     def get(self, request, *args, **kwargs):
-
         patrones = Patron.objects.all()
 
         return render(request, self.template_name, {"productos": patrones})
