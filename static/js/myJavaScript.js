@@ -9,3 +9,4 @@ function AparecerDelete(codigo = "") {
     var popup = document.getElementById(codigo);
     popup.classList.toggle('d-none')
 }
+

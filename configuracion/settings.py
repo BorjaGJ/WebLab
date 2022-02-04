@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'qr_code',
+    'datetimewidget',
     'web',
     'productos',
     'evaluables',
@@ -158,6 +159,7 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
 
 TIME_ZONE = 'Europe/Madrid'
 

@@ -28,6 +28,11 @@
                                 <h4>Ubicación:</h4>
                                 <div class="text-center">{{ field | safe }}</div>
                             </div>
+                        {% elif field.name == "fecha_caducidad" %}
+                             <div class="col-lg-4" style="padding: 1%">
+                                {{ field.label | capfirst }}:<br>
+                                 {{ field | safe }}
+                            </div>
                         {% else %}
                             <div class="col-lg-4" style="padding: 1%">
                                 {{ field.label | capfirst }}: {{ field | safe }}

@@ -57,6 +57,10 @@ class AddReactivo(CreateView):
                 form.save()
                 return redirect('reactivos')
 
+            else:
+                return redirect('reactivos')
+
+
         return render(request, self.template_name, {})
 
 

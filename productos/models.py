@@ -8,14 +8,14 @@ from evaluables.models import Proveedor
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     nombre_slug = models.SlugField(blank=True, editable=False)
-    CAS = models.CharField(max_length=50, blank=True)
+    CAS = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100)
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
     ficha_seguridad = models.FileField(null=True, blank=True)
-    ubicacion = RichTextUploadingField()
+    ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
-    fecha_caducidad = models.DateField(blank=True, null=True)
+    fecha_caducidad = models.DateField()
 
 
     class Meta:

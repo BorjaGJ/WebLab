@@ -1,5 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
-from django.forms import ModelForm
+from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms import ModelForm, widgets
 
 from productos.models import Reactivo
 
@@ -9,6 +11,7 @@ class ReactivoForm(ModelForm):
     class Meta:
         model = Reactivo
         exclude = {}
+
 
     def __init__(self, *args, **kwargs):
         super(ReactivoForm, self).__init__(*args, **kwargs)
@@ -29,8 +32,13 @@ class ReactivoForm(ModelForm):
 
             if visible.name == 'organico':
                 pass
+
             elif visible.name == "ubicacion":
-                    visible.field.widget = CKEditorWidget()
+                visible.field.widget = CKEditorWidget()
+
+            elif visible.name == 'fecha_caducidad':
+                visible.field.widget = widgets.SelectDateWidget()
+
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
 
