@@ -1,8 +1,24 @@
-{% extends 'plantilla_para_tablas.html' %}
+{% extends 'base.html' %}
 {% load qr_code %}
 
-{% block content2 %}
-                    <h1 class="mt-4">Patrones</h1>
+{% block content %}
+    <div id="layoutSidenav_content">
+        <main class="col-lg-12">
+            <div class="container-fluid px-4">
+
+                {#        Formulario de buscar#}
+                <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
+                      method="GET" action="{% url 'search_patron' %}">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Buscar..."
+                               aria-label="Search for..." name="buscarPatron"
+                               aria-describedby="btnNavbarSearch"/>
+                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </form>
+
+                <h1 class="mt-4">Patrones</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
@@ -15,7 +31,9 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        <btn class="btn btn-primary col-lg-2">Añadir</btn>
+                        <button class="btn btn-primary col-lg-2">
+                            <a class="text-decoration-none text-white" href="{% url 'add_patron' %}">Añadir</a>
+                        </button>
                     </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center">
@@ -31,15 +49,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for producto in productos %}
+                            {% for producto in entradas %}
                                 <tr>
                                     <td>{{ producto.nombre }}</td>
                                     <td>
                                         {{ producto.codigo_laboratorio }}
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                                onclick="Aparecer({{ producto.id }})">
-                                            <i class="fas fa-qrcode" aria-hidden="true"></i>
-                                        </button>
+                                        <div class="float-end px-4">
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                                    onclick="Aparecer({{ producto.id }})">
+                                                <i class="fas fa-qrcode" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
                                         <div id={{ producto.id }} class="d-none">
                                             <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
                                         </div>
@@ -55,15 +75,36 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <i class="fas fa-edit" aria-hidden="true"></i>
+                                            <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
+                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                            </a>
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
+
+                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                            <p class="bold mt-3">¿Estás seguro de <br>
+                                                eliminar esta entrada?</p>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                                <a class="text-white text-decoration-none"
+                                                   href="{% url 'delete_patron' producto.codigo_laboratorio %}">Borrar
+                                                    <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                                <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
+                                                    <i class="fas fa-backspace text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
+                            {% empty %}
+                                <h1 class="px-4 mb-5 mt-3">No hay resultados de la búsqueda</h1>
                             {% endfor %}
                             </tbody>
                         </table>
@@ -71,4 +112,5 @@
                 </div>
             </div>
         </main>
-{% endblock content2 %}
+    </div>
+{% endblock content %}

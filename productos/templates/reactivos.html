@@ -4,122 +4,124 @@
 {% block content %}
 
     <div id="layoutSidenav_content">
-    <main class="col-lg-12">
-        <div class="container-fluid px-4">
+        <main class="col-lg-12">
+            <div class="container-fluid px-4">
 
-{#        Formulario de buscar#}
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-            method="GET" action="{% url 'search_reactivo' %}">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Buscar..."
-                           aria-label="Search for..." name="buscarReactivo"
-                           aria-describedby="btnNavbarSearch"/>
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                            class="fas fa-search"></i></button>
-                </div>
-            </form>
+                {#        Formulario de buscar#}
+                <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
+                      method="GET" action="{% url 'search_reactivo' %}">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Buscar..."
+                               aria-label="Search for..." name="buscarReactivo"
+                               aria-describedby="btnNavbarSearch"/>
+                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </form>
 
-{#        Titulo y migas de pan#}
-            <h1 class="mt-4">Reactivos</h1>
+                {#        Titulo y migas de pan#}
+                <h1 class="mt-4">Reactivos</h1>
 
-            <ol class="breadcrumb mb-4 col-lg-3">
-                <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
-                </li>
-                <li class="breadcrumb-item">Productos</li>
-                <li class="breadcrumb-item active">Reactivos</li>
-            </ol>
+                <ol class="breadcrumb mb-4 col-lg-3">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                    </li>
+                    <li class="breadcrumb-item">Productos</li>
+                    <li class="breadcrumb-item active">Reactivos</li>
+                </ol>
 
-{#        Tabla dentro de carta#}
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    <button class="btn btn-primary col-lg-2">
-                        <a class="text-decoration-none text-white" href="{% url 'add_reactivo' %}">Añadir</a>
-                    </button>
-                </div>
-                <div class="card-body container">
-                    <table class="table table-hover table-bordered text-center table-responsive-sm">
-                        <thead class="text-white">
-                        <tr bgcolor="#212529">
-                            <th>Nombre</th>
-                            <th>Código de laboratorio</th>
-                            <th>CAS</th>
-                            <th>Fecha de caducidad</th>
-                            <th>Proveedor</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for producto in entradas %}
-                            <tr>
-                                <td>
-                                    {{ producto.nombre }}
-                                </td>
-                                <td>
-                                    {{ producto.codigo_laboratorio }}
-                                    <div class="float-end px-4">
-                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                            onclick="Aparecer({{ producto.id }})">
-                                        <i class="fas fa-qrcode" aria-hidden="true"></i>
-                                         </button>
-                                    </div>
-                                    <div class="d-none float-end px-4" id={{ producto.id }} >
-                                        <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
-                                    </div>
-                                </td>
-                                <td>{{ producto.CAS }}</td>
-                                <td>
-                                    {% if producto.fecha_caducidad %}
-                                        {{ producto.fecha_caducidad }}
-                                    {% else %}
-                                        N/A
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if producto.proveedor %}
-                                        {{ producto.preveedor }}
-                                    {% else %}
-                                        N/A
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                        <a href="{% url 'reactivo_edit' producto.codigo_laboratorio %}">
-                                            <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                        </a>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                            onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
-                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                    </button>
-
-                                    <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
-                                        <p class="bold mt-3">¿Estás seguro de <br>
-                                            eliminar esta entrada?</p>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                            <a class="text-white text-decoration-none"
-                                               href="{% url 'delete_reactivo' producto.codigo_laboratorio %}">Borrar
-                                                <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                            <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
-                                                <i class="fas fa-backspace text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                    </div>
-                                </td>
+                {#        Tabla dentro de carta#}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        <button class="btn btn-primary col-lg-2">
+                            <a class="text-decoration-none text-white" href="{% url 'add_reactivo' %}">Añadir</a>
+                        </button>
+                    </div>
+                    <div class="card-body container">
+                        <table class="table table-hover table-bordered text-center table-responsive-sm">
+                            <thead class="text-white">
+                            <tr bgcolor="#212529">
+                                <th>Nombre</th>
+                                <th>Código de laboratorio</th>
+                                <th>CAS</th>
+                                <th>Fecha de caducidad</th>
+                                <th>Proveedor</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for producto in entradas %}
+                                <tr>
+                                    <td>
+                                        {{ producto.nombre }}
+                                    </td>
+                                    <td>
+                                        {{ producto.codigo_laboratorio }}
+                                        <div class="float-end px-4">
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                                    onclick="Aparecer({{ producto.id }})">
+                                                <i class="fas fa-qrcode" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="d-none" id={{ producto.id }}>
+                                            <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
+                                        </div>
+                                    </td>
+                                    <td>{{ producto.CAS }}</td>
+                                    <td>
+                                        {% if producto.fecha_caducidad %}
+                                            {{ producto.fecha_caducidad }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if producto.proveedor %}
+                                            {{ producto.preveedor }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a href="{% url 'reactivo_edit' producto.codigo_laboratorio %}">
+                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                        </button>
+
+                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                            <p class="bold mt-3">¿Estás seguro de <br>
+                                                eliminar esta entrada?</p>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                                <a class="text-white text-decoration-none"
+                                                   href="{% url 'delete_reactivo' producto.codigo_laboratorio %}">Borrar
+                                                    <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
+                                                <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
+                                                    <i class="fas fa-backspace text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <h1 class="px-4 mb-5 mt-3">No hay resultados de la búsqueda</h1>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
     </div>
 
 {% endblock content %}

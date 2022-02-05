@@ -4,7 +4,6 @@ from django.views.generic import CreateView
 
 from productos.forms import ReactivoForm
 from productos.models import Reactivo
-from web.forms import WebLabLoginForm
 
 
 class Index(CreateView):
@@ -24,7 +23,7 @@ class TableView(CreateView):
 
 
 class EditView(CreateView):
-    template_name = 'reactivos_edit.html'
+    template_name = 'edit_reactivo.html'
     model = Reactivo
     redirect_to = 'reactivos'
     model_form = ReactivoForm
