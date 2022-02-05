@@ -2,9 +2,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from web import views
 
-from productos.forms import ReactivoForm, DisolventeForm, PatronForm
+from productos.forms import DisolventeForm, PatronForm
 from productos.models import Reactivo, Disolvente, Patron
 
+
+# Vistas de reactivos
 
 class ReactivoTableView(views.TableView):
     pass
@@ -28,7 +30,7 @@ def DeleteReactivo(request, **kwargs):
     return redirect(redirect_to)
 
 
-def searchReactivo(request):
+def SearchReactivo(request):
 
     model = Reactivo
 
@@ -42,6 +44,8 @@ def searchReactivo(request):
         )
         return render(request, 'reactivos.html', {"entradas": entradas})
 
+
+#Vistas de disolventes
 
 class DisolventeView(views.TableView):
     template_name = 'disolventes.html'
@@ -70,7 +74,7 @@ def DeleteDisolvente(request, **kwargs):
 
     return redirect(redirect_to)
 
-def searchDisolvente(request):
+def SearchDisolvente(request):
 
     model = Disolvente
 
@@ -84,6 +88,9 @@ def searchDisolvente(request):
         )
         return render(request, 'disolventes.html', {"entradas": entradas})
 
+
+
+# Vistas de patrones
 
 class PatronesView(views.TableView):
     template_name = 'patrones.html'
@@ -111,7 +118,7 @@ def DeletePatron(request, **kwargs):
 
     return redirect(redirect_to)
 
-def searchPatron(request):
+def SearchPatron(request):
 
     model = Patron
 

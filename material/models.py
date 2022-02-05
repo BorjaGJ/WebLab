@@ -1,4 +1,5 @@
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from evaluables.models import Proveedor
@@ -6,8 +7,10 @@ from evaluables.models import Proveedor
 
 class Material(models.Model):
     nombre = models.CharField(max_length=50)
-    ubicacion = RichTextUploadingField()
+    codigo_laboratorio = models.CharField(unique=True, max_length=100)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
+    ubicacion = RichTextUploadingField(default='En el laboratiorio')
+    proxima_revision = models.DateField(blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -18,9 +21,10 @@ class Material(models.Model):
 
 class Volumetrico(Material):
     OPTION_CHOICES = (("Aforado", "Aforado"), ("Graduado", "Graduado"))
-    Graduacion = models.CharField(choices=OPTION_CHOICES, max_length=10)
+    graduacion = models.CharField(choices=OPTION_CHOICES, max_length=10)
     lote = models.CharField(max_length=20, blank=True, null=True)
     volumen = models.CharField(max_length=20)
+    cuantia = models.IntegerField(validators=[MinValueValidator(0)])
 
 
 class Miscelania(Material):
@@ -28,11 +32,9 @@ class Miscelania(Material):
 
 
 class Intrumento(Material):
-    Manual = models.FileField(blank=True, null=True)
-    Certificado_de_calibracion = models.FileField(blank=True, null=True)
-    Metodo_calibracion = models.FileField(blank=True, null=True)
-    Ultima_revision = models.DateField(blank=True, null=True)
-    Proxima_revision = models.DateField(blank=True, null=True)
+    manual = models.FileField(blank=True, null=True)
+    certificado_de_calibracion = models.FileField(blank=True, null=True)
+    metodo_calibracion = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.nombre

@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
     url(r'^productos/', include('productos.urls')),
+    url(r'^material/', include('material.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),

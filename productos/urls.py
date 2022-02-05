@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^reactivos/editar/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.ReactivoEditView.as_view()),
         name='reactivo_edit'),
     url(r'^delete/reactivo/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.DeleteReactivo), name='delete_reactivo'),
-    url(r'^search/reactivo$', login_required(views.searchReactivo), name='search_reactivo'),
+    url(r'^search/reactivo$', login_required(views.SearchReactivo), name='search_reactivo'),
 
 
     url(r'^disolventes$', login_required(views.DisolventeView.as_view()), name='disolventes'),
@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^disolventes/editar/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.DisolventeEditView.as_view()),
         name='disolvente_edit'),
     url(r'^delete/disolvente/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.DeleteDisolvente),name='delete_disolvente'),
-    url(r'^search/disolvente$', login_required(views.searchDisolvente), name='search_disolvente'),
+    url(r'^search/disolvente$', login_required(views.SearchDisolvente), name='search_disolvente'),
 
 
     url(r'^patrones$', login_required(views.PatronesView.as_view()), name='patrones'),
@@ -25,7 +25,7 @@ urlpatterns = [
         name='patron_edit'),
     url(r'^delete/patron/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.DeletePatron),
         name='delete_patron'),
-    url(r'^search/patron$', login_required(views.searchPatron), name='search_patron'),
+    url(r'^search/patron$', login_required(views.SearchPatron), name='search_patron'),
 
 
 ]
