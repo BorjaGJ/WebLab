@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm, widgets
 
-from productos.models import Reactivo
+from productos.models import Reactivo, Disolvente
 
 
 class ReactivoForm(ModelForm):
@@ -41,6 +41,42 @@ class ReactivoForm(ModelForm):
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
+
+
+class DisolventeForm(ModelForm):
+
+        class Meta:
+            model = Disolvente
+            exclude = {}
+
+        def __init__(self, *args, **kwargs):
+            super(DisolventeForm, self).__init__(*args, **kwargs)
+
+            # poner las etiquetas
+            self.fields['nombre'].label = 'Nombre'
+            self.fields['CAS'].label = "CAS"
+            self.fields['codigo_laboratorio'].label = "Código de laboratorio"
+            self.fields['organico'].label = "Orgánico"
+            self.fields['cantidad'].label = "Cantidad"
+            self.fields['ficha_seguridad'].label = "Ficha de seguridad"
+            self.fields['proveedor'].label = "Proveedor"
+            self.fields['fecha_caducidad'].label = "Fecha de caducidad"
+            self.fields['densidad'].label = "Densidad"
+
+            # añadir las clases
+            for visible in self.visible_fields():
+
+                if visible.name == 'organico':
+                    pass
+
+                elif visible.name == "ubicacion":
+                    visible.field.widget = CKEditorWidget()
+
+                elif visible.name == 'fecha_caducidad':
+                    visible.field.widget = widgets.SelectDateWidget()
+
+                else:
+                    visible.field.widget.attrs['class'] = 'form-control'
 
 
 

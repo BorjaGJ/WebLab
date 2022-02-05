@@ -3,104 +3,83 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView
+from web import views
 
-from productos.forms import ReactivoForm
+from productos.forms import ReactivoForm, DisolventeForm
 from productos.models import Reactivo, Disolvente, Patron
 
 
-class ReactivosView(CreateView):
-    template_name = 'reactivos.html'
-
-    def get(self, request, *args, **kwargs):
-        reactivos = Reactivo.objects.all()
-        return render(request, self.template_name, {"productos": reactivos})
+class ReactivoTableView(views.TableView):
+    pass
 
 
-class ReactivosEditView(CreateView):
-    template_name = 'reactivos_edit.html'
+class ReactivoEditView(views.EditView):
+    pass
+
+class ReactivoAddView(views.AddView):
+    pass
+
+
+def DeleteReactivo(request, **kwargs):
+
     model = Reactivo
+    redirect_to = 'reactivos'
 
-    def get(self, request, *args, **kwargs):
-        entrada = get_object_or_None(self.model, codigo_laboratorio=self.kwargs['codigo_laboratorio'])
-        form = ReactivoForm(instance=entrada)
-
-        return render(request, self.template_name, {"form": form, 'entrada': entrada})
-
-    def post(self, request, *args, **kwargs):
-
-        entrada = get_object_or_None(self.model, codigo_laboratorio=self.kwargs['codigo_laboratorio'])
-
-        if request.method == 'POST':
-            form = ReactivoForm(request.POST, instance=entrada)
-
-            if form.is_valid():
-                form.save()
-                return redirect('reactivos')
-
-        return render(request, self.template_name, {})
-
-
-class AddReactivo(CreateView):
-    template_name = 'add_reactivo.html'
-
-    def get(self, request, *args, **kwargs):
-        form = ReactivoForm()
-        return render(request, self.template_name, {"form": form})
-
-    def post(self, request, *args, **kwargs):
-
-        if request.method == 'POST':
-            form = ReactivoForm(request.POST)
-
-            if form.is_valid():
-                form.save()
-                return redirect('reactivos')
-
-            else:
-                return redirect('reactivos')
-
-
-        return render(request, self.template_name, {})
-
-
-def DeleteReactivo(request, *args, **kwargs):
-
-    entrada = Reactivo.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
+    entrada = model.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
     entrada.delete()
 
-    return redirect('reactivos')
+    return redirect(redirect_to)
 
 
 def searchReactivo(request):
 
+    model = Reactivo
+
     if request.method == 'GET':
+
         buscado = request.GET.get('buscarReactivo')
 
-        reactivos = Reactivo.objects.filter(
+        entradas = model.objects.filter(
             Q(nombre__icontains=buscado) | Q(CAS__icontains=buscado) |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
-        return render(request, 'reactivos.html', {"productos": reactivos})
+        return render(request, 'reactivos.html', {"entradas": entradas})
 
     else:
-        reactivos = Reactivo.objects.all()
-        return render(request, "reactivos.html", {"productos": reactivos})
+        entradas = model.objects.all()
+        return render(request, "reactivos.html", {"entradas": entradas})
 
 
-class DisolventesView(CreateView):
+class DisolventeView(views.TableView):
     template_name = 'disolventes.html'
-
-    def get(self, request, *args, **kwargs):
-        disolventes = Disolvente.objects.all()
-
-        return render(request, self.template_name, {"productos": disolventes})
+    model = Disolvente
 
 
-class PatronesView(CreateView):
+class DisolventeAddView(views.AddView):
+    template_name = 'add_disolvente.html'
+    model = Disolvente
+    redirect_to = 'disolventes'
+    model_form = DisolventeForm
+
+class DisolventeEditView(views.EditView):
+    template_name = 'disolvente_edit.html'
+    model = Disolvente
+    model_form = DisolventeForm
+    redirect_to = 'disolventes'
+
+def DeleteDisolvente(request, **kwargs):
+
+    model = Disolvente
+    redirect_to = 'disolventes'
+
+    entrada = model.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
+    entrada.delete()
+
+    return redirect(redirect_to)
+
+
+class PatronesView(views.TableView):
     template_name = 'patrones.html'
+    model = Patron
 
-    def get(self, request, *args, **kwargs):
-        patrones = Patron.objects.all()
-
-        return render(request, self.template_name, {"productos": patrones})
