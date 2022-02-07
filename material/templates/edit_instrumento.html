@@ -4,17 +4,17 @@
 {% block content %}
 
     <div id="layoutSidenav_content">
-        <main class="container row col-lg-12" STYLE="padding: 2%">
+        <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
 
             <h1 class="mt-0">{{ entrada.nombre }} {{ entrada.codigo_laboratorio }}</h1>
 
-            <ol class="breadcrumb mb-4 col-lg-12 bg-white">
+            <ol class="breadcrumb mb-4 col-lg-12">
                 <li class="breadcrumb-item">
                     <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">Productos</li>
+                <li class="breadcrumb-item">Material</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'patrones' %}" style="text-decoration: none">Patrones</a>
+                    <a href="{% url 'instrumento' %}" style="text-decoration: none">Instrumentos</a>
                 </li>
                 <li class="breadcrumb-item active">{{ entrada.nombre }}</li>
             </ol>
@@ -22,7 +22,7 @@
 
             <div class="card border-dark">
                 <form class="card-body container row col-lg-12"
-                      action="{% url 'patron_edit' entrada.codigo_laboratorio %}" method="post">
+                      action="{% url 'volumetrico_edit' entrada.codigo_laboratorio %}" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.name == "ubicacion" %}
@@ -30,7 +30,7 @@
                                 <h4>Ubicación:</h4>
                                 <div class="text-center">{{ field | safe }}</div>
                             </div>
-                        {% elif field.name == "fecha_caducidad" %}
+                        {% elif field.name == "proxima_revision" %}
                             <div class="col-lg-4" style="padding: 1%">
                                 {{ field.label | capfirst }}:<br>
                                 {{ field | safe }}
@@ -48,7 +48,7 @@
                             </a>
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
-                            <a class="text-white text-decoration-none" href="{% url 'patrones' %}"> Salir sin guardar
+                            <a class="text-white text-decoration-none" href="{% url 'volumetrico' %}"> Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>

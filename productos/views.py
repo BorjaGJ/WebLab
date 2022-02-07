@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from web import views
+from web import views_utils
 
 from productos.forms import DisolventeForm, PatronForm
 from productos.models import Reactivo, Disolvente, Patron
@@ -8,14 +8,14 @@ from productos.models import Reactivo, Disolvente, Patron
 
 # Vistas de reactivos
 
-class ReactivoTableView(views.TableView):
+class ReactivoTableView(views_utils.TableView):
     pass
 
 
-class ReactivoEditView(views.EditView):
+class ReactivoEditView(views_utils.EditView):
     pass
 
-class ReactivoAddView(views.AddView):
+class ReactivoAddView(views_utils.AddView):
     pass
 
 
@@ -47,18 +47,18 @@ def SearchReactivo(request):
 
 #Vistas de disolventes
 
-class DisolventeView(views.TableView):
+class DisolventeView(views_utils.TableView):
     template_name = 'disolventes.html'
     model = Disolvente
 
 
-class DisolventeAddView(views.AddView):
+class DisolventeAddView(views_utils.AddView):
     template_name = 'add_disolvente.html'
     model = Disolvente
     redirect_to = 'disolventes'
     model_form = DisolventeForm
 
-class DisolventeEditView(views.EditView):
+class DisolventeEditView(views_utils.EditView):
     template_name = 'edit_disolvente.html'
     model = Disolvente
     model_form = DisolventeForm
@@ -92,17 +92,17 @@ def SearchDisolvente(request):
 
 # Vistas de patrones
 
-class PatronesView(views.TableView):
+class PatronesView(views_utils.TableView):
     template_name = 'patrones.html'
     model = Patron
 
-class PatronAddView(views.AddView):
+class PatronAddView(views_utils.AddView):
     template_name = 'add_patron.html'
     model = Patron
     model_form = PatronForm
     redirect_to = 'patrones'
 
-class PatronEditView(views.EditView):
+class PatronEditView(views_utils.EditView):
     template_name = 'edit_patron.html'
     model = Patron
     model_form = PatronForm

@@ -30,14 +30,16 @@ from django.conf.urls.i18n import i18n_patterns
 
 from configuracion import settings
 from web.forms import WebLabLoginForm
-from web import views as web_views
 from django.contrib.auth.decorators import login_required
+
+from web.views import Index
+
 admin.autodiscover()
 
 urlpatterns = [
     # url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', login_required(web_views.Index.as_view()), name='index'),
+    url(r'^$', login_required(Index.as_view()), name='index'),
 
     url(r'^login/$', auth_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),

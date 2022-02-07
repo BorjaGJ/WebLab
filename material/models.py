@@ -27,13 +27,8 @@ class Volumetrico(Material):
     cuantia = models.IntegerField(validators=[MinValueValidator(0)])
 
 
-class Miscelania(Material):
-    pass
-
-
-class Intrumento(Material):
+class Instrumento(Material):
     manual = models.FileField(blank=True, null=True)
-    certificado_de_calibracion = models.FileField(blank=True, null=True)
     metodo_calibracion = models.FileField(blank=True, null=True)
 
     def __str__(self):

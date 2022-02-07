@@ -2,109 +2,109 @@
 {% load qr_code %}
 
 {% block content %}
+
     <div id="layoutSidenav_content">
         <main class="col-lg-12">
             <div class="container-fluid px-4">
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_disolvente' %}">
+                      method="GET" action="{% url 'search_instrumento' %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
-                               aria-label="Search for..." name="buscarDisolvente"
+                               aria-label="Search for..." name="buscar"
                                aria-describedby="btnNavbarSearch"/>
                         <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
                                 class="fas fa-search"></i></button>
                     </div>
                 </form>
-                <h1 class="mt-4">Disolventes</h1>
+
+                {#        Titulo y migas de pan#}
+                <h1 class="mt-4">Instrumentos</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3 bg-white">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                     </li>
-                    <li class="breadcrumb-item">Productos</li>
-                    <li class="breadcrumb-item active">Disolventes</li>
+                    <li class="breadcrumb-item">Material</li>
+                    <li class="breadcrumb-item active">Instrumentos</li>
                 </ol>
 
-
+                {#        Tabla dentro de carta#}
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         <button class="btn btn-primary col-lg-2">
-                            <a class="text-white text-decoration-none"
-                               href="{% url 'add_disolvente' %}">Añadir</a>
+                            <a class="text-decoration-none text-white" href="{% url 'add_instrumento' %}">Añadir</a>
                         </button>
                     </div>
                     <div class="card-body container">
-                        <table class="table table-hover table-bordered text-center">
+                        <table class="table table-hover table-bordered text-center table-responsive-sm">
                             <thead class="text-white">
                             <tr bgcolor="#212529">
                                 <th>Nombre</th>
                                 <th>Código de laboratorio</th>
-                                <th>CAS</th>
-                                <th>Polaridad</th>
-                                <th>Volumen</th>
+                                <th>Próxima revisión</th>
                                 <th>Proveedor</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for producto in entradas %}
+                            {% for material in entradas %}
                                 <tr>
-                                    <td>{{ producto.nombre }}</td>
                                     <td>
-                                        {{ producto.codigo_laboratorio }}
+                                        {{ material.nombre }}
+                                    </td>
+                                    <td>
+                                        {{ material.codigo_laboratorio }}
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                                    onclick="Aparecer({{ producto.id }})">
+                                                    onclick="Aparecer({{ material.id }})">
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        <div id={{ producto.id }} class="d-none">
-                                            <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
+                                        <div class="d-none" id={{ material.id }}>
+                                            <img src="{% qr_url_from_text material.codigo_laboratorio %}">
                                         </div>
                                     </td>
-                                    <td>{{ producto.CAS }}</td>
                                     <td>
-                                        {% if producto.organico %}
-                                            Orgánico
+                                        {% if material.proxima_revision %}
+                                            {{ material.fech_proxima_revision }}
                                         {% else %}
-                                            Inorgánico
+                                            N/A
                                         {% endif %}
                                     </td>
-                                    <td>{{ producto.cantidad }}</td>
                                     <td>
-                                        {% if producto.proveedor %}
-                                            {{ producto.preveedor }}
+                                        {% if material.proveedor %}
+                                            {{ material.preveedor }}
                                         {% else %}
                                             N/A
                                         {% endif %}
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'disolvente_edit' producto.codigo_laboratorio %}">
+                                            <a href="{% url 'instrumento_edit' material.codigo_laboratorio %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                                onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 
-                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                        <div class="d-none mb-2" id={{ material.codigo_laboratorio }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
                                                 <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_reactivo' producto.codigo_laboratorio %}">Borrar
+                                                   href="{% url 'delete_instrumento' material.codigo_laboratorio %}">Borrar
                                                     <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                                <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
+                                                <a onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>Volver
                                                     <i class="fas fa-backspace text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>

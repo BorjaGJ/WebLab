@@ -1,0 +1,33 @@
+
+.calendar {
+    text-align: center;
+    padding: 5%;
+    border: black 2px solid;
+}
+
+.calendar-month-head {
+    font-size: larger;
+    padding: 2%;
+    background-color: #212529;
+    color: white;
+}
+
+.calendar-weekday-head {
+    padding: 2%;
+}
+
+.calendar-day {
+    padding: 3%;
+    border: black 1px solid;
+}
+
+.calendar-today {
+    background-color: #cf3476;
+    border: black 1px solid;
+    font-weight: bold;
+}
+
+.calendar-no-day {
+    background-color: #808080;
+    opacity: 0.4;
+}
