@@ -9,7 +9,7 @@
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_instrumento' %}">
+                      method="GET" action="{% url 'search_miscelanea' %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
                                aria-label="Search for..." name="buscar"
@@ -20,13 +20,13 @@
                 </form>
 
                 {#        Titulo y migas de pan#}
-                <h1 class="mt-4">Instrumentos</h1>
+                <h1 class="mt-4">Misceláneas</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3 bg-white">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                     </li>
                     <li class="breadcrumb-item">Material</li>
-                    <li class="breadcrumb-item active">Instrumentos</li>
+                    <li class="breadcrumb-item active">Misceláneas</li>
                 </ol>
 
                 {#        Tabla dentro de carta#}
@@ -34,7 +34,7 @@
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         <button class="btn btn-primary col-lg-2">
-                            <a class="text-decoration-none text-white" href="{% url 'add_instrumento' %}">Añadir</a>
+                            <a class="text-decoration-none text-white" href="{% url 'add_miscelanea' %}">Añadir</a>
                         </button>
                     </div>
                     <div class="card-body container">
@@ -83,7 +83,7 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'instrumento_edit' material.codigo_laboratorio %}">
+                                            <a href="{% url 'miscelanea_edit' material.codigo_laboratorio %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
@@ -99,7 +99,7 @@
                                                 eliminar esta entrada?</p>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
                                                 <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_instrumento' material.codigo_laboratorio %}">Borrar
+                                                   href="{% url 'delete_miscelanea' material.codigo_laboratorio %}">Borrar
                                                     <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>

@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
-from material.forms import VolumetricoForm, InstrumentoForm
-from material.models import Volumetrico, Instrumento
+from material.forms import VolumetricoForm, InstrumentoForm, MiscelaneaForm
+from material.models import Volumetrico, Instrumento, Miscelanea
 from web import views_utils
 
 class VolumetricosView(views_utils.TableView):
@@ -82,6 +82,51 @@ def DeleteInstrumento(request, **kwargs):
 def SearchInstrumento(request):
 
     model = Instrumento
+
+    if request.method == 'GET':
+
+        buscado = request.GET.get('buscar')
+
+        entradas = model.objects.filter(
+            Q(nombre__icontains=buscado) | Q(lote__icontains=buscado) |
+            Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
+        )
+        return render(request, 'instrumentos.html', {"entradas": entradas})
+
+
+class MiscelaneasView(views_utils.TableView):
+    template_name = 'micelaneas.html'
+    model = Miscelanea
+
+
+class MiscelaneaEditView(views_utils.EditView):
+    template_name = 'edit_miscelanea.html'
+    model = Miscelanea
+    model_form = MiscelaneaForm
+    redirect_to = 'miscelanea'
+
+
+class MiscelaneaAddView(views_utils.AddView):
+    template_name = 'add_miscelanea.html'
+    model = Miscelanea
+    model_form = MiscelaneaForm
+    redirect_to = 'miscelanea'
+
+
+def DeleteMiscelanea(request, **kwargs):
+
+    model = Miscelanea
+    redirect_to = 'miscelanea'
+
+    entrada = model.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
+    entrada.delete()
+
+    return redirect(redirect_to)
+
+
+def SearchMiscelanea(request):
+
+    model = Miscelanea
 
     if request.method == 'GET':
 
