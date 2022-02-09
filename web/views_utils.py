@@ -2,12 +2,13 @@ from calendar import HTMLCalendar, calendar
 from datetime import date, datetime
 
 from annoying.functions import get_object_or_None
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 
 from productos.forms import ReactivoForm
 from productos.models import Reactivo
-from web.utils import MyHTMLCalendar
+
 
 class TableView(CreateView):
     template_name = 'reactivos.html'
@@ -15,6 +16,15 @@ class TableView(CreateView):
 
     def get(self, request, *args, **kwargs):
         entradas = self.model.objects.all()
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(entradas, 10)
+        try:
+            entradas = paginator.page(page)
+        except PageNotAnInteger:
+            entradas = paginator.page(1)
+        except EmptyPage:
+            entradas = paginator.page(paginator.num_pages)
         return render(request, self.template_name, {"entradas": entradas})
 
 
@@ -40,7 +50,6 @@ class EditView(CreateView):
         if request.method == 'POST':
 
             if form.is_valid():
-
                 form.save()
                 return redirect(self.redirect_to)
 
@@ -67,6 +76,3 @@ class AddView(CreateView):
                 return redirect(self.redirect_to)
 
         return render(request, self.template_name, {})
-
-
-

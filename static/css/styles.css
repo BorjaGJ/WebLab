@@ -79,7 +79,6 @@ body {
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -333,9 +332,6 @@ button {
   border-radius: 0;
 }
 
-button:focus:not(:focus-visible) {
-  outline: 0;
-}
 
 input,
 button,
@@ -3480,11 +3476,7 @@ textarea.form-control-lg {
 .fade {
   transition: opacity 0.15s linear;
 }
-@media (prefers-reduced-motion: reduce) {
-  .fade {
-    transition: none;
-  }
-}
+
 .fade:not(.show) {
   opacity: 0;
 }
@@ -4765,12 +4757,7 @@ textarea.form-control-lg {
 .breadcrumb-item + .breadcrumb-item {
   padding-left: 0.5rem;
 }
-.breadcrumb-item + .breadcrumb-item::before {
-  float: left;
-  padding-right: 0.5rem;
-  color: #6c757d;
-  content: var(--bs-breadcrumb-divider, "/") /* rtl: var(--bs-breadcrumb-divider, "/") */;
-}
+
 .breadcrumb-item.active {
   color: #6c757d;
 }
@@ -5467,11 +5454,7 @@ textarea.form-control-lg {
   transition: transform 0.3s ease-out;
   transform: translate(0, -50px);
 }
-@media (prefers-reduced-motion: reduce) {
-  .modal.fade .modal-dialog {
-    transition: none;
-  }
-}
+
 .modal.show .modal-dialog {
   transform: none;
 }
@@ -5801,11 +5784,7 @@ textarea.form-control-lg {
   outline: 0;
   transition: transform 0.3s ease-in-out;
 }
-@media (prefers-reduced-motion: reduce) {
-  .offcanvas {
-    transition: none;
-  }
-}
+
 
 .offcanvas-backdrop {
   position: fixed;
