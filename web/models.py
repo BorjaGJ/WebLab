@@ -10,3 +10,6 @@ class PoliticaPrivacidad(models.Model):
 class Condiciones(PoliticaPrivacidad):
     pass
 
+
+
+

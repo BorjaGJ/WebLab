@@ -108,6 +108,30 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                        {% if entradas.has_other_pages %}
+                            <ul class="pagination">
+                                {% if entradas.has_previous %}
+                                    <li><a class="text-black page-link"
+                                           href="?page={{ entradas.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><span></span></li>
+                                {% endif %}
+                                {% for i in entradas.paginator.page_range %}
+                                    {% if entradas.number == i %}
+                                        <li class="active page-link"><span>{{ i }} <span class="sr-only">(current)
+                                        </span></span></li>
+                                    {% else %}
+                                        <li><a class="text-black page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if entradas.has_next %}
+                                    <li><a class="text-black page-link" href="?page={{ entradas.next_page_number }}">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="disabled"><span></span></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from evaluables.models import Proveedor
+from Otros.models import Proveedor
 
 
 class Material(models.Model):
@@ -10,7 +10,7 @@ class Material(models.Model):
     codigo_laboratorio = models.CharField(unique=True, max_length=100)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratiorio')
-    proxima_revision = models.DateField(blank=True, null=True)
+
 
     class Meta:
         abstract = True
@@ -30,6 +30,7 @@ class Volumetrico(Material):
 class Instrumento(Material):
     manual = models.FileField(blank=True, null=True)
     metodo_calibracion = models.FileField(blank=True, null=True)
+    proxima_revision = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.nombre

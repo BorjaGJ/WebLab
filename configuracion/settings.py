@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'qr_code',
+    'colorfield',
     'web',
     'productos',
-    'evaluables',
+    'Otros',
     'material',
 
 ]

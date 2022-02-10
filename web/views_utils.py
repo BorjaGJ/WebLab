@@ -18,7 +18,7 @@ class TableView(CreateView):
         entradas = self.model.objects.all()
         page = request.GET.get('page', 1)
 
-        paginator = Paginator(entradas, 10)
+        paginator = Paginator(entradas, 15)
         try:
             entradas = paginator.page(page)
         except PageNotAnInteger:

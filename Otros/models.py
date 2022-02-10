@@ -1,8 +1,13 @@
+from datetime import datetime
+
+from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from regex_field.fields import RegexField
+
+
 
 
 class Proveedor(models.Model):
@@ -66,11 +71,54 @@ class Analisis(models.Model):
         return self.nombre + self.cliente.nombre
 
 
-class Documento(models.Model):
+
+class Evento(models.Model):
     nombre = models.CharField(max_length=100)
-    archivo = models.FileField()
+    fecha = models.DateField()
+    color = ColorField(default='#0d6efd')
+
+    @property
+    def get_dias_eventos_instrumentos(self):
+
+        hoy = datetime.now()
+        lista_eventos = []
+
+        try:
+            from material.models import Instrumento
+            instrumentos = Instrumento.objects.filter(proxima_revision__month=hoy.month)
+
+            for instrumento in instrumentos:
+                lista_eventos.append(instrumento.proxima_revision.day)
+
+        except Evento.DoesNotExist:
+             pass
+
+        return lista_eventos
+
+    @property
+    def get_dias_eventos(self):
+
+        hoy = datetime.now()
+        lista_eventos = []
+        try:
+            eventos = Evento.objects.filter(fecha__month=hoy.month)
+            for evento in eventos:
+                lista_eventos.append(evento.fecha.day)
+
+        except Evento.DoesNotExist:
+            pass
+
+        return lista_eventos
 
     def __str__(self):
         return self.nombre
+
+
+
+
+
+
+
+
 
 
