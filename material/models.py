@@ -1,13 +1,19 @@
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 
 from otros.models import Proveedor
 
+no_space_validator = RegexValidator(
+    r' ',
+    'No se permiten espacios',
+    inverse_match=True,
+    code='invalid_tag',
+)
 
 class Material(models.Model):
     nombre = models.CharField(max_length=50)
-    codigo_laboratorio = models.CharField(unique=True, max_length=100)
+    codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator])
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratiorio')
 
