@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Otros import models
+from otros import models
 
 admin.site.register(models.Proveedor)
 admin.site.register(models.Cliente)

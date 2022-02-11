@@ -2,7 +2,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from Otros.models import Proveedor
+from otros.models import Proveedor
 
 
 class Material(models.Model):

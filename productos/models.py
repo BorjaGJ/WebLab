@@ -2,7 +2,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from Otros.models import Proveedor
+from otros.models import Proveedor
 
 
 class Producto(models.Model):

@@ -20,7 +20,6 @@ class VolumetricoForm(ModelForm):
         self.fields['graduacion'].label = "Graduación"
         self.fields['lote'].label = "lote"
         self.fields['volumen'].label = "Volumen"
-        self.fields['proxima_revision'].label = "Proxima revisión"
         self.fields['cuantia'].label = "Número de unidades"
 
         # añadir las clases
@@ -28,9 +27,6 @@ class VolumetricoForm(ModelForm):
 
             if visible.name == "ubicacion":
                 visible.field.widget = CKEditorWidget()
-
-            elif visible.name == 'proxima_revision':
-                visible.field.widget = widgets.SelectDateWidget()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
@@ -51,7 +47,7 @@ class InstrumentoForm(ModelForm):
         self.fields['proveedor'].label = "Proveedor"
         self.fields['proxima_revision'].label = "Proxima revisión"
         self.fields['manual'].label = "Manual"
-        self.fields['metodo_calibracion'].label = "método de Calibración"
+        self.fields['metodo_calibracion'].label = "Método de Calibración"
 
 
         # añadir las clases
@@ -80,7 +76,7 @@ class MiscelaneaForm(ModelForm):
         self.fields['nombre'].label = 'Nombre'
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
-        self.fields['proxima_revision'].label = "Proxima revisión"
+
 
 
 

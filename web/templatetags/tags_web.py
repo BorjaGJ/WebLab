@@ -1,7 +1,7 @@
 # from django import  template
 # from django.contrib.auth.models import User
 #
-# from Otros.models import Documento
+# from otros.models import Documento
 #
 # register = template.Library()
 #

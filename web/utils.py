@@ -2,7 +2,7 @@ from calendar import HTMLCalendar
 from datetime import date, datetime
 from django.shortcuts import get_object_or_404
 
-from Otros.models import Evento
+from otros.models import Evento
 from material.models import Instrumento
 
 

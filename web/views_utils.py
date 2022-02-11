@@ -56,6 +56,34 @@ class EditView(CreateView):
         return render(request, self.template_name, {})
 
 
+class EditByIdView(CreateView):
+    template_name = 'edit_reactivo.html'
+    model = Reactivo
+    redirect_to = 'reactivos'
+    model_form = ReactivoForm
+
+    def get(self, request, *args, **kwargs):
+
+        entrada = self.model.objects.get(id=self.kwargs['id'])
+        form = self.model_form(instance=entrada)
+
+        return render(request, self.template_name, {"form": form, 'entrada': entrada})
+
+    def post(self, request, *args, **kwargs):
+
+        entrada = get_object_or_None(self.model, id=self.kwargs['id'])
+
+        form = self.model_form(request.POST, instance=entrada)
+
+        if request.method == 'POST':
+
+            if form.is_valid():
+                form.save()
+                return redirect(self.redirect_to)
+
+        return render(request, self.template_name, {})
+
+
 class AddView(CreateView):
     template_name = 'add_reactivo.html'
     model_form = ReactivoForm

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load qr_code %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -18,13 +17,13 @@
                     </div>
                 </form>
 
-                <h1 class="mt-4">Patrones</h1>
+                <h1 class="mt-4">Eventos</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3 bg-white">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                     </li>
-                    <li class="breadcrumb-item">Productos</li>
-                    <li class="breadcrumb-item active">Patrones</li>
+                    <li class="breadcrumb-item">Otros</li>
+                    <li class="breadcrumb-item active">Eventos</li>
                 </ol>
 
 
@@ -32,7 +31,7 @@
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         <button class="btn btn-primary col-lg-2">
-                            <a class="text-decoration-none text-white" href="{% url 'add_patron' %}">Añadir</a>
+                            <a class="text-decoration-none text-white" href="{% url 'add_evento' %}">Añadir</a>
                         </button>
                     </div>
                     <div class="card-body container">
@@ -40,63 +39,44 @@
                             <thead class="text-white">
                             <tr bgcolor="#212529">
                                 <th>Nombre</th>
-                                <th>Código de laboratorio</th>
-                                <th>CAS</th>
-                                <th>Concentracion</th>
-                                <th>Proveedor</th>
+                                <th>Fecha</th>
+                                <th>Color</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for producto in entradas %}
+                            {% for evento in entradas %}
                                 <tr>
-                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ evento.nombre }}</td>
                                     <td>
-                                        {{ producto.codigo_laboratorio }}
-                                        <div class="float-end px-4">
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                                    onclick="Aparecer({{ producto.id }})">
-                                                <i class="fas fa-qrcode" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        <div id={{ producto.id }} class="d-none">
-                                            <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
-                                        </div>
+                                        {{ evento.fecha }}
                                     </td>
-                                    <td>{{ producto.CAS }}</td>
-                                    <td>{{ producto.concentracion }}</td>
-                                    <td>
-                                        {% if producto.proveedor %}
-                                            {{ producto.preveedor }}
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
-                                    </td>
+                                    <td style="background-color: {{ evento.color }}"></td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
+                                            <a href="{% url 'evento_edit' evento.id %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                                onclick='AparecerDelete("{{ evento.id }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 
-                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                        <div class="d-none mb-2" id={{ evento.id }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
                                                 <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_patron' producto.codigo_laboratorio %}">Borrar
+                                                   href="{% url 'delete_patron' evento.id %}">Borrar
                                                     <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                                <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
+                                                <a onclick='AparecerDelete("{{ evento.id }}")'>Volver
                                                     <i class="fas fa-backspace text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>

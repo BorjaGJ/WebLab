@@ -52,12 +52,14 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'qr_code',
     'colorfield',
+    'crispy_forms',
     'web',
     'productos',
-    'Otros',
+    'otros',
     'material',
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

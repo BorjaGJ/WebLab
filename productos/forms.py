@@ -1,6 +1,4 @@
 from ckeditor.widgets import CKEditorWidget
-from django import forms
-from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm, widgets
 
 from productos.models import Reactivo, Disolvente, Patron
