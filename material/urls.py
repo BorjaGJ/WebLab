@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^miscelaneas$', login_required(views.MiscelaneasView.as_view()), name='miscelanea'),
     url(r'^miscelanea/add$', login_required(views.MiscelaneaAddView.as_view()), name='add_miscelanea'),
     url(r'^miscelanea/edit/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.MiscelaneaEditView.as_view()),
-        name='instrumento_edit'),
+        name='miscelanea_edit'),
     url(r'^delete/miscelanea/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.DeleteMiscelanea),
         name='delete_miscelanea'),
     url(r'^search/instrumento$', login_required(views.SearchMiscelanea), name='search_miscelanea'),
