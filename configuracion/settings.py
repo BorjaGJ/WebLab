@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_eg)$l@t9%y1uz&1a7e)$)-s*vxlcw430xo@4ndxy&4p(%5092'
+SECRET_KEY = '_eg)$l@t9%y1uz&1a7e)$)-s*vxlcw4asdfaso@4ndxy&4p(%5092'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,6 +59,14 @@ INSTALLED_APPS = [
     'material',
 
 ]
+
+CKEDITOR_CONFIGS = {
+'default': {
+    'toolbar': None, #You can change this based on your requirements.
+    'width': 'auto',
+
+          },
+    }
 
 
 MIDDLEWARE = [
