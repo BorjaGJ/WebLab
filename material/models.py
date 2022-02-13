@@ -10,10 +10,15 @@ no_space_validator = RegexValidator(
     inverse_match=True,
     code='invalid_tag',
 )
-
+no_asciis_validator = RegexValidator(
+    r'[^\w|^\s]+',
+    'Carácter no válido',
+    inverse_match=True,
+    code='invalid_character'
+)
 class Material(models.Model):
     nombre = models.CharField(max_length=50)
-    codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator])
+    codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratiorio')
 

@@ -1,7 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from django.forms import ModelForm, widgets
 
-from material.models import Volumetrico, Instrumento, Miscelanea
+from material.models import Volumetrico, Instrumento, Miscelanea, no_space_validator, no_asciis_validator
 
 
 class VolumetricoForm(ModelForm):
@@ -21,6 +21,7 @@ class VolumetricoForm(ModelForm):
         self.fields['lote'].label = "lote"
         self.fields['volumen'].label = "Volumen"
         self.fields['cuantia'].label = "Número de unidades"
+        self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
         # añadir las clases
         for visible in self.visible_fields():
@@ -48,6 +49,7 @@ class InstrumentoForm(ModelForm):
         self.fields['proxima_revision'].label = "Proxima revisión"
         self.fields['manual'].label = "Manual"
         self.fields['metodo_calibracion'].label = "Método de Calibración"
+        self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
 
         # añadir las clases
@@ -76,6 +78,7 @@ class MiscelaneaForm(ModelForm):
         self.fields['nombre'].label = 'Nombre'
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
+        self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
 
 

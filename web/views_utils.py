@@ -53,7 +53,7 @@ class EditView(CreateView):
                 form.save()
                 return redirect(self.redirect_to)
             else:
-                return render(request, self.template_name, {})
+                return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
 
         return render(request, self.template_name, {})
@@ -83,6 +83,9 @@ class EditByIdView(CreateView):
             if form.is_valid():
                 form.save()
                 return redirect(self.redirect_to)
+            else:
+                return render(request, self.template_name, {"form": form, 'entrada': entrada})
+
 
         return render(request, self.template_name, {})
 

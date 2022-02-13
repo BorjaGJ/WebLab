@@ -1,6 +1,8 @@
 from ckeditor.widgets import CKEditorWidget
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.forms import ModelForm, widgets
 
+from material.models import no_space_validator, no_asciis_validator
 from productos.models import Reactivo, Disolvente, Patron
 
 
@@ -24,6 +26,8 @@ class ReactivoForm(ModelForm):
         self.fields['proveedor'].label = "Proveedor"
         self.fields['fecha_caducidad'].label = "Fecha de caducidad"
         self.fields['pureza'].label = "Pureza"
+        self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
+        self.fields['pureza'].validators = [MinValueValidator(0), MaxValueValidator(100)]
 
         # añadir las clases
         for visible in self.visible_fields():
@@ -60,6 +64,7 @@ class DisolventeForm(ModelForm):
             self.fields['proveedor'].label = "Proveedor"
             self.fields['fecha_caducidad'].label = "Fecha de caducidad"
             self.fields['densidad'].label = "Densidad"
+            self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
             # añadir las clases
             for visible in self.visible_fields():
@@ -99,6 +104,7 @@ class PatronForm(ModelForm):
         self.fields['proveedor'].label = "Proveedor"
         self.fields['fecha_caducidad'].label = "Fecha de caducidad"
         self.fields['concentracion'].label = "Concentración"
+        self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
         # añadir las clases
         for visible in self.visible_fields():
