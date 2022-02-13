@@ -1,4 +1,5 @@
 from ckeditor.widgets import CKEditorWidget
+from crispy_forms.helper import FormHelper
 from django.forms import ModelForm, widgets
 
 from material.models import Volumetrico, Instrumento, Miscelanea, no_space_validator, no_asciis_validator
@@ -80,7 +81,7 @@ class MiscelaneaForm(ModelForm):
         self.fields['proveedor'].label = "Proveedor"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
-
+        self.helper = FormHelper(self)
 
 
         # añadir las clases

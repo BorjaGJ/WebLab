@@ -29,6 +29,7 @@ class ReactivoForm(ModelForm):
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
         self.fields['pureza'].validators = [MinValueValidator(0), MaxValueValidator(100)]
 
+
         # añadir las clases
         for visible in self.visible_fields():
 
