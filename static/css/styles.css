@@ -2468,12 +2468,6 @@ progress {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .btn {
-        transition: none;
-    }
-}
-
 .btn:hover {
     color: #212529;
 }
@@ -3526,13 +3520,6 @@ progress {
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
-
-@media (prefers-reduced-motion: reduce) {
-    .nav-link {
-        transition: none;
-    }
-}
-
 .nav-link:hover, .nav-link:focus {
     color: #0a58ca;
 }
@@ -3686,12 +3673,6 @@ progress {
     transition: box-shadow 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .navbar-toggler {
-        transition: none;
-    }
-}
-
 .navbar-toggler:hover {
     text-decoration: none;
 }
@@ -3710,11 +3691,6 @@ progress {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-}
-
-.navbar-nav-scroll {
-    max-height: var(--bs-scroll-height, 75vh);
-    overflow-y: auto;
 }
 
 @media (min-width: 576px) {
@@ -4397,12 +4373,6 @@ progress {
     background-repeat: no-repeat;
     background-size: 1.25rem;
     transition: transform 0.2s ease-in-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .accordion-button::after {
-        transition: none;
-    }
 }
 
 .accordion-button:hover {
@@ -8129,6 +8099,11 @@ body {
 
 .sb-sidenav-light .sb-sidenav-footer {
     background-color: #e9ecef;
+}
+
+
+.mybg{
+    background-color: #212529;
 }
 
 /*Clase para el formulario login*/
