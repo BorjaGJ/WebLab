@@ -1,8 +1,9 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
+from annoying.functions import get_object_or_None
 
-from otros.models import Proveedor
+from otros.models import Proveedor, Evento
 
 no_space_validator = RegexValidator(
     r' ',
@@ -21,6 +22,8 @@ class Material(models.Model):
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratiorio')
+    proxima_revision = models.DateField(blank=True, null=True)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True, editable=False)
 
 
     class Meta:
@@ -28,6 +31,24 @@ class Material(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        if evento is None:
+            evento = Evento.objects.create(nombre=self.nombre, fecha=self.proxima_revision)
+            self.evento = evento
+            evento.save()
+
+        else:
+            evento.fecha = self.proxima_revision
+            evento.nombre = self.nombre
+            evento.save()
+
+        super(Material, self).save(*args, **kwargs)
+
+
 
 
 class Volumetrico(Material):
@@ -41,7 +62,6 @@ class Volumetrico(Material):
 class Instrumento(Material):
     manual = models.FileField(blank=True, null=True)
     metodo_calibracion = models.FileField(blank=True, null=True)
-    proxima_revision = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.nombre

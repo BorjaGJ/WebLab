@@ -16,7 +16,7 @@
     <script type="text/javascript" src={% static "ckeditor/ckeditor-init.js" %}></script>
     <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <script type="text/javascript" src={% static "js/myJavaScript.js" %}></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"
             crossorigin="anonymous"></script>
     {% block extracss %}{% endblock extracss %}
 </head>
@@ -117,8 +117,18 @@
     {% block content %}
 
         <div id="layoutSidenav_content">
-            <main class="container row col-lg-12 mt-2">
-                {{ calendario | safe }}
+            <main class="container row col-lg-12">
+
+                <div class="text-center mt-2 mb-2 col-lg-12">
+                    <h2>
+                        <a href="?var=-1"><i class="fa fa-angle-left"></i></a>
+                        <a href="?var=0" class="text-decoration-none text-black">{{ semana }}, {{ hoy.date }}</a>
+                        <a href="?var=1"><i class="fa fa-angle-right"></i></a>
+                    </h2>
+                </div>
+
+                    {{ calendario | safe }}
+
             </main>
         </div>
 

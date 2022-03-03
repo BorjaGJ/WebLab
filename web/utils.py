@@ -11,13 +11,12 @@ class MyHTMLCalendar(HTMLCalendar):
     cssclass_month = 'calendar'
     cssclass_month_head = 'calendar-month-head'
     cssclasses_weekday_head = 'calendar-weekday-head'
-    dias_semana = ["L", "M", "X", "J", "V", "S", "D"]
+    dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
     meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
     hoy = datetime.now()
     lista_dias_eventos = Evento.get_dias_eventos
-    lista_dias_eventos_instrumentos = Evento.get_dias_eventos_instrumentos
 
 
 
@@ -25,32 +24,18 @@ class MyHTMLCalendar(HTMLCalendar):
 
         if day == 0:
             # dia fuera del mes
-
             return '<td class="%s">&nbsp;</td>' % 'calendar-no-day'
 
-        elif self.lista_dias_eventos.__contains__(day) and self.lista_dias_eventos_instrumentos.__contains__(day):
-            # si es hoy
-            return '<td class="%s" style="background-color: %s">%d<br>%s<br>%s</td>' % \
-                   ('calendar-day', get_evento_dia(day=day, month=self.hoy.month).color,
-                    day,
-                    get_evento_dia(day=day, month=self.hoy.month).nombre,
-                    get_evento_instrumento(day=day, month=self.hoy.month).nombre
-                    )
-
         elif self.lista_dias_eventos.__contains__(day):
-            # si es dia de evento
+            # dia con evento
             return '<td class="%s" style="background-color: %s">%d<br>%s</td>' % \
-                   ('calendar-day',
-                    get_evento_dia(day=day, month=self.hoy.month).color, day,
-                    get_evento_dia(day=day, month=self.hoy.month).nombre
+                   ('calendar-day', get_evento(day=day, month=self.hoy.month).color,
+                    day,
+                    get_evento(day=day, month=self.hoy.month).nombre
                     )
-
-        elif self.lista_dias_eventos_instrumentos.__contains__(day):
-            # si es dia de evento de un instrumento
-            return '<td class="%s">%d<br>%s</td>' % \
-                   ('calendar-day bg-info', day, get_evento_instrumento(day=day, month=self.hoy.month) )
 
         else:
+             # cualquier otro
             return '<td class="%s">%d</td>' % ('calendar-day', day)
 
     def formatweekday(self, day):
@@ -73,8 +58,6 @@ class MyHTMLCalendar(HTMLCalendar):
 
 
 
-def get_evento_dia(day, month):
+def get_evento(day, month):
     return Evento.objects.get(fecha__month=month, fecha__day=day)
 
-def get_evento_instrumento(day, month):
-    return Instrumento.objects.get(proxima_revision__month=month, proxima_revision__day=day)

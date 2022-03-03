@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^eventos/add$', login_required(views.EventoAddView.as_view()), name='add_evento'),
     url(r'^eventos/editar/(?P<id>[-\w]+)$', login_required(views.EventoEditView.as_view()),
         name='evento_edit'),
+    url(r'^eventos/delete/(?P<id>[-\w]+)$', login_required(views.deleteEvento), name='delete_evento')
 
 ]

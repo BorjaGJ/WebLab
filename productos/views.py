@@ -19,7 +19,7 @@ class ReactivoAddView(views_utils.AddView):
     pass
 
 
-def DeleteReactivo(request, **kwargs):
+def deleteReactivo(request, **kwargs):
 
     model = Reactivo
     redirect_to = 'reactivos'
@@ -30,7 +30,7 @@ def DeleteReactivo(request, **kwargs):
     return redirect(redirect_to)
 
 
-def SearchReactivo(request):
+def searchReactivo(request):
 
     model = Reactivo
 
@@ -64,7 +64,7 @@ class DisolventeEditView(views_utils.EditView):
     model_form = DisolventeForm
     redirect_to = 'disolventes'
 
-def DeleteDisolvente(request, **kwargs):
+def deleteDisolvente(request, **kwargs):
 
     model = Disolvente
     redirect_to = 'disolventes'
@@ -74,7 +74,7 @@ def DeleteDisolvente(request, **kwargs):
 
     return redirect(redirect_to)
 
-def SearchDisolvente(request):
+def searchDisolvente(request):
 
     model = Disolvente
 
@@ -108,23 +108,24 @@ class PatronEditView(views_utils.EditView):
     model_form = PatronForm
     redirect_to = 'patrones'
 
-def DeletePatron(request, **kwargs):
 
-    model = Patron
-    redirect_to = 'patrones'
+def deletePatron(request, **kwargs):
+
+    model = Disolvente
+    redirect_to = 'patron'
 
     entrada = model.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
     entrada.delete()
 
     return redirect(redirect_to)
 
-def SearchPatron(request):
+def searchPatron(request):
 
     model = Patron
 
     if request.method == 'GET':
 
-        buscado = request.GET.get('buscarPatron')
+        buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado) | Q(CAS__icontains=buscado) |

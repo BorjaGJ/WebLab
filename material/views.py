@@ -23,7 +23,7 @@ class VolumetricoAddView(views_utils.AddView):
     model_form = VolumetricoForm
     redirect_to = 'volumetrico'
 
-def DeleteVolumetrico(request, **kwargs):
+def deleteVolumetrico(request, **kwargs):
 
     model = Volumetrico
     redirect_to = 'volumetrico'
@@ -34,7 +34,7 @@ def DeleteVolumetrico(request, **kwargs):
     return redirect(redirect_to)
 
 
-def SearchVolumetrico(request):
+def searchVolumetrico(request):
 
     model = Volumetrico
 
@@ -68,7 +68,7 @@ class InstrumentoAddView(views_utils.AddView):
     model_form = InstrumentoForm
     redirect_to = 'instrumento'
 
-def DeleteInstrumento(request, **kwargs):
+def deleteInstrumento(request, **kwargs):
 
     model = Instrumento
     redirect_to = 'instrumento'
@@ -79,7 +79,7 @@ def DeleteInstrumento(request, **kwargs):
     return redirect(redirect_to)
 
 
-def SearchInstrumento(request):
+def searchInstrumento(request):
 
     model = Instrumento
 
@@ -113,7 +113,7 @@ class MiscelaneaAddView(views_utils.AddView):
     redirect_to = 'miscelanea'
 
 
-def DeleteMiscelanea(request, **kwargs):
+def deleteMiscelanea(request, **kwargs):
 
     model = Miscelanea
     redirect_to = 'miscelanea'
@@ -124,7 +124,7 @@ def DeleteMiscelanea(request, **kwargs):
     return redirect(redirect_to)
 
 
-def SearchMiscelanea(request):
+def searchMiscelanea(request):
 
     model = Miscelanea
 

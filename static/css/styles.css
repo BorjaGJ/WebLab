@@ -8104,6 +8104,7 @@ body {
 
 .mybg{
     background-color: #212529;
+    margin: auto;
 }
 
 /*Clase para el formulario login*/

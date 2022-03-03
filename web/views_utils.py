@@ -13,9 +13,10 @@ from productos.models import Reactivo
 class TableView(CreateView):
     template_name = 'reactivos.html'
     model = Reactivo
+    order_by = 'id'
 
     def get(self, request, *args, **kwargs):
-        entradas = self.model.objects.all()
+        entradas = self.model.objects.all().order_by(self.order_by)
         page = request.GET.get('page', 1)
 
         paginator = Paginator(entradas, 15)
@@ -52,11 +53,9 @@ class EditView(CreateView):
             if form.is_valid():
                 form.save()
                 return redirect(self.redirect_to)
-            else:
-                return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
 
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
 
 class EditByIdView(CreateView):
@@ -83,11 +82,8 @@ class EditByIdView(CreateView):
             if form.is_valid():
                 form.save()
                 return redirect(self.redirect_to)
-            else:
-                return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
-
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
 
 class AddView(CreateView):
