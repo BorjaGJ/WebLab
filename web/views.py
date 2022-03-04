@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.views.generic import CreateView
 
+from otros.models import Evento
 from web.utils import MyHTMLCalendar
 
 
@@ -15,13 +16,6 @@ class Index(CreateView):
         semana = self.dias_semana[hoy.weekday()]
         mes = hoy.month
         ano = hoy.year
-
-        try:
-            var = request.GET['var']
-            mes = mes + int(var)
-            print(mes)
-        except:
-            pass
 
         calendario = MyHTMLCalendar().formatmonth(ano, mes)
         return render(request, self.template_name, {'calendario': calendario, 'hoy': hoy, 'semana': semana})
@@ -38,3 +32,4 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
+

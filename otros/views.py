@@ -1,3 +1,5 @@
+import datetime
+
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
@@ -46,3 +48,14 @@ def searchEvento(request):
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado))
         return render(request, 'patrones.html', {"entradas": entradas})
+
+
+def delete_expired(request):
+    hoy = datetime.datetime.now().date()
+    eventos = Evento.objects.all()
+
+    for evento in eventos:
+        if evento.fecha < hoy:
+            evento.delete()
+
+    return redirect('eventos')
