@@ -69,7 +69,7 @@ def get_eventos_nombres(day, month):
     for evento in eventos:
         lista_nombres.append(evento.nombre+'<br>')
 
-    usable = lista_nombres.__str__().replace(",", ' ').replace("'", " ")
+    usable = lista_nombres.__str__().replace("', '", '')
 
     return usable[2:-2:1]
 
