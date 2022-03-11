@@ -3,8 +3,8 @@ import datetime
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
-from otros.forms import EventoForm
-from otros.models import Evento
+from otros.forms import EventoForm, ClienteForm
+from otros.models import Evento, Cliente
 from web.views_utils import TableView, EditByIdView, AddView
 
 
@@ -27,6 +27,9 @@ class EventoAddView(AddView):
     model_form = EventoForm
     template_name = 'add_evento.html'
 
+
+
+
 def deleteEvento(request, **kwargs):
 
     model = Evento
@@ -43,7 +46,7 @@ def searchEvento(request):
 
     if request.method == 'GET':
 
-        buscado = request.GET.get('buscarPatron')
+        buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado))
@@ -59,3 +62,45 @@ def delete_expired(request):
             evento.delete()
 
     return redirect('eventos')
+
+class ClienteTableView(TableView):
+    model = Cliente
+    template_name = 'clientes.html'
+    order_by = 'nombre'
+
+class ClienteAddView(AddView):
+    model = Cliente
+    redirect_to = 'clientes'
+    model_form = ClienteForm
+    template_name = 'add_cliente.html'
+
+class ClienteEditView(EditByIdView):
+    model = Cliente
+    redirect_to = 'clientes'
+    model_form = ClienteForm
+    template_name = 'edit_cliente.html'
+
+def deleteCliente(request, **kwargs):
+
+    model = Cliente
+    redirect_to = 'clientes'
+
+    entrada = model.objects.get(id=kwargs['id'])
+    entrada.delete()
+
+    return redirect(redirect_to)
+
+def searchCliente(request):
+
+    model = Cliente
+
+    if request.method == 'GET':
+
+        buscado = request.GET.get('buscar')
+
+        entradas = model.objects.filter(
+            Q(nombre__icontains=buscado) | Q(dni__icontains=buscado) |
+            Q(telefono__icontains=buscado) | Q(email__icontains=buscado)
+        )
+
+        return render(request, 'patrones.html', {"entradas": entradas})

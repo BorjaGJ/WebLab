@@ -111,8 +111,8 @@ class PatronEditView(views_utils.EditView):
 
 def deletePatron(request, **kwargs):
 
-    model = Disolvente
-    redirect_to = 'patron'
+    model = Patron
+    redirect_to = 'patrones'
 
     entrada = model.objects.get(codigo_laboratorio=kwargs['codigo_laboratorio'])
     entrada.delete()

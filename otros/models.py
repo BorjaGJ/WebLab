@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
@@ -25,8 +26,7 @@ class Persona(models.Model):
                            max_length=9)
     cp = models.CharField(max_length=10)
     poblacion = models.CharField(max_length=50)
-    telefono = RegexField(validators=[RegexValidator(r'^\+?1?\d{9,15}$', 'Telefono introducido no valido')],
-                          max_length=15)
+    telefono = models.CharField(max_length=15)
     email = models.EmailField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -66,9 +66,14 @@ class Analisis(models.Model):
     resultado = models.FileField(blank=True, null=True)
     factura = models.FileField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha_expiracion = models.DateField(null=True, blank=True, editable=False)
+    limite_dias = models.IntegerField(default=30)
 
     def __str__(self):
         return self.nombre + self.cliente.nombre
+
+    def __save__(self, *args, **kwargs):
+        self.fecha_expiracion = self.fecha_pedido + timedelta(days=self.limite_dias)
 
 
 

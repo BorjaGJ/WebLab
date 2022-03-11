@@ -12,6 +12,7 @@ class MyHTMLCalendar(HTMLCalendar):
     cssclass_month_head = 'calendar-month-head'
     cssclasses_weekday_head = 'calendar-weekday-head'
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+    dias_semana_min = ["L", "M", "X", "J", "V", "S", "D"]
     meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
@@ -43,7 +44,7 @@ class MyHTMLCalendar(HTMLCalendar):
         """
         Return a weekday name as a table header.
         """
-        return '<th class="%s">%s</th>' % (self.cssclasses_weekday_head, self.dias_semana[day])
+        return '<th class="%s">%s</th>' % (self.cssclasses_weekday_head, self.dias_semana_min[day])
 
     def formatmonthname(self, theyear, themonth, withyear=True):
         """
@@ -59,8 +60,8 @@ class MyHTMLCalendar(HTMLCalendar):
 
 
 
-def get_evento(day, month):
-    return Evento.objects.filter(fecha__month=month, fecha__day=day).first()
+def get_evento(day, month,):
+    return  Evento.objects.filter(fecha__month=month, fecha__day=day).first()
 
 def get_eventos_nombres(day, month):
     lista_nombres = []

@@ -7,7 +7,7 @@
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_patron' %}">
+                      method="GET" action="{% url 'search_evento' %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
                                aria-label="Search for..." name="buscarPatron"
@@ -39,7 +39,7 @@
                         </button>
                     </div>
                     <div class="card-body container">
-                        <table class="table table-hover table-bordered text-center">
+                        <table class="table table-hover table-bordered text-center table-responsive-sm">
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>

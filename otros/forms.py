@@ -2,7 +2,7 @@ from colorfield.widgets import ColorWidget
 from django.forms import ModelForm, widgets
 from django.contrib.admin.widgets import AdminDateWidget
 
-from otros.models import Evento
+from otros.models import Evento, Cliente
 
 
 class EventoForm(ModelForm):
@@ -25,3 +25,10 @@ class EventoForm(ModelForm):
         self.fields['fecha'].widget = widgets.SelectDateWidget()
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
 
+
+class ClienteForm(ModelForm):
+
+     class Meta:
+         model = Cliente
+
+         exclude = {}

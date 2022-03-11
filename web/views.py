@@ -18,6 +18,7 @@ class Index(CreateView):
         ano = hoy.year
 
         calendario = MyHTMLCalendar().formatmonth(ano, mes)
+
         return render(request, self.template_name, {'calendario': calendario, 'hoy': hoy, 'semana': semana})
 
 def prev_month(d):
