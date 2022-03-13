@@ -3,8 +3,8 @@ import datetime
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
-from otros.forms import EventoForm, ClienteForm
-from otros.models import Evento, Cliente
+from otros.forms import EventoForm, ClienteForm, ProveedorForm
+from otros.models import Evento, Cliente, Proveedor
 from web.views_utils import TableView, EditByIdView, AddView
 
 
@@ -50,7 +50,7 @@ def searchEvento(request):
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado))
-        return render(request, 'patrones.html', {"entradas": entradas})
+        return render(request, 'clientes.html', {"entradas": entradas})
 
 
 def delete_expired(request):
@@ -100,7 +100,54 @@ def searchCliente(request):
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado) | Q(dni__icontains=buscado) |
-            Q(telefono__icontains=buscado) | Q(email__icontains=buscado)
+            Q(telefono__icontains=buscado) | Q(email__icontains=buscado) |
+            Q(cp__icontains=buscado) | Q(poblacion__icontains=buscado)
         )
 
-        return render(request, 'patrones.html', {"entradas": entradas})
+        return render(request, 'clientes.html', {"entradas": entradas})
+
+
+class ProveedoresTableView(TableView):
+    model = Proveedor
+    template_name = 'proveedores.html'
+    order_by = 'id'
+
+
+class ProveedoresEditView(EditByIdView):
+    model = Proveedor
+    redirect_to = 'proveedores'
+    model_form = ProveedorForm
+    template_name = 'edit_proveedor.html'
+
+
+class ProveedoresAddView(AddView):
+    model = Proveedor
+    redirect_to = 'proveedores'
+    model_form = ProveedorForm
+    template_name = 'add_proveedor.html'
+
+
+def deleteProveedor(request, **kwargs):
+
+    model = Proveedor
+    redirect_to = 'proveedores'
+
+    entrada = model.objects.get(id=kwargs['id'])
+    entrada.delete()
+
+    return redirect(redirect_to)
+
+def searchProveedor(request):
+
+    model = Proveedor
+
+    if request.method == 'GET':
+
+        buscado = request.GET.get('buscar')
+
+        entradas = model.objects.filter(
+            Q(nombre__icontains=buscado) | Q(telefono__icontains=buscado) |
+            Q(email__icontains=buscado) | Q(pagina_web__icontains=buscado)
+        )
+
+        return render(request, 'proveedores.html', {"entradas": entradas})

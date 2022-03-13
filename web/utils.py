@@ -8,7 +8,7 @@ from material.models import Instrumento
 
 class MyHTMLCalendar(HTMLCalendar):
 
-    cssclass_month = 'calendar'
+    cssclass_month = 'calendar table-responsive-sm'
     cssclass_month_head = 'calendar-month-head'
     cssclasses_weekday_head = 'calendar-weekday-head'
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]

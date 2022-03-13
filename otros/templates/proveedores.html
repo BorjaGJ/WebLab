@@ -7,7 +7,7 @@
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_cliente' %}">
+                      method="GET" action="{% url 'search_preveedor' %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
                                aria-label="Search for..." name="buscar"
@@ -17,13 +17,13 @@
                     </div>
                 </form>
 
-                <h1 class="mt-4">Clientes</h1>
+                <h1 class="mt-4">Proveedores</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3 bg-white">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                     </li>
                     <li class="breadcrumb-item">Otros</li>
-                    <li class="breadcrumb-item active">Clientes</li>
+                    <li class="breadcrumb-item active">Proveedores</li>
                 </ol>
 
 
@@ -31,11 +31,11 @@
                     <div class="card-header">
                         <i class="fa fa-plus me-1"></i>
                         <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
-                            <a class="text-decoration-none text-white" href="{% url 'add_cliente' %}">Añadir</a>
+                            <a class="text-decoration-none text-white" href="{% url 'add_proveedor' %}">Añadir</a>
                         </button>
-{#                         <i class="fa fa-flask me-1"></i>#}
+{#                         <i class="fa fa-box-open me-1"></i>#}
 {#                        <button class="btn btn-primary col-lg-2">#}
-{#                            <a class="text-decoration-none text-white" href="{% url 'delete_expired' %}">Todos los análisis</a>#}
+{#                            <a class="text-decoration-none text-white" href="{% url 'delete_expired' %}">Todos los pedidos</a>#}
 {#                        </button>#}
                     </div>
                     <div class="card-body container">
@@ -43,58 +43,62 @@
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>
-                                <th>DNI</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Cp</th>
-                                <th>Poblacion</th>
-                                <th>Análisis</th>
+                                <th>Página web</th>
+                                <th>Nota</th>
+                                <th>Pedidos</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for cliente in entradas %}
+                            {% for proveedor in entradas %}
                                 <tr>
-                                    <td>{{ cliente.nombre }}</td>
+                                    <td>{{ proveedor.nombre }}</td>
+                                    {% if proveedor.telefono %}
+                                    <td>{{ proveedor.telefono }}</td>
+                                    {% else %}
+                                    <td>N/A</td>
+                                    {% endif %}
+                                    <td>{{ proveedor.email }}</td>
+                                    {% if proveedor.pagina_web %}
+                                    <td>{{ proveedor.pagina_web }}</td>
+                                    {% else %}
+                                        <td>N/A</td>
+                                    {% endif %}
+                                    <td>{{ proveedor.nota}}</td>
                                     <td>
-                                        {{ cliente.dni }}
-                                    </td>
-                                    <td>{{ cliente.telefono }}</td>
-                                    <td>{{ cliente.email }}</td>
-                                    <td>{{ cliente.cp }}</td>
-                                    <td>{{ cliente.poblacion }}</td>
-                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'cliente_edit' cliente.id %}">
-                                                <i class="fas fa-microscope text-white" aria-hidden="true"></i>
+                                            <a href="{% url 'proveedor_edit' proveedor.id %}">
+                                                <i class="fas fa-box-open text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'cliente_edit' cliente.id %}">
+                                            <a href="{% url 'proveedor_edit' proveedor.id %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ cliente.id }}")'>
+                                                onclick='AparecerDelete("{{ proveedor.id }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 
-                                        <div class="d-none mb-2" id={{ cliente.id }}>
+                                        <div class="d-none mb-2" id={{ proveedor.id }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
                                                 <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_cliente' cliente.id %}">Borrar
+                                                   href="{% url 'delete_proveedor' proveedor.id %}">Borrar
                                                     <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                                <a onclick='AparecerDelete("{{ cliente.id }}")'>Volver
+                                                <a onclick='AparecerDelete("{{ proveedor.id }}")'>Volver
                                                     <i class="fas fa-backspace text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>

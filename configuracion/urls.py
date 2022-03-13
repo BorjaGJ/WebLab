@@ -47,6 +47,8 @@ urlpatterns = [
     url(r'^productos/', include('productos.urls')),
     url(r'^material/', include('material.urls')),
     url(r'^otros/', include('otros.urls')),
+    url(r'^trabajadores/', include('trabajadores.urls')),
+
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),
