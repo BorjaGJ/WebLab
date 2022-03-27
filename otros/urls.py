@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^proveedores/delete/(?P<id>[-\w]+)$', login_required(views.deleteProveedor), name='delete_proveedor'),
     url(r'^search/proveedores$', login_required(views.searchProveedor), name='search_preveedor'),
 
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos$', login_required(views.TableViewEntryPedido.as_view()), name='pedidos'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis$', login_required(views.TableViewEntryAnalisis.as_view()), name='analisis'),
+
 
 
 ]

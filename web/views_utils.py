@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 
+from otros.models import Proveedor, Pedido
 from productos.forms import ReactivoForm
 from productos.models import Reactivo
 
@@ -17,6 +18,7 @@ class TableView(CreateView):
 
     def get(self, request, *args, **kwargs):
         entradas = self.model.objects.all().order_by(self.order_by)
+        print(entradas)
         page = request.GET.get('page', 1)
 
         paginator = Paginator(entradas, 15)
@@ -109,3 +111,23 @@ class AddView(CreateView):
 
 
         return render(request, self.template_name, {})
+
+
+class TableViewEntry(CreateView):
+    template_name = 'pedidos.html'
+    model = Pedido
+    model_padre = Proveedor
+    order_by = 'id'
+
+    def get(self, request, *args, **kwargs):
+        entradas = self.model.objects.filter(proveedor__nombre_slug__exact=self.kwargs['nombre_slug']).order_by(self.order_by)
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
+        page = request.GET.get('page', 1)
+        paginator = Paginator(entradas, 15)
+        try:
+            entradas = paginator.page(page)
+        except PageNotAnInteger:
+            entradas = paginator.page(1)
+        except EmptyPage:
+            entradas = paginator.page(paginator.num_pages)
+        return render(request, self.template_name, {"entradas": entradas, "padre": padre})

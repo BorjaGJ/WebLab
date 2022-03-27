@@ -22,7 +22,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
-
+from django.views.generic import TemplateView
 
 import web
 
@@ -48,7 +48,6 @@ urlpatterns = [
     url(r'^material/', include('material.urls')),
     url(r'^otros/', include('otros.urls')),
     url(r'^trabajadores/', include('trabajadores.urls')),
-
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),

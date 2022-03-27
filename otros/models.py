@@ -7,13 +7,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.db.models import Avg
-
-
-
+from django.template.defaultfilters import slugify
 
 
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=100)
+    nombre_slug = models.SlugField(unique=True, blank=True, editable=False)
     nota = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(10)], blank=True, null=True, editable=False, default=0)
     pagina_web = models.URLField(null=True, blank=True)
@@ -23,9 +22,15 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
 
+    def save(self, *args, **kwargs):
+        self.nombre_slug = slugify(self.nombre)
+        super(Proveedor, self).save(*args, **kwargs)
+
+
 
 class Persona(models.Model):
     nombre = models.CharField(max_length=100)
+    nombre_slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
     dni = models.CharField(validators=[RegexValidator(r'^[0-9]{8,8}[A-Za-z]$', 'DNI  introducido no valido')],
                            max_length=9)
     cp = models.CharField(max_length=10)
@@ -38,6 +43,10 @@ class Persona(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def save(self, *args, **kwargs):
+        self.nombre_slug = slugify(self.nombre)
+        super(Persona, self).save(*args, **kwargs)
 
 
 class Cliente(Persona):
@@ -87,23 +96,24 @@ class Trabajador(Persona):
 
 
 class Pedido(models.Model):
+    nombre = models.CharField(max_length=100)
     fecha_pedido = models.DateField()
-    fecha_recibido = models.DateField(auto_now_add=True, blank=True, null=True)
-    albaran = models.FileField(blank=True, null=True)
-    contenido = RichTextUploadingField()
+    fecha_espera = models.DateField(blank=True, null=True)
+    fecha_recibido = models.DateField(blank=True, null=True)
+    albaran = models.FileField(blank=True, null=True, upload_to='albaran')
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
+    puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=10)
 
     def __str__(self):
-        return self.fecha_pedido.__str__() + self.proveedor.nombre
+        return self.nombre + " de " + self.proveedor.nombre
 
 
-    def __save__(self, *args, **kwargs):
-
+    def save(self, *args, **kwargs):
         proveedor = Proveedor.objects.get(nombre=self.proveedor.nombre)
         pedidos = Pedido.objects.filter(proveedor=self.proveedor)
 
-        proveedor.nota = pedidos.aggregate(Avg('puntuacion'))
+        proveedor.nota = pedidos.aggregate(Avg('puntuacion'))['puntuacion__avg']
+        print(proveedor.nota)
         proveedor.save()
 
         super(Pedido, self).save(*args, **kwargs)
@@ -112,18 +122,19 @@ class Pedido(models.Model):
 class Analisis(models.Model):
     nombre = models.CharField(max_length=100)
     fecha_pedido = models.DateField(auto_now_add=True)
-    resguardo = models.FileField(blank=True, null=True)
-    resultado = models.FileField(blank=True, null=True)
-    factura = models.FileField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha_expiracion = models.DateField(null=True, blank=True, editable=False)
-    limite_dias = models.IntegerField(default=30)
+    fecha_terminado = models.DateField(null=True, blank=True)
+    resultado = models.FileField(blank=True, null=True, upload_to='resultados')
+    factura = models.FileField(blank=True, null=True, upload_to='facturas')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre + self.cliente.nombre
+        return self.nombre + " " + self.cliente.nombre
 
-    def __save__(self, *args, **kwargs):
-        self.fecha_expiracion = self.fecha_pedido + timedelta(days=self.limite_dias)
+
+
+
+
 
 
 

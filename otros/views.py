@@ -1,11 +1,13 @@
 import datetime
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import redirect, render
+from django.views.generic import CreateView
 
 from otros.forms import EventoForm, ClienteForm, ProveedorForm
-from otros.models import Evento, Cliente, Proveedor
-from web.views_utils import TableView, EditByIdView, AddView
+from otros.models import Evento, Cliente, Proveedor, Analisis
+from web.views_utils import TableView, EditByIdView, AddView, TableViewEntry
 
 
 class EventosTableView(TableView):
@@ -151,3 +153,27 @@ def searchProveedor(request):
         )
 
         return render(request, 'proveedores.html', {"entradas": entradas})
+
+
+class TableViewEntryPedido(TableViewEntry):
+    pass
+
+
+class TableViewEntryAnalisis(CreateView):
+    template_name = 'analisis.html'
+    model = Analisis
+    model_padre = Cliente
+    order_by = 'id'
+
+    def get(self, request, *args, **kwargs):
+        entradas = self.model.objects.filter(cliente__nombre_slug__exact=self.kwargs['nombre_slug']).order_by(self.order_by)
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
+        page = request.GET.get('page', 1)
+        paginator = Paginator(entradas, 15)
+        try:
+            entradas = paginator.page(page)
+        except PageNotAnInteger:
+            entradas = paginator.page(1)
+        except EmptyPage:
+            entradas = paginator.page(paginator.num_pages)
+        return render(request, self.template_name, {"entradas": entradas, "padre": padre})
