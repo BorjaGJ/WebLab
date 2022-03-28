@@ -4,6 +4,14 @@
 
 {% block content %}
 
+    {% block extra_css %}
+        {{ form.media.css }}
+    {% endblock %}
+
+    {% block extra_js %}
+        {{ form.media.js }}
+    {% endblock %}
+
     <div id="layoutSidenav_content">
         <main class="container row col-lg-12" STYLE="padding: 2%">
 
@@ -46,6 +54,7 @@
             </div>
         </main>
     </div>
+
    <script src="{% static 'js/jscolor.min.js' %}"></script>
     {% block extrajs %}{% endblock extrajs %}
 

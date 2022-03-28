@@ -25,7 +25,7 @@
                     <li class="breadcrumb-item">Otros</li>
                     <li class="breadcrumb-item active">
                         <a href="{% url 'clientes' %}" style="text-decoration: none">Clientes</a></li>
-                    <li class="breadcrumb-item ">{{ padre }}</li>
+                    <li class="breadcrumb-item ">Analisis de {{ padre }}</li>
 
                 </ol>
 
@@ -80,6 +80,8 @@
                                             </a>
                                         </button>
                                     </td>
+                                    {% else %}
+                                        <td>N/A</td>
                                     {% endif %}
                                     {% if analisis.factura %}
                                     <td>

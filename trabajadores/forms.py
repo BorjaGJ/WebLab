@@ -14,8 +14,6 @@ class TrabajadorForm(ModelForm):
 
         }
 
-
-
     def clean(self):
         cd = self.cleaned_data
         if cd.get('password') != cd.get('password_confirm'):

@@ -15,7 +15,7 @@ django-slugify-processor
 
 django-qr-code
 django-colorfield
-
+django-flatpickr
 
 pytz
 six

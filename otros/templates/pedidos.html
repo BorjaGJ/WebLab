@@ -25,7 +25,7 @@
                     <li class="breadcrumb-item">Otros</li>
                     <li class="breadcrumb-item active">
                         <a href="{% url 'proveedores' %}" style="text-decoration: none">Proveedores</a></li>
-                    <li class="breadcrumb-item ">{{ padre }}</li>
+                    <li class="breadcrumb-item ">pedidos de {{ padre }}</li>
 
                 </ol>
 
@@ -88,7 +88,7 @@
                                     {% endif %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'cliente_edit' pedido.id %}">
+                                            <a href="{% url 'pedido_edit' padre.nombre_slug pedido.id %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>

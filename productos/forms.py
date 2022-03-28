@@ -1,6 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.forms import ModelForm, widgets
+from flatpickr import DatePickerInput
 
 from material.models import no_space_validator, no_asciis_validator
 from productos.models import Reactivo, Disolvente, Patron
@@ -40,7 +41,7 @@ class ReactivoForm(ModelForm):
                 visible.field.widget = CKEditorWidget()
 
             elif visible.name == 'fecha_caducidad':
-                visible.field.widget = widgets.SelectDateWidget()
+                visible.field.widget = DatePickerInput()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
@@ -77,7 +78,7 @@ class DisolventeForm(ModelForm):
                     visible.field.widget = CKEditorWidget()
 
                 elif visible.name == 'fecha_caducidad':
-                    visible.field.widget = widgets.SelectDateWidget()
+                    visible.field.widget = DatePickerInput()
 
                 else:
                     visible.field.widget.attrs['class'] = 'form-control'
@@ -117,7 +118,7 @@ class PatronForm(ModelForm):
                 visible.field.widget = CKEditorWidget()
 
             elif visible.name == 'fecha_caducidad':
-                visible.field.widget = widgets.SelectDateWidget()
+                visible.field.widget = DatePickerInput()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'

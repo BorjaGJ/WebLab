@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
 
-from otros.forms import EventoForm, ClienteForm, ProveedorForm
-from otros.models import Evento, Cliente, Proveedor, Analisis
+from otros.forms import EventoForm, ClienteForm, ProveedorForm, PedidoForm
+from otros.models import Evento, Cliente, Proveedor, Analisis, Pedido
 from web.views_utils import TableView, EditByIdView, AddView, TableViewEntry
 
 
@@ -157,6 +157,12 @@ def searchProveedor(request):
 
 class TableViewEntryPedido(TableViewEntry):
     pass
+
+class PedidoEditView(EventoEditView):
+    template_name = 'edit_pedido.html'
+    model = Pedido
+    redirect_to = 'pedidos'
+    model_form = PedidoForm
 
 
 class TableViewEntryAnalisis(CreateView):

@@ -14,11 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="{% static "css/styles.css" %}" rel="stylesheet"/>
     <link href="{% static "css/calendar.css" %}" rel="stylesheet">
-    <script type="text/javascript" src={% static "ckeditor/ckeditor-init.js" %}></script>
-    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-    <script type="text/javascript" src={% static "js/myJavaScript.js" %}></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {% block extracss %}{% endblock extracss %}
 </head>
 <body class="sb-nav-fixed">
@@ -128,7 +124,7 @@
                     </h2>
                 </div>
 
-                    {{ calendario | safe }}
+                {{ calendario | safe }}
 
             </main>
         </div>
@@ -142,6 +138,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src={% static "ckeditor/ckeditor-init.js" %}></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src={% static "js/myJavaScript.js" %}></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"
+        crossorigin="anonymous"></script>
+<script>
+    flatpickr()
+</script>
 {#<script type="text/javascript" src="{% static 'js/datatables-simple-demo.js' %}"></script>#}
 {#<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>#}
 

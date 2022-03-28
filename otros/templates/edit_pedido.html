@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static crispy_forms_filters %}
 
+
 {% block content %}
 
     {% block extra_css %}
@@ -14,15 +15,15 @@
     <div id="layoutSidenav_content">
         <main class="container row col-lg-12" STYLE="padding: 2%">
 
-            <h1 class="mt-0">{{ entrada.nombre }} {{ entrada.codigo_laboratorio }}</h1>
+            <h1 class="mt-0">{{ entrada.nombre }}</h1>
 
             <ol class="breadcrumb mb-4 col-lg-12 bg-white">
                 <li class="breadcrumb-item">
                     <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">Productos</li>
+                <li class="breadcrumb-item">Otros</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'reactivos' %}" style="text-decoration: none">Reactivos</a>
+                    <a href="{% url 'eventos' %}" style="text-decoration: none">Pedidos</a>
                 </li>
                 <li class="breadcrumb-item active">{{ entrada.nombre }}</li>
             </ol>
@@ -30,19 +31,12 @@
 
             <div class="card border-dark">
                 <form class="card-body container row col-lg-12"
-                      action="{% url 'reactivo_edit' entrada.codigo_laboratorio %}" method="post">
+                      action="" method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                        {% if field.name == "ubicacion" %}
-                            <div class="col-lg-12" style="padding: 1%">
-                                <h4>Ubicación:</h4>
-                                <div class="text-center">{{ field | safe }}</div>
-                            </div>
-                        {% else %}
-                            <div class="col-lg-4" style="padding: 1%">
-                                {{ field | as_crispy_field }}
-                            </div>
-                        {% endif %}
+                        <div class="col-lg-4" style="padding: 1%">
+                            {{ field | as_crispy_field }}
+                        </div>
                     {% endfor %}
                     <div class="text-center" style="padding: 2%">
                         <button type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
@@ -51,7 +45,7 @@
                             </a>
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
-                            <a class="text-white text-decoration-none" href="{% url 'reactivos' %}"> Salir sin guardar
+                            <a class="text-white text-decoration-none" href="{% url 'disolventes' %}"> Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>
@@ -60,5 +54,7 @@
             </div>
         </main>
     </div>
+
+    {% block extrajs %}{% endblock extrajs %}
 
 {% endblock content %}

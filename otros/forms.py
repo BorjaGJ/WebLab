@@ -1,8 +1,7 @@
-from colorfield.widgets import ColorWidget
 from django.forms import ModelForm, widgets
-from django.contrib.admin.widgets import AdminDateWidget
+from flatpickr import DatePickerInput
 
-from otros.models import Evento, Cliente, Proveedor
+from otros.models import Evento, Cliente, Proveedor, Pedido
 
 
 class EventoForm(ModelForm):
@@ -22,7 +21,7 @@ class EventoForm(ModelForm):
 
         # widgets del form
         self.fields['color'].widget.attrs['class'] = 'jscolor'
-        self.fields['fecha'].widget = widgets.SelectDateWidget()
+        self.fields['fecha'].widget = DatePickerInput()
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
 
 
@@ -39,3 +38,31 @@ class ProveedorForm(ModelForm):
         model = Proveedor
 
         exclude = {'nota'}
+
+
+class PedidoForm(ModelForm):
+
+    class Meta:
+        model = Pedido
+
+        exclude = {}
+
+        widgets = {
+            'fecha_espera': DatePickerInput(),
+            'fecha_recibido': DatePickerInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PedidoForm, self).__init__(*args, **kwargs)
+
+        self.fields['nombre'].label = "Nombre"
+        self.fields['fecha_espera'].label = "Fecha esperado"
+        self.fields['fecha_recibido'].label = "Fecha recibido"
+        self.fields['albaran'].label = "Albarán"
+        self.fields['proveedor'].label = "Proveedor"
+        self.fields['puntuacion'].label = "Puntuación"
+
+
+
+
+

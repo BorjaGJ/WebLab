@@ -1,6 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from crispy_forms.helper import FormHelper
 from django.forms import ModelForm, widgets
+from flatpickr import DatePickerInput
 
 from material.models import Volumetrico, Instrumento, Miscelanea, no_space_validator, no_asciis_validator
 
@@ -32,7 +33,7 @@ class VolumetricoForm(ModelForm):
                 visible.field.widget = CKEditorWidget()
 
             elif visible.name == 'proxima_revision':
-                visible.field.widget = widgets.SelectDateWidget()
+                visible.field.widget = DatePickerInput()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
@@ -64,7 +65,7 @@ class InstrumentoForm(ModelForm):
                 visible.field.widget = CKEditorWidget()
 
             elif visible.name == 'proxima_revision':
-                visible.field.widget = widgets.SelectDateWidget()
+                visible.field.widget = DatePickerInput()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
@@ -93,7 +94,7 @@ class MiscelaneaForm(ModelForm):
                 visible.field.widget = CKEditorWidget()
 
             elif visible.name == 'proxima_revision':
-                visible.field.widget = widgets.SelectDateWidget()
+                visible.field.widget = DatePickerInput()
 
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
