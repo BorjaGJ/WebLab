@@ -25,10 +25,27 @@ urlpatterns = [
     url(r'^proveedores/delete/(?P<id>[-\w]+)$', login_required(views.deleteProveedor), name='delete_proveedor'),
     url(r'^search/proveedores$', login_required(views.searchProveedor), name='search_preveedor'),
 
-    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos$', login_required(views.TableViewEntryPedido.as_view()), name='pedidos'),
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos$', login_required(views.PedidosTableView.as_view()),
+        name='pedidos'),
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/add$', login_required(views.AddPedidoView.as_view()),
+        name='pedidos_add'),
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/search$', login_required(views.searchPedido),
+        name='pedido_search'),
     url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/(?P<id>[-\w]+)$', login_required(views.PedidoEditView.as_view()),
         name='pedido_edit'),
-    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis$', login_required(views.TableViewEntryAnalisis.as_view()), name='analisis'),
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/(?P<id>[-\w]+)/delete$', login_required(views.deletePedido),
+        name='pedido_delete'),
+
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis$', login_required(views.AnalisisTableView.as_view()),
+        name='analisis'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/add$', login_required(views.AddAnalisisView.as_view()),
+        name='analisis_add'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/search$', login_required(views.searchAnalisis),
+        name='analisis_search'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/(?P<id>[-\w]+)$', login_required(views.AnalisisEditView.as_view()),
+        name='analisis_edit'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/(?P<id>[-\w]+)/delete$', login_required(views.deleteAnalisis),
+        name='analisis_delete'),
 
 
 

@@ -97,11 +97,11 @@ class Trabajador(Persona):
 
 class Pedido(models.Model):
     nombre = models.CharField(max_length=100)
-    fecha_pedido = models.DateField()
+    fecha_pedido = models.DateField(auto_now_add=True)
     fecha_espera = models.DateField(blank=True, null=True)
     fecha_recibido = models.DateField(blank=True, null=True)
     albaran = models.FileField(blank=True, null=True, upload_to='albaran')
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=10)
 
     def __str__(self):
@@ -122,14 +122,13 @@ class Pedido(models.Model):
 class Analisis(models.Model):
     nombre = models.CharField(max_length=100)
     fecha_pedido = models.DateField(auto_now_add=True)
-    fecha_expiracion = models.DateField(null=True, blank=True, editable=False)
+    fecha_expiracion = models.DateField(null=True, blank=True)
     fecha_terminado = models.DateField(null=True, blank=True)
     resultado = models.FileField(blank=True, null=True, upload_to='resultados')
     factura = models.FileField(blank=True, null=True, upload_to='facturas')
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, blank=True, null=True, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.nombre + " " + self.cliente.nombre
+
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=100)

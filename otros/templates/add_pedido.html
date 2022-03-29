@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    {% block extra_css %}
+     {% block extra_css %}
         {{ form.media.css }}
     {% endblock %}
 
@@ -23,20 +23,22 @@
                 </li>
                 <li class="breadcrumb-item">Otros</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'pedidos' entrada.proveedor.nombre_slug %}" style="text-decoration: none">Pedidos</a>
+                    <a href="{% url 'proveedores' %}" style="text-decoration: none">Proveedores</a>
                 </li>
-                <li class="breadcrumb-item active">{{ entrada.nombre }}</li>
+                <li class="breadcrumb-item active">{{ padre }}</li>
+                <li class="breadcrumb-item">Pedidos</li>
+                <li class="breadcrumb-item">Añadir</li>
             </ol>
 
 
             <div class="card border-dark">
                 <form class="card-body container row col-lg-12"
-                      action="{% url 'pedido_edit' entrada.proveedor.nombre_slug entrada.id  %}" method="post">
+                      action="" method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="col-lg-4" style="padding: 1%">
-                            {{ field | as_crispy_field }}
-                        </div>
+                            <div class="col-lg-4" style="padding: 1%">
+                                {{ field | as_crispy_field }}
+                            </div>
                     {% endfor %}
                     <div class="text-center" style="padding: 2%">
                         <button type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
@@ -45,8 +47,8 @@
                             </a>
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
-                            <a class="text-white text-decoration-none"
-                               href="{% url 'pedidos' entrada.proveedor.nombre_slug %}"> Salir sin guardar
+                            <a class="text-white text-decoration-none" href="{% url 'pedidos' padre.nombre_slug %}">
+                                Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>

@@ -7,7 +7,7 @@
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_cliente' %}">
+                      method="GET" action="{% url 'analisis_search' padre.nombre_slug %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
                                aria-label="Search for..." name="buscar"
@@ -34,7 +34,7 @@
                     <div class="card-header">
                         <i class="fa fa-plus me-1"></i>
                         <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
-                            <a class="text-decoration-none text-white" href="{% url 'add_cliente' %}">Añadir</a>
+                            <a class="text-decoration-none text-white" href="{% url 'analisis_add' padre.nombre_slug %}">Añadir</a>
                         </button>
                         {#                         <i class="fa fa-flask me-1"></i>#}
                         {#                        <button class="btn btn-primary col-lg-2">#}
@@ -96,7 +96,7 @@
                                     {% endif %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'cliente_edit' analisis.id %}">
+                                            <a href="{% url 'analisis_edit' padre.nombre_slug analisis.id %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
@@ -112,7 +112,7 @@
                                                 eliminar esta entrada?</p>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
                                                 <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_cliente' analisis.id %}">Borrar
+                                                   href="{% url 'analisis_delete' padre.nombre_slug analisis.id %}">Borrar
                                                     <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
                                                 </a>
                                             </button>
