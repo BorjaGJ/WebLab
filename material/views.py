@@ -43,7 +43,7 @@ def searchVolumetrico(request):
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado) | Q(lote__icontains=buscado) |
+            Q(nombre__icontains=buscado) |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
         return render(request, 'volumetricos.html', {"entradas": entradas})
@@ -88,7 +88,7 @@ def searchInstrumento(request):
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado) | Q(lote__icontains=buscado) |
+            Q(nombre__icontains=buscado) |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
         return render(request, 'instrumentos.html', {"entradas": entradas})
@@ -133,7 +133,7 @@ def searchMiscelanea(request):
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado) | Q(lote__icontains=buscado) |
+            Q(nombre__icontains=buscado)  |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
         return render(request, 'instrumentos.html', {"entradas": entradas})

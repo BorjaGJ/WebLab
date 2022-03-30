@@ -43,7 +43,8 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Código de laboratorio</th>
-                                <th>lote</th>
+                                <th>Graduacion</th>
+                                <th>Unidades</th>
                                 <th>Próxima revisión</th>
                                 <th>Proveedor</th>
                                 <th>Editar</th>
@@ -69,11 +70,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {% if material.lote %}
-                                            {{ material.lote }}
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
+                                        {{ material.graduacion }}
+                                    </td>
+                                    <td>
+                                        {{ material.cuantia }}
                                     </td>
                                     <td>
                                         {% if material.proxima_revision %}

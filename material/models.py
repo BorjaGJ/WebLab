@@ -22,8 +22,8 @@ class Material(models.Model):
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratiorio')
-    proxima_revision = models.DateField(blank=True, null=True)
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True, editable=False)
+    proxima_revision = models.DateField()
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, editable=False, null=True, blank=True)
 
 
     class Meta:
@@ -54,13 +54,11 @@ class Material(models.Model):
 class Volumetrico(Material):
     OPTION_CHOICES = (("Aforado", "Aforado"), ("Graduado", "Graduado"))
     graduacion = models.CharField(choices=OPTION_CHOICES, max_length=10)
-    lote = models.CharField(max_length=20, blank=True, null=True)
     volumen = models.CharField(max_length=20)
     cuantia = models.IntegerField(validators=[MinValueValidator(0)])
 
 
 class Instrumento(Material):
-    manual = models.FileField(blank=True, null=True)
     metodo_calibracion = models.FileField(blank=True, null=True)
 
     def __str__(self):

@@ -20,7 +20,6 @@ class VolumetricoForm(ModelForm):
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['graduacion'].label = "Graduación"
-        self.fields['lote'].label = "lote"
         self.fields['volumen'].label = "Volumen"
         self.fields['cuantia'].label = "Número de unidades"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
@@ -53,7 +52,6 @@ class InstrumentoForm(ModelForm):
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['proxima_revision'].label = "Proxima revisión"
-        self.fields['manual'].label = "Manual"
         self.fields['metodo_calibracion'].label = "Método de Calibración"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
