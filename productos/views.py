@@ -36,7 +36,7 @@ def searchReactivo(request):
 
     if request.method == 'GET':
 
-        buscado = request.GET.get('buscarReactivo')
+        buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado) | Q(CAS__icontains=buscado) |
@@ -80,7 +80,7 @@ def searchDisolvente(request):
 
     if request.method == 'GET':
 
-        buscado = request.GET.get('buscarDisolvente')
+        buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado) | Q(CAS__icontains=buscado) |

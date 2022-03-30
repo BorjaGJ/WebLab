@@ -15,7 +15,7 @@
     <div id="layoutSidenav_content">
         <main class="container row col-lg-12" STYLE="padding: 2%">
 
-            <h1 class="mt-0">{{ entrada.nombre }}</h1>
+            <h1 class="mt-0">Añadir pedido</h1>
 
             <ol class="breadcrumb mb-4 col-lg-12 bg-white">
                 <li class="breadcrumb-item">
@@ -25,8 +25,10 @@
                 <li class="breadcrumb-item active">
                     <a href="{% url 'proveedores' %}" style="text-decoration: none">Proveedores</a>
                 </li>
-                <li class="breadcrumb-item active">{{ padre }}</li>
-                <li class="breadcrumb-item">Pedidos</li>
+                <li class="breadcrumb-item active text-decoration-none">{{ padre }}</li>
+                <li class="breadcrumb-item active">
+                    <a href="{% url 'pedidos' padre.nombre_slug %}">Pedidos</a>
+                </li>
                 <li class="breadcrumb-item">Añadir</li>
             </ol>
 

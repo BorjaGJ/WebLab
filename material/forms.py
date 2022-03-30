@@ -52,7 +52,6 @@ class InstrumentoForm(ModelForm):
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['proxima_revision'].label = "Proxima revisión"
-        self.fields['metodo_calibracion'].label = "Método de Calibración"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
 

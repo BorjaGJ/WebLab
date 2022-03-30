@@ -14,7 +14,6 @@ class Producto(models.Model):
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
-    ficha_seguridad = models.FileField(null=True, blank=True)
     ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     fecha_caducidad = models.DateField()
@@ -36,7 +35,6 @@ class Producto(models.Model):
 class Patron(Producto):
     matriz = models.CharField(max_length=100)
     concentracion = models.CharField(max_length=100)
-    certificado = models.FileField(null=True, blank=True)
 
 
 class Reactivo(Producto):

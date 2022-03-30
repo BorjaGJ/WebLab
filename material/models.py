@@ -59,7 +59,7 @@ class Volumetrico(Material):
 
 
 class Instrumento(Material):
-    metodo_calibracion = models.FileField(blank=True, null=True)
+    pass
 
     def __str__(self):
         return self.nombre
