@@ -217,13 +217,15 @@ class PedidoEditView(CreateView):
     def get(self, request, *args, **kwargs):
 
         entrada = self.model.objects.get(id=self.kwargs['id'])
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
         form = self.model_form(instance=entrada)
 
-        return render(request, self.template_name, {"form": form, 'entrada': entrada})
+        return render(request, self.template_name, {"form": form, 'entrada': entrada, 'padre': padre})
 
     def post(self, request, *args, **kwargs):
 
         entrada = get_object_or_None(self.model, id=self.kwargs['id'])
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
 
         form = self.model_form(request.POST, request.FILES, instance=entrada)
 
@@ -231,7 +233,7 @@ class PedidoEditView(CreateView):
 
             if form.is_valid():
                 form.save()
-                return redirect(self.redirect_to, entrada.proveedor.nombre_slug)
+                return redirect(self.redirect_to, padre.nombre_slug)
 
         return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
@@ -298,7 +300,6 @@ class AddAnalisisView(CreateView):
         form = self.model_form()
         padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
 
-
         return render(request, self.template_name, {"form": form, 'padre':padre})
 
     def post(self, request, *args, **kwargs):
@@ -318,33 +319,12 @@ class AddAnalisisView(CreateView):
 
         return render(request, self.template_name, {})
 
-class AnalisisEditView(CreateView):
+class AnalisisEditView(PedidoEditView):
     template_name = 'edit_analisis.html'
     model = Analisis
     redirect_to = 'analisis'
     model_form = AnalisisForm
     model_padre = Cliente
-
-    def get(self, request, *args, **kwargs):
-
-        entrada = self.model.objects.get(id=self.kwargs['id'])
-        form = self.model_form(instance=entrada)
-
-        return render(request, self.template_name, {"form": form, 'entrada': entrada, 'padre': entrada.cliente})
-
-    def post(self, request, *args, **kwargs):
-
-        entrada = get_object_or_None(self.model, id=self.kwargs['id'])
-
-        form = self.model_form(request.POST, request.FILES)
-
-        if request.method == 'POST':
-
-            if form.is_valid():
-
-                return redirect(self.redirect_to, entrada.cliente.nombre_slug)
-
-        return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
 
 def deleteAnalisis(request, **kwargs):

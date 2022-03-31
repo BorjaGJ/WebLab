@@ -23,15 +23,15 @@
                 </li>
                 <li class="breadcrumb-item">Otros</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'pedidos' entrada.proveedor.nombre_slug %}" style="text-decoration: none">Pedidos</a>
+                    <a href="{% url 'pedidos' padre.nombre_slug %}" style="text-decoration: none">Pedidos</a>
                 </li>
                 <li class="breadcrumb-item active">{{ entrada.nombre }}</li>
             </ol>
 
 
             <div class="card border-dark">
-                <form class="card-body container row col-lg-12"
-                      action="{% url 'pedido_edit' entrada.proveedor.nombre_slug entrada.id  %}" method="post">
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data"
+                      action="{% url 'pedido_edit' padre.nombre_slug entrada.id  %}" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="col-lg-4" style="padding: 1%">
@@ -46,7 +46,7 @@
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
                             <a class="text-white text-decoration-none"
-                               href="{% url 'pedidos' entrada.proveedor.nombre_slug %}"> Salir sin guardar
+                               href="{% url 'pedidos' padre.nombre_slug %}"> Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>
