@@ -49,6 +49,7 @@ class InstrumentoForm(ModelForm):
 
         # poner las etiquetas
         self.fields['nombre'].label = 'Nombre'
+        self.fields['metodo_calibracion'].label = 'Método de calibración'
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['proxima_revision'].label = "Proxima revisión"

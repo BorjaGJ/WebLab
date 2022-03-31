@@ -45,6 +45,7 @@
                                 <th>Código de laboratorio</th>
                                 <th>Próxima revisión</th>
                                 <th>Proveedor</th>
+                                <th>Método de calibración</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -77,6 +78,17 @@
                                     <td>
                                         {% if material.proveedor %}
                                             {{ material.preveedor }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                         {% if material.metodo_calibracion %}
+                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ material.metodo_calibracion }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
                                         {% else %}
                                             N/A
                                         {% endif %}

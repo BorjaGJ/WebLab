@@ -46,6 +46,7 @@
                                 <th>CAS</th>
                                 <th>Fecha de caducidad</th>
                                 <th>Proveedor</th>
+                                <th>Ficha de seguridad</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -79,6 +80,17 @@
                                     <td>
                                         {% if producto.proveedor %}
                                             {{ producto.preveedor }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if producto.ficha_seguridad %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ producto.ficha_seguridad }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
                                         {% else %}
                                             N/A
                                         {% endif %}
@@ -121,7 +133,8 @@
                         {% if entradas.has_other_pages %}
                             <ul class="pagination">
                                 {% if entradas.has_previous %}
-                                    <li><a class="text-black page-link" href="?page={{ entradas.previous_page_number }}">&laquo;</a></li>
+                                    <li><a class="text-black page-link"
+                                           href="?page={{ entradas.previous_page_number }}">&laquo;</a></li>
                                 {% else %}
                                     <li class="disabled"><span></span></li>
                                 {% endif %}
@@ -134,7 +147,8 @@
                                     {% endif %}
                                 {% endfor %}
                                 {% if entradas.has_next %}
-                                    <li><a class="text-black page-link" href="?page={{ entradas.next_page_number }}">&raquo;</a></li>
+                                    <li><a class="text-black page-link" href="?page={{ entradas.next_page_number }}">&raquo;</a>
+                                    </li>
                                 {% else %}
                                     <li class="disabled"><span></span></li>
                                 {% endif %}

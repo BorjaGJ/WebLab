@@ -45,6 +45,7 @@
                                 <th>Polaridad</th>
                                 <th>Volumen</th>
                                 <th>Proveedor</th>
+                                <th>Ficha de seguridad</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -77,6 +78,17 @@
                                     <td>
                                         {% if producto.proveedor %}
                                             {{ producto.preveedor }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if producto.ficha_seguridad %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ producto.ficha_seguridad }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
                                         {% else %}
                                             N/A
                                         {% endif %}

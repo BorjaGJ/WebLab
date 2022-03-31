@@ -21,7 +21,7 @@ class Material(models.Model):
     nombre = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
-    ubicacion = RichTextUploadingField(default='En el laboratiorio')
+    ubicacion = RichTextUploadingField(default='En el laboratorio')
     proxima_revision = models.DateField()
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE, editable=False, null=True, blank=True)
 
@@ -59,7 +59,7 @@ class Volumetrico(Material):
 
 
 class Instrumento(Material):
-    pass
+    metodo_calibracion = models.FileField(upload_to='metodos', blank=True, null=True)
 
     def __str__(self):
         return self.nombre

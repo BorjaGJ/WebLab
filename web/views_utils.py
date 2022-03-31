@@ -48,7 +48,7 @@ class EditView(CreateView):
 
         entrada = get_object_or_None(self.model, codigo_laboratorio=self.kwargs['codigo_laboratorio'])
 
-        form = self.model_form(request.POST, instance=entrada)
+        form = self.model_form(request.POST, request.FILES, instance=entrada)
 
         if request.method == 'POST':
 
@@ -99,7 +99,7 @@ class AddView(CreateView):
 
     def post(self, request, *args, **kwargs):
 
-        form = self.model_form(request.POST)
+        form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
 
@@ -108,7 +108,6 @@ class AddView(CreateView):
                 return redirect(self.redirect_to)
             else:
                 return render(request, self.template_name, {"form": form})
-
 
         return render(request, self.template_name, {})
 

@@ -263,7 +263,7 @@ def searchPedido(request, **kwargs):
         padre = model_padre.objects.get(nombre_slug=kwargs['nombre_slug'])
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado) | Q(puntuacion__exact=buscado)
+            Q(nombre__icontains=buscado)
         )
 
         return render(request, 'pedidos.html', {"entradas": entradas, 'padre': padre})

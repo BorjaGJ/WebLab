@@ -17,6 +17,7 @@ class Producto(models.Model):
     ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     fecha_caducidad = models.DateField()
+    ficha_seguridad = models.FileField(blank=True, null=True)
 
 
     class Meta:
@@ -35,6 +36,7 @@ class Producto(models.Model):
 class Patron(Producto):
     matriz = models.CharField(max_length=100)
     concentracion = models.CharField(max_length=100)
+    certificado = models.FileField(blank=True, null=True)
 
 
 class Reactivo(Producto):

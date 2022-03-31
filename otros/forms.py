@@ -5,11 +5,9 @@ from otros.models import Evento, Cliente, Proveedor, Pedido, Analisis
 
 
 class EventoForm(ModelForm):
-
     class Meta:
         model = Evento
         exclude = {}
-
 
     def __init__(self, *args, **kwargs):
         super(EventoForm, self).__init__(*args, **kwargs)
@@ -26,22 +24,47 @@ class EventoForm(ModelForm):
 
 
 class ClienteForm(ModelForm):
+    class Meta:
+        model = Cliente
 
-     class Meta:
-         model = Cliente
+        exclude = {}
 
-         exclude = {}
+        labels = {
+            'nombre': 'Nombre',
+            'dni': 'DNI',
+            'cp': 'Código postal',
+            'poblacion': 'Población',
+            'telefono': 'Teléfono',
+            'email': 'Correo electrónico'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ClienteForm, self).__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 class ProveedorForm(ModelForm):
-
     class Meta:
         model = Proveedor
 
         exclude = {'nota'}
 
+        labels = {
+            'pagina_web': 'Página web',
+            'email': 'Correo electrónico',
+            'telefono': 'Teléfono'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ProveedorForm, self).__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 class PedidoForm(ModelForm):
-
     class Meta:
         model = Pedido
 
@@ -63,10 +86,10 @@ class PedidoForm(ModelForm):
 
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
         self.fields['puntuacion'].widget.attrs['class'] = 'form-control'
+        self.fields['albaran'].widget.attrs['class'] = 'form-control'
 
 
 class AnalisisForm(ModelForm):
-
     class Meta:
         model = Analisis
 
@@ -86,7 +109,3 @@ class AnalisisForm(ModelForm):
         self.fields['fecha_terminado'].label = "Fecha de terminación"
         self.fields['factura'].label = "Factura"
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
-
-
-
-

@@ -25,6 +25,7 @@ class ReactivoForm(ModelForm):
         self.fields['cantidad'].label = "Cantidad"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['fecha_caducidad'].label = "Fecha de caducidad"
+        self.fields['ficha_seguridad'].label = "Ficha de seguridad"
         self.fields['pureza'].label = "Pureza"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
         self.fields['pureza'].validators = [MinValueValidator(0), MaxValueValidator(100)]
@@ -63,6 +64,7 @@ class DisolventeForm(ModelForm):
             self.fields['cantidad'].label = "Cantidad"
             self.fields['proveedor'].label = "Proveedor"
             self.fields['fecha_caducidad'].label = "Fecha de caducidad"
+            self.fields['ficha_seguridad'].label = "Ficha de seguridad"
             self.fields['densidad'].label = "Densidad"
             self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
@@ -103,6 +105,8 @@ class PatronForm(ModelForm):
         self.fields['proveedor'].label = "Proveedor"
         self.fields['fecha_caducidad'].label = "Fecha de caducidad"
         self.fields['concentracion'].label = "Concentración"
+        self.fields['ficha_seguridad'].label = "Ficha de seguridad"
+        self.fields['certificado'].label = "Certificado"
         self.fields['codigo_laboratorio'].validators = [no_space_validator, no_asciis_validator]
 
         # añadir las clases

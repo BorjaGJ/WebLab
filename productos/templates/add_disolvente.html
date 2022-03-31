@@ -28,7 +28,7 @@
             </ol>
 
             <div class="card border-dark">
-                <form class="card-body container row col-lg-12"
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data"
                       action="{% url 'add_disolvente' %}" method="post">
                     {% csrf_token %}
                     {% for field in form %}
