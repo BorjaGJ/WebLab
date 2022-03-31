@@ -192,7 +192,7 @@ class AddPedidoView(CreateView):
 
     def post(self, request, *args, **kwargs):
 
-        form = self.model_form(request.POST)
+        form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
 
@@ -225,7 +225,7 @@ class PedidoEditView(CreateView):
 
         entrada = get_object_or_None(self.model, id=self.kwargs['id'])
 
-        form = self.model_form(request.POST, instance=entrada)
+        form = self.model_form(request.POST, request.FILES, instance=entrada)
 
         if request.method == 'POST':
 
@@ -303,7 +303,7 @@ class AddAnalisisView(CreateView):
 
     def post(self, request, *args, **kwargs):
 
-        form = self.model_form(request.POST)
+        form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
 
@@ -336,7 +336,7 @@ class AnalisisEditView(CreateView):
 
         entrada = get_object_or_None(self.model, id=self.kwargs['id'])
 
-        form = self.model_form(request.POST, instance=entrada)
+        form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
 
@@ -345,8 +345,6 @@ class AnalisisEditView(CreateView):
                 return redirect(self.redirect_to, entrada.cliente.nombre_slug)
 
         return render(request, self.template_name, {"form": form, 'entrada': entrada})
-
-
 
 
 def deleteAnalisis(request, **kwargs):

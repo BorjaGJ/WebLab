@@ -34,8 +34,7 @@
 
 
             <div class="card border-dark">
-                <form class="card-body container row col-lg-12"
-                      action="" method="post">
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data" action="" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                             <div class="col-lg-4" style="padding: 1%">

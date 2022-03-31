@@ -61,6 +61,9 @@ class PedidoForm(ModelForm):
         self.fields['albaran'].label = "Albarán"
         self.fields['puntuacion'].label = "Puntuación"
 
+        self.fields['nombre'].widget.attrs['class'] = 'form-control'
+        self.fields['puntuacion'].widget.attrs['class'] = 'form-control'
+
 
 class AnalisisForm(ModelForm):
 
@@ -82,6 +85,8 @@ class AnalisisForm(ModelForm):
         self.fields['fecha_expiracion'].label = "Fecha de expiracion"
         self.fields['fecha_terminado'].label = "Fecha de terminación"
         self.fields['factura'].label = "Factura"
+        self.fields['nombre'].widget.attrs['class'] = 'form-control'
+
 
 
 
