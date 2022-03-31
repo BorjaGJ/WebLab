@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 from django import forms
+from django.forms import ModelForm
+
+from web.models import ConfiguracionEventos
 
 
 class WebLabLoginForm(AuthenticationForm):
@@ -24,3 +27,28 @@ class WebLabLoginForm(AuthenticationForm):
 
 
 ))
+
+class ConfiguracionEventosForm(ModelForm):
+
+    class Meta:
+
+        model = ConfiguracionEventos
+
+        exclude = {}
+
+        labels = {
+            'color_instrumentos': 'Color de los eventos de los instrumentos',
+            'color_volumetricos': 'Color de los eventos del material volumétrico',
+            'color_miscelaneas': 'Color de los eventos de misceláneas',
+            'color_patrones': 'Color de los eventos de los patrones',
+            'color_reactivos': 'Color de los eventos de los reactivos',
+            'color_disolventes': 'Color de los eventos de los disolventes',
+            'color_pedidos': 'Color de los eventos de los pedidos',
+            'color_analisis': 'Color de los eventos de los analisis',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ConfiguracionEventosForm, self).__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'jscolor'

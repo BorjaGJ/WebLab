@@ -14,25 +14,18 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from email import message
+
 
 from django.conf.urls import url, include
 from django.contrib import admin
-# from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from django.contrib import messages
-from django.views.generic import TemplateView
-
-import web
-
-from django.conf.urls.i18n import i18n_patterns
 
 from configuracion import settings
 from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
-from web.views import Index
+from web.views import Index, EventosCalendarioView, ConfiguracionEventosView
 
 admin.autodiscover()
 
@@ -48,6 +41,11 @@ urlpatterns = [
     url(r'^material/', include('material.urls')),
     url(r'^otros/', include('otros.urls')),
     url(r'^trabajadores/', include('trabajadores.urls')),
+
+    url(r'^calendario/eventos/(?P<mes>[-\d]+)/(?P<dia>[-\d]+)$', login_required(EventosCalendarioView.as_view()),
+        name='calendario_eventos'),
+    url(r'^configuracion/colores_eventos/$',login_required(ConfiguracionEventosView.as_view()),
+        name='configuracion_color'),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),

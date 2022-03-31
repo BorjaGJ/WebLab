@@ -4,6 +4,7 @@ from django.db import models
 from annoying.functions import get_object_or_None
 
 from otros.models import Proveedor, Evento
+from web.models import ConfiguracionEventos
 
 no_space_validator = RegexValidator(
     r' ',
@@ -32,22 +33,6 @@ class Material(models.Model):
     def __str__(self):
         return self.nombre
 
-    def save(self, *args, **kwargs):
-
-        evento = self.evento
-
-        if evento is None:
-            evento = Evento.objects.create(nombre=self.nombre, fecha=self.proxima_revision)
-            self.evento = evento
-            evento.save()
-
-        else:
-            evento.fecha = self.proxima_revision
-            evento.nombre = self.nombre
-            evento.save()
-
-        super(Material, self).save(*args, **kwargs)
-
 
 
 
@@ -57,6 +42,30 @@ class Volumetrico(Material):
     volumen = models.CharField(max_length=20)
     cuantia = models.IntegerField(validators=[MinValueValidator(0)])
 
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_volumetricos
+            )
+            self.evento = evento
+            evento.save()
+
+        else:
+            evento.fecha = self.proxima_revision
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_volumetricos
+            evento.save()
+
+        super(Volumetrico, self).save(*args, **kwargs)
+
 
 class Instrumento(Material):
     metodo_calibracion = models.FileField(upload_to='metodos', blank=True, null=True)
@@ -64,6 +73,54 @@ class Instrumento(Material):
     def __str__(self):
         return self.nombre
 
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_instrumentos
+            )
+            self.evento = evento
+            evento.save()
+
+        else:
+            evento.fecha = self.proxima_revision
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_instrumentos
+            evento.save()
+
+        super(Instrumento, self).save(*args, **kwargs)
+
 
 class Miscelanea(Material):
-    pass
+
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_miscelaneas
+            )
+            self.evento = evento
+            evento.save()
+
+        else:
+            evento.fecha = self.proxima_revision
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_miscelaneas
+            evento.save()
+
+        super(Miscelanea, self).save(*args, **kwargs)
