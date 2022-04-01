@@ -22,3 +22,36 @@ class ConfiguracionEventos(models.Model):
     color_pedidos = ColorField(default='#0d6efd')
     color_analisis = ColorField(default='#0d6efd')
 
+    def save(self, *args, **kwargs):
+        super(ConfiguracionEventos, self).save(*args, **kwargs)
+
+        from material.models import Instrumento
+        from material.models import Volumetrico
+        from material.models import Miscelanea
+
+        if modelEventoColorHasChanged(Instrumento, self.color_instrumentos):
+            instrumentos = Instrumento.objects.all()
+            for instrumento in instrumentos:
+                instrumento.evento.color = self.color_instrumentos
+                instrumento.save()
+
+        if modelEventoColorHasChanged(Volumetrico, self.color_volumetricos):
+            volumetricos = Volumetrico.objects.all()
+            for volumetrico in volumetricos:
+                volumetrico.evento.color = self.color_volumetricos
+                volumetrico.save()
+
+        if modelEventoColorHasChanged(Miscelanea, self.color_miscelaneas):
+            miscelaneas = Miscelanea.objects.all()
+            for miscelanea in miscelaneas:
+                miscelanea.evento.color = self.color_miscelaneas
+                miscelanea.save()
+
+
+def modelEventoColorHasChanged(Model, color_configuracion):
+    entrada = Model.objects.first()
+    configuracion = ConfiguracionEventos.objects.all().last()
+
+    return entrada.evento.color != color_configuracion
+
+

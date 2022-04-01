@@ -18,7 +18,6 @@ class TableView(CreateView):
 
     def get(self, request, *args, **kwargs):
         entradas = self.model.objects.all().order_by(self.order_by)
-        print(entradas)
         page = request.GET.get('page', 1)
 
         paginator = Paginator(entradas, 15)
