@@ -38,7 +38,7 @@ do
         if [ ! -d ${RUTA_ENTORNO} ]
         then
             echo "El directorio del entorno no existe, creando directorio"
-            mkdir -p "${RUTA_ENTORNO}"
+            sudo mkdir -p "${RUTA_ENTORNO}"
         fi
 
         # creamos el entornovirtual

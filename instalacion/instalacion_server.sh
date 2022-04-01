@@ -1,7 +1,7 @@
 #!/bin/bash
 NOMBRE_ENTORNO=weblab
 # finalizar con la barra siempre que sea directorios
-RUTA_ENTORNO=/var/www/entornos/
+RUTA_ENTORNO=/var/www/entornos
 DIRECTORIO_PROYECTO=/var/www/weblab/
 ARCHIVO_WSGI=${DIRECTORIO_PROYECTO}configuracion/apache.wsgi
 
