@@ -23,9 +23,11 @@
 
 .calendar-day {
     border: black 1px solid;
-    min-width: 10%;
-    max-width: 10%;
-    padding: 2%;
+    min-width: 20%;
+    max-width: 20%;
+    max-height: 10%;
+    white-space: normal;
+    word-wrap: normal!important;
 }
 
 .calendar-today {

@@ -29,11 +29,13 @@ class MyHTMLCalendar(HTMLCalendar):
 
         elif self.lista_dias_eventos.__contains__(day):
             # dia con evento
-            return '<td class="%s" style="background-color: %s"><a class="text-black text-decoration-none" ' \
-                   'href="calendario/eventos/%d/%d">%d<br>%s eventos</a></td>' \
+            return '<td class="calendar-day" style="background-color:%s;background-image:linear-gradient(to right, %s)">' \
+                   '<a class="text-black text-decoration-none" href="calendario/eventos/%d/%d">' \
+                   '%d<br><strong>%s Eventos</strong></a></td>' \
                    % \
-                   ('calendar-day',
-                    get_evento(day=day, month=self.hoy.month).color,
+                   (
+                    get_eventos_colores(month=self.hoy.month, day=day),
+                    get_eventos_colores(month=self.hoy.month, day=day),
                     self.hoy.month, day, day,
                     get_total_eventos(day=day, month=self.hoy.month)
                     )
@@ -62,22 +64,19 @@ class MyHTMLCalendar(HTMLCalendar):
 
 
 
-def get_evento(day, month):
-    return Evento.objects.filter(fecha__month=month, fecha__day=day).first()
-
 
 def get_total_eventos(day, month):
     return Evento.objects.filter(fecha__month=month, fecha__day=day).__len__()
 
 
-def get_eventos_nombres(day, month):
-    lista_nombres = []
+def get_eventos_colores(day, month):
+    lista_colores = []
     eventos = Evento.objects.filter(fecha__month=month, fecha__day=day)
 
     for evento in eventos:
-        lista_nombres.append(evento.nombre+'<br>')
+        lista_colores.append(evento.color)
 
-    usable = lista_nombres.__str__().replace("', '", '')
+    usable = lista_colores.__str__().replace("'", "")
 
-    return usable[2:-2:1]
+    return usable[1:-1]
 
