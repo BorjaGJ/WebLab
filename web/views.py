@@ -57,6 +57,7 @@ class ConfiguracionEventosView(CreateView):
 
             if form.is_valid():
                 form.save()
+                print('save')
                 return redirect('index')
 
         return render(request, self.template_name, {"form": form, 'entrada': entrada})

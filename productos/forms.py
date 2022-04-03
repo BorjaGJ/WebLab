@@ -11,7 +11,7 @@ class ReactivoForm(ModelForm):
 
     class Meta:
         model = Reactivo
-        exclude = {}
+        exclude = {'evento'}
 
 
     def __init__(self, *args, **kwargs):
@@ -51,7 +51,7 @@ class DisolventeForm(ModelForm):
 
         class Meta:
             model = Disolvente
-            exclude = {}
+            exclude = {'evento'}
 
         def __init__(self, *args, **kwargs):
             super(DisolventeForm, self).__init__(*args, **kwargs)
@@ -90,7 +90,7 @@ class PatronForm(ModelForm):
 
     class Meta:
         model = Patron
-        exclude = {}
+        exclude = {'evento'}
 
 
     def __init__(self, *args, **kwargs):

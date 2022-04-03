@@ -53,10 +53,10 @@ class Volumetrico(Material):
 
         if evento is None:
             evento = Evento.objects.create(
-                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_volumetricos
+                nombre='Revisión de '+self.nombre, fecha=self.proxima_revision, color=configuracion.color_volumetricos
             )
             self.evento = evento
-            evento.save()
+
 
         else:
             evento.fecha = self.proxima_revision
@@ -85,10 +85,10 @@ class Instrumento(Material):
 
         if evento is None:
             evento = Evento.objects.create(
-                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_instrumentos
+                nombre='Revision de ' + self.nombre, fecha=self.proxima_revision, color=configuracion.color_instrumentos
             )
             self.evento = evento
-            evento.save()
+
 
         else:
             evento.fecha = self.proxima_revision
@@ -112,10 +112,10 @@ class Miscelanea(Material):
 
         if evento is None:
             evento = Evento.objects.create(
-                nombre=self.nombre, fecha=self.proxima_revision, color=configuracion.color_miscelaneas
+                nombre='Revisión de ' + self.nombre, fecha=self.proxima_revision, color=configuracion.color_miscelaneas
             )
             self.evento = evento
-            evento.save()
+
 
         else:
             evento.fecha = self.proxima_revision

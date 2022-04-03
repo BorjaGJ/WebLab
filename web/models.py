@@ -28,30 +28,57 @@ class ConfiguracionEventos(models.Model):
         from material.models import Instrumento
         from material.models import Volumetrico
         from material.models import Miscelanea
+        from productos.models import Disolvente
+        from productos.models import Reactivo
+        from productos.models import Patron
 
         if modelEventoColorHasChanged(Instrumento, self.color_instrumentos):
             instrumentos = Instrumento.objects.all()
-            for instrumento in instrumentos:
-                instrumento.evento.color = self.color_instrumentos
-                instrumento.save()
+            for reactivo in instrumentos:
+                reactivo.evento.color = self.color_instrumentos
+                reactivo.save()
 
         if modelEventoColorHasChanged(Volumetrico, self.color_volumetricos):
             volumetricos = Volumetrico.objects.all()
-            for volumetrico in volumetricos:
-                volumetrico.evento.color = self.color_volumetricos
-                volumetrico.save()
+            for patron in volumetricos:
+                patron.evento.color = self.color_volumetricos
+                patron.save()
 
         if modelEventoColorHasChanged(Miscelanea, self.color_miscelaneas):
             miscelaneas = Miscelanea.objects.all()
-            for miscelanea in miscelaneas:
-                miscelanea.evento.color = self.color_miscelaneas
-                miscelanea.save()
+            for disolvente in miscelaneas:
+                disolvente.evento.color = self.color_miscelaneas
+                disolvente.save()
+
+        if modelEventoColorHasChanged(Reactivo, self.color_reactivos):
+            reactivos = Reactivo.objects.all()
+            for reactivo in reactivos:
+                reactivo.evento.color = self.color_reactivos
+                reactivo.save()
+
+        if modelEventoColorHasChanged(Patron, self.color_patrones):
+            patrones = Patron.objects.all()
+            for patron in patrones:
+                patron.evento.color = self.color_patrones
+                patron.save()
+
+        if modelEventoColorHasChanged(Disolvente, self.color_miscelaneas):
+            disolventes = Disolvente.objects.all()
+            for disolvente in disolventes:
+                disolvente.evento.color = self.color_disolventes
+                disolvente.save()
 
 
 def modelEventoColorHasChanged(Model, color_configuracion):
     entrada = Model.objects.first()
-    configuracion = ConfiguracionEventos.objects.all().last()
+    devolver = False
 
-    return entrada.evento.color != color_configuracion
+    if entrada is None:
+        devolver = False
+
+    else:
+        devolver = entrada.evento.color != color_configuracion
+
+    return devolver
 
 

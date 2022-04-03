@@ -4,7 +4,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from material.models import no_space_validator, no_asciis_validator
-from otros.models import Proveedor
+from otros.models import Proveedor, Evento
+from web.models import ConfiguracionEventos
 
 
 class Producto(models.Model):
@@ -18,6 +19,7 @@ class Producto(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     fecha_caducidad = models.DateField()
     ficha_seguridad = models.FileField(blank=True, null=True)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True)
 
 
     class Meta:
@@ -38,10 +40,81 @@ class Patron(Producto):
     concentracion = models.CharField(max_length=100)
     certificado = models.FileField(blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre='Caduca '+self.nombre, fecha=self.fecha_caducidad, color=configuracion.color_patrones
+            )
+            self.evento = evento
+
+
+        else:
+            evento.fecha = self.fecha_caducidad
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_volumetricos
+            evento.save()
+
+        super(Patron, self).save(*args, **kwargs)
+
 
 class Reactivo(Producto):
-    pureza = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(100)], max_digits=5, decimal_places=2)
+    pureza = models.DecimalField(validators=[
+        MinValueValidator(0), MaxValueValidator(100)], max_digits=5, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre='Caduca '+self.nombre, fecha=self.fecha_caducidad, color=configuracion.color_reactivos
+            )
+            self.evento = evento
+
+        else:
+            evento.fecha = self.fecha_caducidad
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_reactivos
+            evento.save()
+
+        super(Reactivo, self).save(*args, **kwargs)
 
 
 class Disolvente(Producto):
     densidad = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+
+        evento = self.evento
+
+        configuracion = ConfiguracionEventos.objects.all().last()
+
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
+
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre='Caduca ' + self.nombre, fecha=self.fecha_caducidad, color=configuracion.color_disolventes
+            )
+            self.evento = evento
+
+        else:
+            evento.fecha = self.fecha_caducidad
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_disolventes
+            evento.save()
+
+        super(Disolvente, self).save(*args, **kwargs)
