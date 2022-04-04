@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'productos',
     'otros',
     'material',
-    'trabajadores'
 
 ]
 FLATPICKR_SETTINGS = {

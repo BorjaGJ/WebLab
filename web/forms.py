@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 from django import forms
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 
 from web.models import ConfiguracionEventos
@@ -52,3 +53,5 @@ class ConfiguracionEventosForm(ModelForm):
 
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'jscolor'
+
+

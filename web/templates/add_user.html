@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_filters %}
+
+{% block content %}
+
+
+    <div style="margin-left: 2%"></div>
+
+    <div id="layoutSidenav_content">
+        <main class="container row col-lg-12" STYLE="padding: 2%">
+
+            <h1 class="mt-0">Añadir usuario</h1>
+
+            <ol class="breadcrumb mb-4 col-lg-12 bg-white">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">usuarios</li>
+                <li class="breadcrumb-item active">Añadir</li>
+            </ol>
+
+            <div class="card border-dark">
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data"
+                      action="{% url 'add_trabajador' %}" method="post">
+                    {% csrf_token %}
+                    <div class="col-lg-4" style="padding: 1%">
+                        {{ form.username | as_crispy_field }}
+                    </div>
+                    <div class="col-lg-4" style="padding: 1%">
+                        {{ form.password1 | as_crispy_field }}
+                    </div>
+                    <div class="col-lg-4" style="padding: 1%">
+                        {{ form.password2 | as_crispy_field }}
+                    </div>
+
+
+                    <div class="form-group container col-lg-10 p-2" style="border: 1px black solid">
+                        <h4 class="p-1">Permisos del usuario</h4>
+
+                        <div class="row m-2">
+                            <div class="px-2 col-lg-2">
+                                <label class="mr-1">Añadir:</label>
+                                <input value="add" name="permisos" type="checkbox">
+                            </div>
+                            <div class="px-2 col-lg-2">
+                                <label class="mr-1">Editar:</label>
+                                <input value="edit" name="permisos" type="checkbox">
+                            </div>
+                            <div class="px-2 col-lg-2">
+                                <label class="mr-1">Borrar:</label>
+                                <input value="delete" name="permisos" type="checkbox">
+                            </div>
+                        </div>
+
+                        <div class="row m-2">
+                            <div class="px-2 col-lg-4">
+                                <label class="mr-1">Cambiar configuración de colores:</label>
+                                <input value="color" name="permisos" type="checkbox">
+                            </div>
+                            <div class="px-2 col-lg-4">
+                                <label class="mr-1">Añadir nuevos usuario:</label>
+                                <input value="user" name="permisos" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center" style="padding: 2%">
+                        <button name="add" type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
+                            <a> Guardar
+                                <i class="fas fa-save text-white" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                        <button name="back" class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
+                            <a class="text-white text-decoration-none" href="{% url 'index' %}"> Salir sin guardar
+                                <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+{% endblock content %}

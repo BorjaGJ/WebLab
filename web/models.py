@@ -1,5 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from colorfield.fields import ColorField
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -80,5 +81,17 @@ def modelEventoColorHasChanged(Model, color_configuracion):
         devolver = entrada.evento.color != color_configuracion
 
     return devolver
+
+
+class CustomPermisos(models.Model):
+    can_add = models.BooleanField(default=False)
+    can_edit = models.BooleanField(default=False)
+    can_delete = models.BooleanField(default=False)
+    can_color = models.BooleanField(default=False)
+    can_user = models.BooleanField(default=False)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.usuario.username
 
 

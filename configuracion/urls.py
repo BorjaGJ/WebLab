@@ -25,7 +25,7 @@ from configuracion import settings
 from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
-from web.views import Index, EventosCalendarioView, ConfiguracionEventosView
+from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView
 
 admin.autodiscover()
 
@@ -40,7 +40,8 @@ urlpatterns = [
     url(r'^productos/', include('productos.urls')),
     url(r'^material/', include('material.urls')),
     url(r'^otros/', include('otros.urls')),
-    url(r'^trabajadores/', include('trabajadores.urls')),
+    url(r'^añadir/usuario$', login_required(AddUserView.as_view()), name='add_trabajador'),
+
 
     url(r'^calendario/eventos/(?P<mes>[-\d]+)/(?P<dia>[-\d]+)$', login_required(EventosCalendarioView.as_view()),
         name='calendario_eventos'),

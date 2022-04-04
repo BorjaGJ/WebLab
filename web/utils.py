@@ -41,7 +41,7 @@ class MyHTMLCalendar(HTMLCalendar):
                     )
 
         else:
-             # cualquier otro
+             # cualquier otro dia
             return '<td class="%s">%d</td>' % ('calendar-day', day)
 
     def formatweekday(self, day):

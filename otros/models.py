@@ -53,48 +53,6 @@ class Cliente(Persona):
     pass
 
 
-class Trabajador(Persona):
-    fecha_incorporacion = models.DateField(auto_now_add=True)
-    password = models.CharField(max_length=100)
-    password_confirm = models.CharField(max_length=100)
-    personal = models.BooleanField(default=True)
-    admin = models.BooleanField(default=False)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, blank=True, null=True)
-
-    # def save(self, *args, **kwargs):
-    #
-    #     user = get_object_or_None(User, username=self.nombre)
-    #
-    #
-    #     if user is None:
-    #
-    #         user = User.objects.create(
-    #             username=self.nombre,
-    #             email=self.email,
-    #             password=self.password,
-    #             is_staff=self.personal,
-    #             is_superuser=self.admin,
-    #             is_active=True,
-    #         )
-    #         user.save()
-    #         self.usuario = user
-    #
-    #
-    #     else:
-    #         user.username = self.nombre
-    #         user.email = self.email
-    #         user.password = self.password
-    #         user.is_staff = self.personal
-    #         user.is_superuser = self.admin
-    #         user.save()
-    #
-    #
-    #
-    #     super(Trabajador, self).save(*args, **kwargs)
-
-
-
-
 class Pedido(models.Model):
     nombre = models.CharField(max_length=100)
     fecha_pedido = models.DateField(auto_now_add=True)
@@ -158,8 +116,9 @@ class Evento(models.Model):
 
         hoy = datetime.now()
         lista_eventos = []
+
         try:
-            eventos = Evento.objects.filter(fecha__month=hoy.month)
+            eventos = Evento.objects.filter(fecha__month=hoy.month, fecha__year=hoy.year)
             for evento in eventos:
                 lista_eventos.append(evento.fecha.day)
 

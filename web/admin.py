@@ -4,3 +4,4 @@ from web import models
 
 admin.site.register(models.PoliticaPrivacidad)
 admin.site.register(models.Condiciones)
+admin.site.register(models.CustomPermisos)
