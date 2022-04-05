@@ -1,7 +1,7 @@
 import calendar
 from datetime import datetime, timedelta
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
@@ -104,6 +104,24 @@ class AddUserView(AddView):
 
         return render(request, self.template_name, {'form': form})
 
+class EditUser(CreateView):
+    template_name = 'edit_user.html'
+
+    def get(self, request, *args, **kwargs):
+
+        form = PasswordChangeForm(request.user)
+
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+
+        form = PasswordChangeForm(request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+
+        return render(request, self.template_name, {'form': form})
 
 def prev_month(d):
     first = d.replace(day=1)

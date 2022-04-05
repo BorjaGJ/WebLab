@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_filters %}
+
+{% block content %}
+
+
+    <div style="margin-left: 2%"></div>
+
+    <div id="layoutSidenav_content">
+        <main class="container row col-lg-12" STYLE="padding: 2%">
+
+            <h1 class="mt-0">Añadir usuario</h1>
+
+            <ol class="breadcrumb mb-4 col-lg-12 bg-white">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">usuarios</li>
+                <li class="breadcrumb-item">Mi usuario</li>
+                <li class="breadcrumb-item">Cambiar mi contraseña</li>
+            </ol>
+
+            <div class="card border-dark">
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data"
+                      action="{% url 'edit_user' %}" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="text-center" style="padding: 2%">
+                        <button name="add" type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
+                            <a> Guardar
+                                <i class="fas fa-save text-white" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                        <button name="back" class="btn btn-danger px-3 waves-effect waves-light col-lg-3">
+                            <a class="text-white text-decoration-none" href="{% url 'index' %}"> Salir sin guardar
+                                <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var popup = document.getElementById('hint_id_new_password1');
+            popup.classList.add('d-none')
+        };
+    </script>
+
+{% endblock content %}

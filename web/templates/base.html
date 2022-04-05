@@ -42,7 +42,8 @@
                aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'configuracion_color' %}">Configuración de colores</a></li>
-                <li><a class="dropdown-item" href="{% url 'add_trabajador' %}">Añadir trabajador</a></li>
+                <li><a class="dropdown-item" href="{% url 'edit_user' %}">Cambiar mi contraseña</a></li>
+                <li><a class="dropdown-item" href="{% url 'add_trabajador' %}">Añadir usuario</a></li>
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
@@ -82,13 +83,6 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tint"></i></div>
                         Disolventes
                     </a>
-                    <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Orgánicos</a>
-                            <a class="nav-link" href="layout-sidenav-light.html">Inorgánicos</a>
-                        </nav>
-                    </div>
 
                     <div class="sb-sidenav-menu-heading">Otros</div>
                     <a class="nav-link" href="{% url 'proveedores' %}">
@@ -151,9 +145,6 @@
 <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"
         crossorigin="anonymous"></script>
-<script>
-    flatpickr()
-</script>
 {#<script type="text/javascript" src="{% static 'js/datatables-simple-demo.js' %}"></script>#}
 {#<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>#}
 
