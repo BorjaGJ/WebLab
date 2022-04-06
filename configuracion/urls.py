@@ -25,7 +25,7 @@ from configuracion import settings
 from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
-from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser
+from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser, LectorView
 
 admin.autodiscover()
 
@@ -47,8 +47,9 @@ urlpatterns = [
 
     url(r'^calendario/eventos/(?P<mes>[-\d]+)/(?P<dia>[-\d]+)$', login_required(EventosCalendarioView.as_view()),
         name='calendario_eventos'),
-    url(r'^configuracion/colores_eventos/$',login_required(ConfiguracionEventosView.as_view()),
+    url(r'^configuracion/colores_eventos/$', login_required(ConfiguracionEventosView.as_view()),
         name='configuracion_color'),
+    url('^lector_qr/$', login_required(LectorView.as_view()), name='lector'),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),

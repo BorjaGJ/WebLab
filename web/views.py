@@ -123,6 +123,13 @@ class EditUser(CreateView):
 
         return render(request, self.template_name, {'form': form})
 
+
+class LectorView(CreateView):
+    template_name = 'lector.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
