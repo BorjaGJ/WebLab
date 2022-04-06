@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load qr_code %}
+{% load tags_web %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -8,7 +8,7 @@
 
                 {#        Formulario de buscar#}
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-end"
-                      method="GET" action="{% url 'search_patron' %}">
+                      method="GET" action="{% url 'search_usuario' %}">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Buscar..."
                                aria-label="Search for..." name="buscar"
@@ -40,77 +40,69 @@
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>
-                                <th>Código de laboratorio</th>
-                                <th>CAS</th>
-                                <th>Concentracion</th>
-                                <th>Proveedor</th>
-                                <th>Ficha de seguridad</th>
-                                <th>Certificado</th>
+                                <th>Puede añadir entradas</th>
+                                <th>Puede editar entradas</th>
+                                <th>Puede borrar entradas</th>
+                                <th>Configuración de colores</th>
+                                <th>Crear nuevos usuarios</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for producto in entradas %}
+                            {% for usuario in usuarios %}
+                                {% get_perimisos usuario as permisos %}
                                 <tr>
-                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ usuario.username }}</td>
                                     <td>
-                                        {{ producto.codigo_laboratorio }}
-                                        <div class="float-end px-4">
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                                    onclick="Aparecer({{ producto.id }})">
-                                                <i class="fas fa-qrcode" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        <div id={{ producto.id }} class="d-none">
-                                            <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
-                                        </div>
-                                    </td>
-                                    <td>{{ producto.CAS }}</td>
-                                    <td>{{ producto.concentracion }}</td>
-                                    <td>
-                                        {% if producto.proveedor %}
-                                            {{ producto.preveedor }}
+                                        {% if permisos.can_add %}
+                                            Si
                                         {% else %}
-                                            N/A
+                                            No
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if producto.ficha_seguridad %}
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                                <a target="_blank" href="/media/{{ producto.ficha_seguridad }}">
-                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
+                                        {% if permisos.can_edit %}
+                                            Si
                                         {% else %}
-                                            N/A
+                                            No
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if producto.certificado %}
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                                <a target="_blank" href="/media/{{ producto.certificado }}">
-                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
+                                        {% if permisos.can_delete %}
+                                            Si
                                         {% else %}
-                                            N/A
+                                            No
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if permisos.can_color %}
+                                            Si
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if permisos.can_user %}
+                                            Si
+                                        {% else %}
+                                            No
                                         {% endif %}
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
+                                            <a href="">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                                onclick='AparecerDelete("{{ usuario.id }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 
-                                          <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                         <div class="d-none mb-2" id={{ usuario.id }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
                                             <div class="row">
@@ -119,17 +111,8 @@
                                                     <button type="button"
                                                             class="btn btn-danger p-2 waves-effect waves-light">
                                                         <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_patron' producto.codigo_laboratorio %}">Borrar
+                                                           href="{% url 'delete_usuario' usuario.id %}">Borrar
                                                             <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
                                                                aria-hidden="true"></i>
                                                         </a>
                                                     </button>

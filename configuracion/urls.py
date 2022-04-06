@@ -25,7 +25,8 @@ from configuracion import settings
 from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
-from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser, LectorView
+from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser, LectorView, \
+    UserListView, deleteUsuario, searchUsuario
 
 admin.autodiscover()
 
@@ -41,8 +42,11 @@ urlpatterns = [
     url(r'^material/', include('material.urls')),
     url(r'^otros/', include('otros.urls')),
 
-    url(r'^usuario/add$', login_required(AddUserView.as_view()), name='add_trabajador'),
-    url(r'^usuario/mis_usuario$', login_required(EditUser.as_view()), name='edit_user'),
+    url(r'^usuarios/$', login_required(UserListView.as_view()), name='lista_usuarios'),
+    url(r'^usuarios/add$', login_required(AddUserView.as_view()), name='add_trabajador'),
+    url(r'^usuarios/delete/(?P<id>[-\d]+)$', login_required(deleteUsuario), name='delete_usuario'),
+    url(r'^usuarios/search$', login_required(searchUsuario), name='search_usuario'),
+    url(r'^usuarios/mi_usuario/change_password$', login_required(EditUser.as_view()), name='edit_user'),
 
 
     url(r'^calendario/eventos/(?P<mes>[-\d]+)/(?P<dia>[-\d]+)$', login_required(EventosCalendarioView.as_view()),

@@ -43,6 +43,7 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'lector' %}">Lector de QR</a></li>
                 <li><a class="dropdown-item" href="{% url 'configuracion_color' %}">Configuración de colores</a></li>
+                <li><a class="dropdown-item" href="{% url 'lista_usuarios' %}">Lista de usuarios</a></li>
                 <li><a class="dropdown-item" href="{% url 'edit_user' %}">Cambiar mi contraseña</a></li>
                 <li><a class="dropdown-item" href="{% url 'add_trabajador' %}">Añadir usuario</a></li>
                 <li>
@@ -121,8 +122,7 @@
                         </h3>
                     </div>
 
-                    {{ calendario | safe }}
-
+                        {{ calendario | safe }}
 
                 </div>
             </main>

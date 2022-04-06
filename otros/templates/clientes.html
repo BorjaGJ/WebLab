@@ -87,17 +87,28 @@
                                         <div class="d-none mb-2" id={{ cliente.id }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
-                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                                <a class="text-white text-decoration-none"
-                                                   href="{% url 'delete_cliente' cliente.id %}">Borrar
-                                                    <i class="fas fa-trash-alt text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
-                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light">
-                                                <a onclick='AparecerDelete("{{ cliente.id }}")'>Volver
-                                                    <i class="fas fa-backspace text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
+                                            <div class="row">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-lg-4 pt-1">
+                                                    <button type="button"
+                                                            class="btn btn-danger p-2 waves-effect waves-light">
+                                                        <a class="text-white text-decoration-none"
+                                                           href="{% url 'delete_cliente' cliente.id %}">Borrar
+                                                            <i class="fas fa-trash-alt text-white"
+                                                               aria-hidden="true"></i>
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-4 pt-1">
+                                                    <button type="button"
+                                                            class="btn btn-danger p-2 waves-effect waves-light ">
+                                                        <a onclick='AparecerDelete("{{ cliente.id }}")'>Volver
+                                                            <i class="fas fa-backspace text-white"
+                                                               aria-hidden="true"></i>
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

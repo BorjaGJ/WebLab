@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 
@@ -123,6 +124,34 @@ class EditUser(CreateView):
 
         return render(request, self.template_name, {'form': form})
 
+
+class UserListView(CreateView):
+    template_name = 'usuarios.html'
+
+    def get(self, request, *args, **kwargs):
+        usuarios = User.objects.filter(is_staff=False)
+        return render(request, self.template_name, {'usuarios': usuarios})
+
+
+def deleteUsuario(request, **kwargs):
+
+    entrada = User.objects.get(id=kwargs['id'])
+    entrada.delete()
+
+    return redirect('lista_usuarios')
+
+def searchUsuario(request):
+
+    model = User
+
+    if request.method == 'GET':
+        buscado = request.GET.get('buscar')
+
+        usuarios = model.objects.filter(
+            Q(username__icontains=buscado)
+        )
+
+        return render(request, 'clientes.html', {"usuarios": usuarios})
 
 class LectorView(CreateView):
     template_name = 'lector.html'
