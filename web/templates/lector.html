@@ -6,40 +6,44 @@
     <style>
         #preview {
             width: 100%;
-            height: 50%;
+            height: 100%;
             margin: 0 auto;
         }
     </style>
 
     <section id="layoutSidenav_content">
-        <main class="container row col-lg-12" STYLE="padding: 2%">
+        <main class="text-center">
+            {% if messages %}
+                <ul class="messages p-1">
+                    {% for message in messages %}
+                        <p{% if message.tags %} class="{{ message.tags }} p-2"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
+            <div class="p-3">
+                <video id="preview"></video>
+            </div>
 
-            <section class="text-center">
+            <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="options" value="1" autocomplete="off" checked> Cámara delantera
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" value="2" autocomplete="off"> Cámara trasera
+                </label>
+            </div>
 
-                <div class="p-3">
-                    <video id="preview"></video>
-                </div>
-
-                <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="options" value="1" autocomplete="off" checked> Cámara delantera
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" value="2" autocomplete="off"> Cámara trasera
-                    </label>
-                </div>
-            </section>
         </main>
     </section>
 
-
-    <script src="{% static 'instascan/instascan.min.js' %}"></script>
-
-    <script type="text/javascript">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'instascan/instascan.min.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'sweetalert/sweetalert2.all.js' %}"></script>
+    <script language="JavaScript" type="text/javascript">
         var scanner = new Instascan.Scanner({video: document.getElementById('preview'), scanPeriod: 5, mirror: false});
         scanner.addListener('scan', function (content) {
-            alert(content)
+            Swal.fire(content);
         });
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 0) {
@@ -63,6 +67,9 @@
                 console.error('No cameras found.');
                 alert('No cameras found.');
             }
+        }).catch(function (e) {
+            console.error(e);
+            alert(e);
         });
     </script>
 

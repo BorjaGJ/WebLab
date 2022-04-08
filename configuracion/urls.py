@@ -57,6 +57,7 @@ urlpatterns = [
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url('^qr_code/', include('qr_code.urls', namespace="qr_code")),
+    url(r'^robots\.txt', include('robots.urls')),
 
 ]
 

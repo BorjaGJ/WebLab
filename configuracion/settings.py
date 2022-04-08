@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'ckeditor',
+    'robots',
     'ckeditor_uploader',
     'qr_code',
     'colorfield',
@@ -60,6 +62,9 @@ INSTALLED_APPS = [
     'material',
 
 ]
+
+SITE_ID = 1
+
 FLATPICKR_SETTINGS = {
 
     'options': {
