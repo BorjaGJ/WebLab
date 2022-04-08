@@ -235,7 +235,7 @@ class PedidoEditView(CreateView):
                 form.save()
                 return redirect(self.redirect_to, padre.nombre_slug)
 
-        return render(request, self.template_name, {"form": form, 'entrada': entrada})
+        return render(request, self.template_name, {"form": form, 'entrada': entrada, 'padre': padre})
 
 
 

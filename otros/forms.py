@@ -68,7 +68,7 @@ class PedidoForm(ModelForm):
     class Meta:
         model = Pedido
 
-        exclude = {'fecha_pedido', 'proveedor'}
+        exclude = {'fecha_pedido', 'proveedor', 'evento'}
 
         widgets = {
             'fecha_espera': DatePickerInput(),
@@ -88,12 +88,18 @@ class PedidoForm(ModelForm):
         self.fields['puntuacion'].widget.attrs['class'] = 'form-control'
         self.fields['albaran'].widget.attrs['class'] = 'form-control'
 
+    def clean(self):
+        cd = self.cleaned_data
+        if cd.get('puntuacion') > 10 or cd.get('puntuacion') < 0:
+            self.add_error('puntuacion', 'Intruduce una puntuación entre el 0 y el 10')
+        return cd
+
 
 class AnalisisForm(ModelForm):
     class Meta:
         model = Analisis
 
-        exclude = {'fecha_pedido', 'cliente'}
+        exclude = {'fecha_pedido', 'cliente', 'evento'}
 
         widgets = {
             'fecha_expiracion': DatePickerInput(),
@@ -109,3 +115,5 @@ class AnalisisForm(ModelForm):
         self.fields['fecha_terminado'].label = "Fecha de terminación"
         self.fields['factura'].label = "Factura"
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
+
+

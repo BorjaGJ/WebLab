@@ -1,3 +1,4 @@
+from annoying.functions import get_object_or_None
 from ckeditor_uploader.fields import RichTextUploadingField
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
@@ -32,6 +33,8 @@ class ConfiguracionEventos(models.Model):
         from productos.models import Disolvente
         from productos.models import Reactivo
         from productos.models import Patron
+        from otros.models import Analisis
+        from otros.models import Pedido
 
         if modelEventoColorHasChanged(Instrumento, self.color_instrumentos):
             instrumentos = Instrumento.objects.all()
@@ -69,10 +72,26 @@ class ConfiguracionEventos(models.Model):
                 disolvente.evento.color = self.color_disolventes
                 disolvente.save()
 
+        if modelEventoColorHasChanged(Analisis, self.color_analisis):
+            analisis = Analisis.objects.all()
+            for analisis in analisis:
+                analisis.evento.color = self.color_analisis
+                analisis.save()
+
+        if modelEventoColorHasChanged(Pedido, self.color_analisis):
+            pedidos = Pedido.objects.all()
+            for pedido in pedidos:
+                pedido.evento.color = self.color_pedidos
+                pedido.save()
+
+
 
 def modelEventoColorHasChanged(Model, color_configuracion):
-    entrada = Model.objects.first()
+
+    entrada = get_object_or_None(Model, id=1)
     devolver = False
+
+    print(entrada)
 
     if entrada is None:
         devolver = False
