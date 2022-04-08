@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 
 from otros.models import Evento
-from web.forms import ConfiguracionEventosForm
+from web.forms import ConfiguracionEventosForm, CustomPermisosForm
 from web.models import ConfiguracionEventos, CustomPermisos
 from web.utils import MyHTMLCalendar
 from web.views_utils import AddView
@@ -131,6 +131,27 @@ class UserListView(CreateView):
     def get(self, request, *args, **kwargs):
         usuarios = User.objects.filter(is_staff=False)
         return render(request, self.template_name, {'usuarios': usuarios})
+
+
+class EditPermisosUserView(CreateView):
+    template_name = 'edit_permisos.html'
+
+    def get(self, request, *args, **kwargs):
+        usuario = User.objects.get(id=self.kwargs['id'])
+        entrada = CustomPermisos.objects.get(usuario=usuario)
+        form = CustomPermisosForm(instance=entrada)
+        return render(request, self.template_name, {'form': form, 'usuario': usuario})
+
+    def post(self, request, *args, **kwargs):
+        usuario = User.objects.get(id=self.kwargs['id'])
+        entrada = CustomPermisos.objects.get(usuario=usuario)
+        form = CustomPermisosForm(request.POST, instance=entrada)
+
+        if form.is_valid():
+            form.save()
+            return redirect('lista_usuarios')
+
+        return render(request, self.template_name, {'form': form, 'usuario': usuario})
 
 
 def deleteUsuario(request, **kwargs):

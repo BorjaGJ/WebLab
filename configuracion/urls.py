@@ -26,7 +26,7 @@ from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
 from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser, LectorView, \
-    UserListView, deleteUsuario, searchUsuario
+    UserListView, deleteUsuario, searchUsuario, EditPermisosUserView
 
 admin.autodiscover()
 
@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^usuarios/delete/(?P<id>[-\d]+)$', login_required(deleteUsuario), name='delete_usuario'),
     url(r'^usuarios/search$', login_required(searchUsuario), name='search_usuario'),
     url(r'^usuarios/mi_usuario/change_password$', login_required(EditUser.as_view()), name='edit_user'),
+    url(r'^usuarios/editar/(?P<id>[-\d]+)$', login_required(EditPermisosUserView.as_view()), name='edit_permisos'),
 
 
     url(r'^calendario/eventos/(?P<mes>[-\d]+)/(?P<dia>[-\d]+)$', login_required(EventosCalendarioView.as_view()),

@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from web.models import ConfiguracionEventos
+from web.models import ConfiguracionEventos, CustomPermisos
 
 
 class WebLabLoginForm(AuthenticationForm):
@@ -53,5 +53,23 @@ class ConfiguracionEventosForm(ModelForm):
 
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'jscolor'
+
+
+class CustomPermisosForm(ModelForm):
+
+    class Meta:
+
+        model = CustomPermisos
+
+        exclude = {'usuario'}
+
+        labels = {
+            'can_user': 'Puede añadir nuevos usuarios',
+            'can_add': 'Puede añadir nuevas entrada',
+            'can_edit': 'Puede editar entrada',
+            'can_delete': 'Puede borrar entradas',
+            'can_color': 'Puede cambiar la configuracion de colores',
+        }
+
 
 
