@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags_web %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -25,18 +26,16 @@
                     <li class="breadcrumb-item">Otros</li>
                     <li class="breadcrumb-item active">Clientes</li>
                 </ol>
-
+                {% get_permisos request.user as permisos %}
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fa fa-plus me-1"></i>
-                        <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
-                            <a class="text-decoration-none text-white" href="{% url 'add_cliente' %}">Añadir</a>
-                        </button>
-{#                         <i class="fa fa-flask me-1"></i>#}
-{#                        <button class="btn btn-primary col-lg-2">#}
-{#                            <a class="text-decoration-none text-white" href="{% url 'delete_expired' %}">Todos los análisis</a>#}
-{#                        </button>#}
+                        {% if permisos.can_add %}
+                            <i class="fa fa-plus me-1"></i>
+                            <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
+                                <a class="text-decoration-none text-white" href="{% url 'add_cliente' %}">Añadir</a>
+                            </button>
+                        {% endif %}
                     </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center table-responsive-sm">
@@ -49,8 +48,12 @@
                                 <th>Cp</th>
                                 <th>Poblacion</th>
                                 <th>Análisis</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                {% if permisos.can_edit %}
+                                    <th>Editar</th>
+                                {% endif %}
+                                {% if permisos.can_delete %}
+                                    <th>Eliminar</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -64,53 +67,57 @@
                                     <td>{{ cliente.email }}</td>
                                     <td>{{ cliente.cp }}</td>
                                     <td>{{ cliente.poblacion }}</td>
-                                     <td>
+                                    <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                             <a href="{% url 'analisis' cliente.nombre_slug %}">
                                                 <i class="fas fa-microscope text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'cliente_edit' cliente.id %}">
-                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ cliente.id }}")'>
-                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                        </button>
+                                    {% if permisos.can_edit %}
+                                        <td>
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a href="{% url 'cliente_edit' cliente.id %}">
+                                                    <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    {% endif %}
+                                    {% if permisos.can_delete %}
+                                        <td>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                    onclick='AparecerDelete("{{ cliente.id }}")'>
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
 
-                                        <div class="d-none mb-2" id={{ cliente.id }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_cliente' cliente.id %}">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ cliente.id }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
+                                            <div class="d-none mb-2" id={{ cliente.id }}>
+                                                <p class="bold mt-3">¿Estás seguro de <br>
+                                                    eliminar esta entrada?</p>
+                                                <div class="row">
+                                                    <div class="col-lg-2"></div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light">
+                                                            <a class="text-white text-decoration-none"
+                                                               href="{% url 'delete_cliente' cliente.id %}">Borrar
+                                                                <i class="fas fa-trash-alt text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light ">
+                                                            <a onclick='AparecerDelete("{{ cliente.id }}")'>Volver
+                                                                <i class="fas fa-backspace text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>

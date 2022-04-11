@@ -18,23 +18,16 @@
                     </div>
                 </form>
 
-                <h1 class="mt-4">Patrones</h1>
+                <h1 class="mt-4">Usuarios</h1>
 
                 <ol class="breadcrumb mb-4 col-lg-3 bg-white">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                     </li>
-                    <li class="breadcrumb-item">Productos</li>
-                    <li class="breadcrumb-item active">Patrones</li>
+                    <li class="breadcrumb-item">Usuarios</li>
                 </ol>
 
-
+            {% get_permisos request.user as userpermit %}
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fa fa-plus me-1"></i>
-                        <button class="btn btn-primary col-lg-2">
-                            <a class="text-decoration-none text-white" href="{% url 'add_patron' %}">Añadir</a>
-                        </button>
-                    </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center table-responsive-sm">
                             <thead class="text-white mybg">
@@ -45,13 +38,17 @@
                                 <th>Puede borrar entradas</th>
                                 <th>Configuración de colores</th>
                                 <th>Crear nuevos usuarios</th>
+                                {% if userpermit.can_user %}
                                 <th>Editar</th>
+                                {% endif %}
+                                {% if userpermit.can_user %}
                                 <th>Eliminar</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
                             {% for usuario in usuarios %}
-                                {% get_perimisos usuario as permisos %}
+                                {% get_permisos usuario as permisos %}
                                 <tr>
                                     <td>{{ usuario.username }}</td>
                                     <td>
@@ -89,6 +86,7 @@
                                             No
                                         {% endif %}
                                     </td>
+                                    {% if userpermit.can_user %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                             <a href="{% url 'edit_permisos' usuario.id %}">
@@ -96,6 +94,8 @@
                                             </a>
                                         </button>
                                     </td>
+                                    {% endif %}
+                                    {% if userpermit.can_user %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
                                                 onclick='AparecerDelete("{{ usuario.id }}")'>
@@ -120,6 +120,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>

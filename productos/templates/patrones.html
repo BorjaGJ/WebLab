@@ -92,7 +92,6 @@
                                             N/A
                                         {% endif %}
                                     </td>
-                                   {% if permisos.can_edit %}
                                     <td>
                                         {% if producto.certificado %}
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
@@ -104,8 +103,7 @@
                                             N/A
                                         {% endif %}
                                     </td>
-                                {% endif %}
-                                {% if permisos.can_delete %}
+                                {% if permisos.can_edit %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                             <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
@@ -113,6 +111,8 @@
                                             </a>
                                         </button>
                                     </td>
+                                {% endif %}
+                                {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
                                                 onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>

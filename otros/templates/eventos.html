@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags_web %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -25,17 +26,21 @@
                     <li class="breadcrumb-item">Otros</li>
                     <li class="breadcrumb-item active">Eventos</li>
                 </ol>
+                {% get_permisos request.user as permisos %}
 
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fa fa-plus me-1"></i>
-                        <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
-                            <a class="text-decoration-none text-white" href="{% url 'add_evento' %}">Añadir</a>
-                        </button>
-                         <i class="fa fa-trash me-1"></i>
+                        {% if permisos.can_add %}
+                            <i class="fa fa-plus me-1"></i>
+                            <button class="btn btn-primary col-lg-2" style="margin-right: 2%">
+                                <a class="text-decoration-none text-white" href="{% url 'add_evento' %}">Añadir</a>
+                            </button>
+                        {% endif %}
+                        <i class="fa fa-trash me-1"></i>
                         <button class="btn btn-danger col-lg-2">
-                            <a class="text-decoration-none text-white" href="{% url 'delete_expired' %}">Borrar caducados</a>
+                            <a class="text-decoration-none text-white" href="{% url 'delete_expired' %}">Borrar
+                                caducados</a>
                         </button>
                     </div>
                     <div class="card-body container">
@@ -45,8 +50,12 @@
                                 <th>Nombre</th>
                                 <th>Fecha</th>
                                 <th>Color</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                {% if permisos.can_edit %}
+                                    <th>Editar</th>
+                                {% endif %}
+                                {% if permisos.can_delete %}
+                                    <th>Eliminar</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -57,46 +66,50 @@
                                         {{ evento.fecha }}
                                     </td>
                                     <td style="background-color: {{ evento.color }}"></td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'evento_edit' evento.id %}">
-                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ evento.id }}")'>
-                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                        </button>
+                                    {% if permisos.can_edit %}
+                                        <td>
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a href="{% url 'evento_edit' evento.id %}">
+                                                    <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    {% endif %}
+                                    {% if permisos.can_delete %}
+                                        <td>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                    onclick='AparecerDelete("{{ evento.id }}")'>
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
 
-                                        <div class="d-none mb-2" id={{ evento.id }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_evento' evento.id %}">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ evento.id }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
+                                            <div class="d-none mb-2" id={{ evento.id }}>
+                                                <p class="bold mt-3">¿Estás seguro de <br>
+                                                    eliminar esta entrada?</p>
+                                                <div class="row">
+                                                    <div class="col-lg-2"></div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light">
+                                                            <a class="text-white text-decoration-none"
+                                                               href="{% url 'delete_evento' evento.id %}">Borrar
+                                                                <i class="fas fa-trash-alt text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light ">
+                                                            <a onclick='AparecerDelete("{{ evento.id }}")'>Volver
+                                                                <i class="fas fa-backspace text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>
