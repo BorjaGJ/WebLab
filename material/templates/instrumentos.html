@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load qr_code %}
+{% load qr_code tags_web %}
 
 {% block content %}
 
@@ -28,14 +28,17 @@
                     <li class="breadcrumb-item">Material</li>
                     <li class="breadcrumb-item active">Instrumentos</li>
                 </ol>
+            {% get_permisos request.user as permisos %}
 
                 {#        Tabla dentro de carta#}
                 <div class="card mb-4">
                     <div class="card-header">
+                        {% if permisos.can_add %}
                         <i class="fa fa-plus me-1"></i>
                         <button class="btn btn-primary col-lg-2">
                             <a class="text-decoration-none text-white" href="{% url 'add_instrumento' %}">Añadir</a>
                         </button>
+                        {% endif %}
                     </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center table-responsive-sm">
@@ -46,8 +49,12 @@
                                 <th>Próxima revisión</th>
                                 <th>Proveedor</th>
                                 <th>Método de calibración</th>
+                                {% if permisos.can_edit %}
                                 <th>Editar</th>
+                                {% endif %}
+                                {% if permisos.can_delete %}
                                 <th>Eliminar</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -82,6 +89,7 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                   {% if permisos.can_edit %}
                                     <td>
                                          {% if material.metodo_calibracion %}
                                              <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
@@ -93,6 +101,8 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                    {% endif %}
+                                    {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                             <a href="{% url 'instrumento_edit' material.codigo_laboratorio %}">
@@ -133,6 +143,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                 {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>

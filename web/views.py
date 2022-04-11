@@ -116,7 +116,7 @@ class EditUser(CreateView):
 
     def post(self, request, *args, **kwargs):
 
-        form = PasswordChangeForm(request.user)
+        form = PasswordChangeForm(request.user, request.POST)
 
         if form.is_valid():
             form.save()

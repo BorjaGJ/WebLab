@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load qr_code %}
+{% load qr_code tags_web %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -26,14 +26,16 @@
                     <li class="breadcrumb-item">Productos</li>
                     <li class="breadcrumb-item active">Patrones</li>
                 </ol>
-
+                {% get_permisos request.user as permisos %}
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fa fa-plus me-1"></i>
-                        <button class="btn btn-primary col-lg-2">
-                            <a class="text-decoration-none text-white" href="{% url 'add_patron' %}">Añadir</a>
-                        </button>
+                        {% if permisos.can_add %}
+                            <i class="fa fa-plus me-1"></i>
+                            <button class="btn btn-primary col-lg-2">
+                                <a class="text-decoration-none text-white" href="{% url 'add_patron' %}">Añadir</a>
+                            </button>
+                        {% endif %}
                     </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center table-responsive-sm">
@@ -46,8 +48,12 @@
                                 <th>Proveedor</th>
                                 <th>Ficha de seguridad</th>
                                 <th>Certificado</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                {% if permisos.can_edit %}
+                                    <th>Editar</th>
+                                {% endif %}
+                                {% if permisos.can_delete %}
+                                    <th>Eliminar</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -86,6 +92,7 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                   {% if permisos.can_edit %}
                                     <td>
                                         {% if producto.certificado %}
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
@@ -97,6 +104,8 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                {% endif %}
+                                {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                             <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
@@ -110,7 +119,7 @@
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 
-                                          <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
+                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
                                             <p class="bold mt-3">¿Estás seguro de <br>
                                                 eliminar esta entrada?</p>
                                             <div class="row">
@@ -137,6 +146,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>

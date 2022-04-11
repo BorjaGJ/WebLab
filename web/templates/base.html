@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tags_web %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -36,6 +36,7 @@
         </div>
     </form>
     <!-- Navbar-->
+    {% get_permisos request.user as permisos %}
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
@@ -44,17 +45,21 @@
                 <li><a class="dropdown-item" href="{% url 'lector' %}"><i class="fa fa-camera">
                     </i>&nbsp;&nbsp;Lector de QR</a>
                 </li>
+                {% if permisos.can_color %}
                 <li><a class="dropdown-item" href="{% url 'configuracion_color' %}">
                     <i class="fa fa-palette"></i>&nbsp;&nbsp;Configuración de colores</a>
                 </li>
+                {% endif %}
                 <li><a class="dropdown-item" href="{% url 'lista_usuarios' %}">
                     <i class="fa fa-users"></i>&nbsp;&nbsp;Lista de usuarios</a>
                 </li>
                 <li><a class="dropdown-item" href="{% url 'edit_user' %}">
                     <i class="fa fa-key"></i>&nbsp;&nbsp;Cambiar mi contraseña</a></li>
+                {% if permisos.can_user %}
                 <li><a class="dropdown-item" href="{% url 'add_trabajador' %}">
                     <i class="fa fa-id-badge"></i>&nbsp;&nbsp;Añadir usuario</a>
                 </li>
+                {% endif %}
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
