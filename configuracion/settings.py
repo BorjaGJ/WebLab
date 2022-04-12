@@ -146,6 +146,7 @@ para poder instalar con apache hay que descomentar static root y comentar
 los staticfiles_dirs hacer python manage.py collectstatic y dejar comoe staba
 """
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # os.path.join(BASE_DIR, "static"),
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, "static"),
