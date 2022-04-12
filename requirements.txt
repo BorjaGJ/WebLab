@@ -2,6 +2,7 @@ django
 django-suit
 Pillow
 gunicorn
+whitenoise
 argparse
 django-annoying==0.10.4
 django-bootstrap-form
