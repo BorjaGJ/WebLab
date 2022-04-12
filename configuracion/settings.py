@@ -201,7 +201,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 # STATIC_ROOT = '/static/'
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 MEDIA_URL = '/media/'
 FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
