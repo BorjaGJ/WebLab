@@ -18,6 +18,8 @@ django-slugify-processor
 django-qr-code
 django-colorfield
 django-flatpickr
+django-robots
+django-crispy-forms
 
 pytz
 six
