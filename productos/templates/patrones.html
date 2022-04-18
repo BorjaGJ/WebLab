@@ -68,7 +68,7 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        {% get_pased_text '/productos/patrones/editar/' producto.codigo_laboratorio as parsed %}
+                                        {% get_pased_text '/productos/patrones/editar/' producto.codigo_slug as parsed %}
                                         <div id={{ producto.id }} class="d-none">
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
@@ -107,7 +107,7 @@
                                 {% if permisos.can_edit %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'patron_edit' producto.codigo_laboratorio %}">
+                                            <a href="{% url 'patron_edit' producto.codigo_slug %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
@@ -116,7 +116,7 @@
                                 {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                                onclick='AparecerDelete("{{ producto.codigo_slug }}")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
 

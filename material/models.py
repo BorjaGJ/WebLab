@@ -2,6 +2,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from annoying.functions import get_object_or_None
+from django.template.defaultfilters import slugify
 
 from otros.models import Proveedor, Evento
 from web.models import ConfiguracionEventos
@@ -21,6 +22,7 @@ no_asciis_validator = RegexValidator(
 class Material(models.Model):
     nombre = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
+    codigo_slug = models.CharField(max_length=100, blank=True, null=True, editable=False)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratorio')
     proxima_revision = models.DateField()
@@ -64,6 +66,9 @@ class Volumetrico(Material):
             evento.color = configuracion.color_volumetricos
             evento.save()
 
+
+        self.codigo_slug = slugify(self.codigo_laboratorio)
+
         super(Volumetrico, self).save(*args, **kwargs)
 
 
@@ -96,6 +101,8 @@ class Instrumento(Material):
             evento.color = configuracion.color_instrumentos
             evento.save()
 
+        self.codigo_slug = slugify(self.codigo_laboratorio)
+
         super(Instrumento, self).save(*args, **kwargs)
 
 
@@ -122,5 +129,7 @@ class Miscelanea(Material):
             evento.nombre = self.nombre
             evento.color = configuracion.color_miscelaneas
             evento.save()
+
+        self.codigo_slug = slugify(self.codigo_laboratorio)
 
         super(Miscelanea, self).save(*args, **kwargs)

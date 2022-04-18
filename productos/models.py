@@ -13,6 +13,7 @@ class Producto(models.Model):
     nombre_slug = models.SlugField(blank=True, editable=False)
     CAS = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
+    codigo_slug = models.CharField(max_length=100, blank=True, null=True)
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
     ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)
@@ -62,6 +63,8 @@ class Patron(Producto):
             evento.color = configuracion.color_volumetricos
             evento.save()
 
+        self.codigo_slug = slugify(self.codigo_laboratorio)
+
         super(Patron, self).save(*args, **kwargs)
 
 
@@ -90,6 +93,7 @@ class Reactivo(Producto):
             evento.color = configuracion.color_reactivos
             evento.save()
 
+        self.codigo_slug = slugify(self.codigo_laboratorio)
         super(Reactivo, self).save(*args, **kwargs)
 
 
@@ -117,4 +121,5 @@ class Disolvente(Producto):
             evento.color = configuracion.color_disolventes
             evento.save()
 
+        self.codigo_slug = slugify(self.codigo_laboratorio)
         super(Disolvente, self).save(*args, **kwargs)

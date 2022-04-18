@@ -64,7 +64,7 @@
                                     </td>
                                     <td>
                                         {{ material.codigo_laboratorio }}
-                                         {% get_pased_text '/material/miscelaneas/editar/' material.codigo_laboratorio as parsed %}
+                                         {% get_pased_text '/material/miscelaneas/editar/' material.codigo_slug as parsed %}
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer({{ material.id }})">
@@ -92,7 +92,7 @@
                                     {% if permisos.can_edit %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a href="{% url 'miscelanea_edit' material.codigo_laboratorio %}">
+                                            <a href="{% url 'miscelanea_edit' material.codigo_slug %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>

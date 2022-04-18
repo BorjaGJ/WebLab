@@ -38,14 +38,14 @@ class EditView(CreateView):
 
     def get(self, request, *args, **kwargs):
 
-        entrada = self.model.objects.get(codigo_laboratorio=self.kwargs['codigo_laboratorio'])
+        entrada = self.model.objects.get(codigo_slug=self.kwargs['codigo_laboratorio'])
         form = self.model_form(instance=entrada)
 
         return render(request, self.template_name, {"form": form, 'entrada': entrada})
 
     def post(self, request, *args, **kwargs):
 
-        entrada = get_object_or_None(self.model, codigo_laboratorio=self.kwargs['codigo_laboratorio'])
+        entrada = get_object_or_None(self.model, codigo_slug=self.kwargs['codigo_laboratorio'])
 
         form = self.model_form(request.POST, request.FILES, instance=entrada)
 
