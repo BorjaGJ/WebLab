@@ -4,7 +4,7 @@
 
 {% block content %}
 
-     {% block extra_css %}
+    {% block extra_css %}
         {{ form.media.css }}
     {% endblock %}
 
@@ -29,19 +29,26 @@
                 </li>
                 <li class="breadcrumb-item active">{{ padre }}</li>
                 <li class="breadcrumb-item active">
-                     <a href="{% url 'analisis' padre.nombre_slug %}" style="text-decoration: none">Análisis de {{ padre }}</a>
+                    <a href="{% url 'analisis' padre.nombre_slug %}" style="text-decoration: none">Análisis
+                        de {{ padre }}</a>
                 </li>
                 <li class="breadcrumb-item">Añadir</li>
             </ol>
 
 
             <div class="card border-dark">
-                <form class="card-body container row col-lg-12"  enctype="multipart/form-data" method="post">
+                <form class="card-body container row col-lg-12" enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     {% for field in form %}
+                        {% if field.name == "muestra" %}
+                            <div class="col-xs-6" style="padding: 1%">
+                                <div class="text-center">{{ field | safe }}</div>
+                            </div>
+                        {% else %}
                             <div class="col-lg-4" style="padding: 1%">
                                 {{ field | as_crispy_field }}
                             </div>
+                        {% endif %}
                     {% endfor %}
                     <div class="text-center" style="padding: 2%">
                         <button type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">

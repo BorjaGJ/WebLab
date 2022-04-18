@@ -72,8 +72,9 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
+                                        {% get_pased_text '/productos/reactivos/editar/' producto.codigo_laboratorio as parsed %}
                                         <div class="d-none" id={{ producto.id }}>
-                                            <img src="{% qr_url_from_text producto.codigo_laboratorio %}">
+                                            <img src="{% qr_url_from_text parsed %}">
                                         </div>
                                     </td>
                                     <td>{{ producto.CAS }}</td>

@@ -71,8 +71,9 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
+                                         {% get_pased_text '/material/instrumento/editar/' material.codigo_laboratorio as parsed %}
                                         <div class="d-none" id={{ material.id }}>
-                                            <img src="{% qr_url_from_text material.codigo_laboratorio %}">
+                                            <img src="{% qr_url_from_text parsed %}">
                                         </div>
                                     </td>
                                     <td>
@@ -84,7 +85,7 @@
                                     </td>
                                     <td>
                                         {% if material.proveedor %}
-                                            {{ material.preveedor }}
+                                            {{ material.proveedor.nombre }}
                                         {% else %}
                                             N/A
                                         {% endif %}

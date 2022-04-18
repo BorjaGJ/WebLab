@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load tags_web %}
+{% load tags_web qr_code %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -48,6 +48,8 @@
                                 <th>Fecha de pedido</th>
                                 <th>Fecha de expiracion</th>
                                 <th>Fecha de entrega</th>
+                                <th>QR</th>
+                                <th>Resguardo</th>
                                 <th>Resultado</th>
                                 <th>Factura</th>
                                 {% if permisos.can_edit %}
@@ -74,6 +76,29 @@
                                         <td>{{ analisis.fecha_terminado }}</td>
                                     {% else %}
                                         <td>Sin terminar</td>
+                                    {% endif %}
+                                     <td>
+                                        <div class="text-center px-4">
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                                    onclick="Aparecer('qr{{ analisis.id }}')">
+                                                <i class="fas fa-qrcode" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                         {% get_pased_text_from_2 '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/' analisis.id as parsed %}
+                                        <div class="d-none" id='qr{{ analisis.id }}'>
+                                            <img src="{% qr_url_from_text parsed %}">
+                                        </div>
+                                    </td>
+                                    {% if analisis.resguardo %}
+                                        <td>
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ analisis.resguardo }}">
+                                                    <i class="fas fa-file-alt text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    {% else %}
+                                        <td>N/A</td>
                                     {% endif %}
                                     {% if analisis.resultado %}
                                         <td>

@@ -72,8 +72,9 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
+                                        {% get_pased_text '/material/volumetricos/editar/' material.codigo_laboratorio as parsed %}
                                         <div class="d-none" id={{ material.id }}>
-                                            <img src="{% qr_url_from_text material.codigo_laboratorio %}">
+                                            <img src="{% qr_url_from_text parsed %}">
                                         </div>
                                     </td>
                                     <td>

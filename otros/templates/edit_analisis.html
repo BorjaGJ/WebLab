@@ -36,9 +36,15 @@
                       action="{% url 'analisis_edit' padre.nombre_slug entrada.id %}" method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="col-lg-4" style="padding: 1%">
-                            {{ field | as_crispy_field }}
-                        </div>
+                        {% if field.name == "muestra" %}
+                            <div class="col-xs-6" style="padding: 1%">
+                                <div class="text-center">{{ field | safe }}</div>
+                            </div>
+                        {% else %}
+                            <div class="col-lg-4" style="padding: 1%">
+                                {{ field | as_crispy_field }}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                     <div class="text-center" style="padding: 2%">
                         <button type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">

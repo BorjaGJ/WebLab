@@ -147,8 +147,11 @@ class Analisis(models.Model):
     fecha_pedido = models.DateField(auto_now_add=True)
     fecha_expiracion = models.DateField()
     fecha_terminado = models.DateField(null=True, blank=True)
+    muestra = RichTextUploadingField(default='Muestra')
+    resguardo = models.FileField(null=True, blank=True, upload_to='resguardos')
     resultado = models.FileField(blank=True, null=True, upload_to='resultados')
     factura = models.FileField(blank=True, null=True, upload_to='facturas')
+    codigo = models.CharField(max_length=200)
     cliente = models.ForeignKey(Cliente, blank=True, null=True, on_delete=models.CASCADE)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True)
 

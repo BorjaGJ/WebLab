@@ -113,7 +113,11 @@ class AnalisisForm(ModelForm):
         self.fields['resultado'].label = "Archivo de resultado"
         self.fields['fecha_expiracion'].label = "Fecha de expiracion"
         self.fields['fecha_terminado'].label = "Fecha de terminación"
+        self.fields['muestra'].label = 'Muestra'
+        self.fields['resguardo'].label = 'Resguardo'
+        self.fields['codigo'].label = 'Codigo del análisis'
         self.fields['factura'].label = "Factura"
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
+        self.fields['codigo'].widget.attrs['class'] = 'form-control'
 
 
