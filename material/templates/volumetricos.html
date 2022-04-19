@@ -35,7 +35,7 @@
                     <div class="card-header">
                         {% if permisos.can_add %}
                             <i class="fa fa-plus me-1"></i>
-                            <button class="btn btn-primary col-lg-2">
+                            <button class="btn btn-primary col-lg-2" onclick="window.location.href='{% url 'add_volumetrico' %}'">
                                 <a class="text-decoration-none text-white" href="{% url 'add_volumetrico' %}">Añadir</a>
                             </button>
                         {% endif %}
@@ -92,14 +92,15 @@
                                     </td>
                                     <td>
                                         {% if material.proveedor %}
-                                            {{ material.preveedor }}
+                                            {{ material.proveedor.nombre }}
                                         {% else %}
                                             N/A
                                         {% endif %}
                                     </td>
                                     {% if permisos.can_edit %}
                                     <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                        onclick="window.location.href='{% url 'volumetrico_edit' material.codigo_slug %}'">
                                             <a href="{% url 'volumetrico_edit' material.codigo_slug %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>
@@ -120,7 +121,8 @@
                                                 <div class="col-lg-2"></div>
                                                 <div class="col-lg-4 pt-1">
                                                     <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
+                                                            class="btn btn-danger p-2 waves-effect waves-light"
+                                                    onclick="window.location.href='{% url 'delete_volumetrico' material.codigo_laboratorio %}'">
                                                         <a class="text-white text-decoration-none"
                                                            href="{% url 'delete_volumetrico' material.codigo_laboratorio %}">Borrar
                                                             <i class="fas fa-trash-alt text-white"

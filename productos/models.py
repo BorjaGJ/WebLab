@@ -13,7 +13,7 @@ class Producto(models.Model):
     nombre_slug = models.SlugField(blank=True, editable=False)
     CAS = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
-    codigo_slug = models.CharField(max_length=100, blank=True, null=True)
+    codigo_slug = models.CharField(max_length=100, blank=True, null=True, editable=False)
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
     ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)

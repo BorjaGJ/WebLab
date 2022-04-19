@@ -32,7 +32,7 @@
                     <div class="card-header">
                         {% if permisos.can_add %}
                             <i class="fa fa-plus me-1"></i>
-                            <button class="btn btn-primary col-lg-2">
+                            <button class="btn btn-primary col-lg-2" onclick="window.location.href='{% url 'add_disolvente' %}'">
                                 <a class="text-white text-decoration-none"
                                    href="{% url 'add_disolvente' %}">Añadir</a>
                             </button>
@@ -85,7 +85,7 @@
                                     <td>{{ producto.cantidad }}</td>
                                     <td>
                                         {% if producto.proveedor %}
-                                            {{ producto.preveedor }}
+                                            {{ producto.proveedor }}
                                         {% else %}
                                             N/A
                                         {% endif %}
@@ -103,7 +103,8 @@
                                     </td>
                                 {% if permisos.can_edit %}
                                     <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                        onclick="window.location.href='{% url 'disolvente_edit' producto.codigo_slug %}'">
                                             <a href="{% url 'disolvente_edit' producto.codigo_slug %}">
                                                 <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                             </a>

@@ -32,8 +32,7 @@
 
 
             <div class="card border-dark">
-                <form class="card-body container row col-lg-12"
-                      action="{% url 'volumetrico_edit' entrada.codigo_laboratorio %}" method="post">
+                <form class="card-body container row col-lg-12" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.name == "ubicacion" %}

@@ -31,13 +31,14 @@ class MyHTMLCalendar(HTMLCalendar):
             # dia con evento
             return '<td class="calendar-day" style="background-color:%s;background-image:linear-gradient(to right, %s)">' \
                    '<a class="text-black text-decoration-none" href="calendario/eventos/%d/%d">' \
-                   '%d<br><strong>%s Eventos</strong></a></td>' \
+                   '%d<br><strong>%s %s</strong></a></td>' \
                    % \
                    (
                     get_eventos_colores(month=self.hoy.month, day=day),
                     get_eventos_colores(month=self.hoy.month, day=day),
                     self.hoy.month, day, day,
-                    get_total_eventos(day=day, month=self.hoy.month)
+                    get_total_eventos(day=day, month=self.hoy.month),
+                    has_s_evento(day, month=self.hoy.month)
                     )
 
         else:
@@ -63,10 +64,17 @@ class MyHTMLCalendar(HTMLCalendar):
 
 
 
-
-
 def get_total_eventos(day, month):
     return Evento.objects.filter(fecha__month=month, fecha__day=day).__len__()
+
+
+def has_s_evento(day, month):
+    has = 'Evento'
+
+    if get_total_eventos(day, month) > 1:
+        has = 'Eventos'
+
+    return has
 
 
 def get_eventos_colores(day, month):
