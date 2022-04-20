@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static tags_web qr_code %}
+
+
+{% block content %}
+
+
+    <div style="margin-left: 3%"></div>
+
+    <section id="layoutSidenav_content">
+        <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
+
+            <h1 class="mt-0">{{ entrada.nombre }}</h1>
+
+            <ol class="breadcrumb mb-4 col-lg-12" style="background-color: white!important;">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">Material</li>
+                <li class="breadcrumb-item active">
+                    <a href="{% url 'instrumento' %}" style="text-decoration: none">Instrumentos</a>
+                </li>
+                <li class="breadcrumb-item">{{ entrada.nombre }}</li>
+            </ol>
+
+            <div class="card border-dark">
+                <div class="card-body container col-lg-12">
+                    <div class="text-center" style="padding: 2%">
+                        <table class="table table-hover table-bordered text-center table-responsive-sm">
+                            <thead class="text-white mybg">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Código de laboratorio</th>
+                                <th>Próxima revisión</th>
+                                <th>Proveedor</th>
+                                <th>Método de calibración</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    {{ entrada.nombre }}
+                                </td>
+                                <td>
+                                    {{ entrada.codigo_laboratorio }}
+                                </td>
+                                <td>
+                                    {% if entrada.proxima_revision %}
+                                        {{ entrada.proxima_revision }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entrada.proveedor %}
+                                        {{ entrada.proveedor.nombre }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if material.metodo_calibracion %}
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ material.metodo_calibracion }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-lg-4 p-2">
+                                <div class="card">
+                                    <div class="card-header"><h4>Código QR</h4></div>
+                                    {% get_pased_text '/material/instrumento/detalle/' material.codigo_slug as parsed %}
+                                    <div class="card-body" id='QR'>
+                                        <img src="{% qr_url_from_text parsed %}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2 col-lg-8">
+                                <div class="card">
+                                    <div class="card-header"><h4>Ubicación y/o descripción</h4></div>
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            {{ entrada.ubicacion | safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-lg-3"></div>
+                            <div class="pt-5">
+                                <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3" type="reset"
+                                        onclick="window.location.href='{% url 'instrumento' %}' ">
+                                    <a class="text-white text-decoration-none" href="{% url 'instrumento' %}"> Salir
+                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+{% endblock content %}

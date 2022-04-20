@@ -30,6 +30,16 @@ class TableView(CreateView):
         return render(request, self.template_name, {"entradas": entradas})
 
 
+class DetalleView(CreateView):
+    template_name = ''
+    model = Reactivo
+
+    def get(self, request, *args, **kwargs):
+        entrada = self.model.objects.get(codigo_slug=self.kwargs['codigo_laboratorio'])
+
+        return render(request, self.template_name, {'entrada': entrada})
+
+
 class EditView(CreateView):
     template_name = 'edit_reactivo.html'
     model = Reactivo

@@ -13,7 +13,7 @@
 
     <div style="margin-left: 3%"></div>
 
-    <div id="layoutSidenav_content">
+    <section id="layoutSidenav_content">
         <main class="container row col-lg-12" STYLE="padding: 2%">
 
             <h1 class="mt-0">Añadir material volumetrico</h1>
@@ -35,6 +35,7 @@
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.name == "ubicacion" %}
+                            <h5>Ubicación y/o descripción*</h5>
                             <div class="col-lg-12" style="padding: 1%">
                                 <h4>Ubicación:</h4>
                                 <div class="text-center">{{ field | safe }}</div>
@@ -61,6 +62,6 @@
                 </form>
             </div>
         </main>
-    </div>
+    </section>
 
 {% endblock content %}

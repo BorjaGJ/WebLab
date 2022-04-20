@@ -14,7 +14,7 @@
 
     <div style="margin-left: 3%"></div>
 
-    <div id="layoutSidenav_content">
+    <section id="layoutSidenav_content">
         <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
 
             <h1 class="mt-0">{{ entrada.nombre }}</h1>
@@ -27,7 +27,8 @@
                 <li class="breadcrumb-item active">
                     <a href="{% url 'miscelanea' %}" style="text-decoration: none">Misceláneas</a>
                 </li>
-                <li class="breadcrumb-item active">{{ entrada.nombre }}</li>
+                <li class="breadcrumb-item">{{ entrada.nombre }}</li>
+                <li class="breadcrumb-item">Editar</li>
             </ol>
 
 
@@ -37,7 +38,7 @@
                     {% for field in form %}
                         {% if field.name == "ubicacion" %}
                             <div class="col-lg-12" style="padding: 1%">
-                                <h4>Ubicación:</h4>
+                                <h5>Ubicación y/o descripción*</h5>
                                 <div class="text-center">{{ field | safe }}</div>
                             </div>
                         {% else %}
@@ -62,6 +63,6 @@
                 </form>
             </div>
         </main>
-    </div>
+    </section>
 
 {% endblock content %}

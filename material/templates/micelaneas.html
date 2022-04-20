@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div id="layoutSidenav_content">
+    <section id="layoutSidenav_content">
         <main class="col-lg-12">
             <div class="container-fluid px-4">
 
@@ -60,11 +60,14 @@
                             {% for material in entradas %}
                                 <tr>
                                     <td>
-                                        {{ material.nombre }}
+                                        <a class="text-black text-decoration-none"
+                                           href="{% url 'miscelanea_detalle' material.codigo_slug %}">
+                                            {{ material.nombre }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ material.codigo_laboratorio }}
-                                         {% get_pased_text '/material/miscelaneas/editar/' material.codigo_slug as parsed %}
+                                         {% get_pased_text '/material/miscelaneas/detalle/' material.codigo_slug as parsed %}
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer({{ material.id }})">
@@ -167,6 +170,6 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 
 {% endblock content %}

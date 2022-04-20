@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div id="layoutSidenav_content">
+    <section id="layoutSidenav_content">
         <main class="col-lg-12">
             <div class="container-fluid px-4">
 
@@ -46,8 +46,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Código de laboratorio</th>
-                                <th>Graduacion</th>
-                                <th>Unidades</th>
+                                <th>Volumen</th>
                                 <th>Próxima revisión</th>
                                 <th>Proveedor</th>
                                 {% if permisos.can_edit or request.user.is_staff %}
@@ -62,7 +61,10 @@
                             {% for material in entradas %}
                                 <tr>
                                     <td>
-                                        {{ material.nombre }}
+                                        <a class="text-black text-decoration-none"
+                                           href="{% url 'volumetrico_detalle' material.codigo_slug %}">
+                                            {{ material.nombre }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ material.codigo_laboratorio }}
@@ -72,16 +74,13 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        {% get_pased_text '/material/volumetricos/editar/' material.codigo_slug as parsed %}
+                                        {% get_pased_text '/material/volumetricos/detalle/' material.codigo_slug as parsed %}
                                         <div class="d-none" id={{ material.id }}>
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
                                     </td>
                                     <td>
-                                        {{ material.graduacion }}
-                                    </td>
-                                    <td>
-                                        {{ material.cuantia }}
+                                        {{ material.volumen }}
                                     </td>
                                     <td>
                                         {% if material.proxima_revision %}
@@ -177,6 +176,6 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 
 {% endblock content %}

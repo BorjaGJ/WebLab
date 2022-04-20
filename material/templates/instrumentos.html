@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div id="layoutSidenav_content">
+    <section id="layoutSidenav_content">
         <main class="col-lg-12">
             <div class="container-fluid px-4">
 
@@ -61,7 +61,10 @@
                             {% for material in entradas %}
                                 <tr>
                                     <td>
-                                        {{ material.nombre }}
+                                        <a class="text-black text-decoration-none"
+                                           href="{% url 'instrumento_detalle' material.codigo_slug %}">
+                                            {{ material.nombre }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ material.codigo_laboratorio }}
@@ -71,7 +74,7 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                         {% get_pased_text '/material/instrumento/editar/' material.codigo_slug as parsed %}
+                                         {% get_pased_text '/material/instrumento/detalle/' material.codigo_slug as parsed %}
                                         <div class="d-none" id={{ material.id }}>
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
@@ -90,7 +93,6 @@
                                             N/A
                                         {% endif %}
                                     </td>
-                                   {% if permisos.can_edit %}
                                     <td>
                                          {% if material.metodo_calibracion %}
                                              <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
@@ -102,8 +104,7 @@
                                             N/A
                                         {% endif %}
                                     </td>
-                                    {% endif %}
-                                    {% if permisos.can_delete %}
+                                    {% if permisos.can_edit %}
                                     <td>
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                         onclick="window.location.href='{% url 'instrumento_edit' material.codigo_slug %}'">
@@ -112,6 +113,8 @@
                                             </a>
                                         </button>
                                     </td>
+                                   {% endif %}
+                                    {% if permisos.can_delete  %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
                                                 onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>
@@ -181,6 +184,6 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 
 {% endblock content %}

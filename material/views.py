@@ -5,8 +5,14 @@ from material.forms import VolumetricoForm, InstrumentoForm, MiscelaneaForm
 from material.models import Volumetrico, Instrumento, Miscelanea
 from web import views_utils
 
+
 class VolumetricosView(views_utils.TableView):
     template_name = 'volumetricos.html'
+    model = Volumetrico
+
+
+class DetalleVolumetricoView(views_utils.DetalleView):
+    template_name = 'detail_volumetrico.html'
     model = Volumetrico
 
 
@@ -49,9 +55,13 @@ def searchVolumetrico(request):
         return render(request, 'volumetricos.html', {"entradas": entradas})
 
 
-
 class InstrumentosView(views_utils.TableView):
     template_name = 'instrumentos.html'
+    model = Instrumento
+
+
+class DetalleInstrumentoView(views_utils.DetalleView):
+    template_name = 'detail_instrumento.html'
     model = Instrumento
 
 
@@ -96,6 +106,11 @@ def searchInstrumento(request):
 
 class MiscelaneasView(views_utils.TableView):
     template_name = 'micelaneas.html'
+    model = Miscelanea
+
+
+class DetalleMiscelaneaView(views_utils.DetalleView):
+    template_name = 'detail_miscelanea.html'
     model = Miscelanea
 
 
