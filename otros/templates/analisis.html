@@ -91,7 +91,7 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        {% get_pased_text_from_2 '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/' analisis.id as parsed %}
+                                        {% get_pased_text_from_2 '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/detalle/' analisis.id as parsed %}
                                         <div class="d-none" id='qr{{ analisis.id }}'>
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
