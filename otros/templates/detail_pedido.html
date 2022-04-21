@@ -103,18 +103,11 @@
                             </tbody>
                         </table>
                         <div class="row">
-                            <div class="col-lg-4 p-2">
-                                <div class="card">
-                                    <div class="card-header"><h4>Código QR</h4></div>
-                                    {% get_pased_text_from_2 '/otros/clientes/' padre.nombre_slug '/pedidos/detalle/' entrada.id as parsed %}
-                                    <div id='{{ entrada.id }}'>
-                                        <img src="{% qr_url_from_text parsed %}">
-                                    </div>
-                                </div>
+                            <div class="col-lg-2">
                             </div>
                             <div class="p-2 col-lg-8">
                                 <div class="card">
-                                    <div class="card-header"><h4>Muestra</h4></div>
+                                    <div class="card-header"><h4>Contenido</h4></div>
                                     <div class="card-body">
                                         <div class="card-text">
                                             {{ entrada.contenido | safe }}
