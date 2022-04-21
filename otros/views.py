@@ -31,10 +31,7 @@ class EventoAddView(AddView):
     template_name = 'add_evento.html'
 
 
-
-
 def deleteEvento(request, **kwargs):
-
     model = Evento
     redirect_to = 'eventos'
 
@@ -43,12 +40,11 @@ def deleteEvento(request, **kwargs):
 
     return redirect(redirect_to)
 
-def searchEvento(request):
 
+def searchEvento(request):
     model = Evento
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
@@ -66,10 +62,12 @@ def delete_expired(request):
 
     return redirect('eventos')
 
+
 class ClienteTableView(TableView):
     model = Cliente
     template_name = 'clientes.html'
     order_by = 'nombre'
+
 
 class ClienteAddView(AddView):
     model = Cliente
@@ -77,14 +75,15 @@ class ClienteAddView(AddView):
     model_form = ClienteForm
     template_name = 'add_cliente.html'
 
+
 class ClienteEditView(EditByIdView):
     model = Cliente
     redirect_to = 'clientes'
     model_form = ClienteForm
     template_name = 'edit_cliente.html'
 
-def deleteCliente(request, **kwargs):
 
+def deleteCliente(request, **kwargs):
     model = Cliente
     redirect_to = 'clientes'
 
@@ -93,12 +92,11 @@ def deleteCliente(request, **kwargs):
 
     return redirect(redirect_to)
 
-def searchCliente(request):
 
+def searchCliente(request):
     model = Cliente
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
@@ -131,7 +129,6 @@ class ProveedoresAddView(AddView):
 
 
 def deleteProveedor(request, **kwargs):
-
     model = Proveedor
     redirect_to = 'proveedores'
 
@@ -140,12 +137,11 @@ def deleteProveedor(request, **kwargs):
 
     return redirect(redirect_to)
 
-def searchProveedor(request):
 
+def searchProveedor(request):
     model = Proveedor
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
@@ -187,11 +183,11 @@ class AddPedidoView(CreateView):
         form = self.model_form()
         padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
 
-
-        return render(request, self.template_name, {"form": form, 'padre':padre})
+        return render(request, self.template_name, {"form": form, 'padre': padre})
 
     def post(self, request, *args, **kwargs):
 
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
         form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
@@ -200,12 +196,25 @@ class AddPedidoView(CreateView):
                 entrada = form.save(commit=False)
                 entrada.proveedor = Proveedor.objects.get(nombre_slug=self.kwargs['nombre_slug'])
                 entrada.save()
+                entrada.save()
 
                 return redirect('pedidos', self.kwargs['nombre_slug'])
-            else:
-                return render(request, self.template_name, {"form": form})
 
-        return render(request, self.template_name, {})
+            return render(request, self.template_name, {"form": form, 'padre': padre})
+
+
+
+
+class DetallePedidoView(CreateView):
+    template_name = 'detail_pedido.html'
+    model_padre = Proveedor
+    model = Pedido
+
+    def get(self, request, *args, **kwargs):
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
+        entrada = self.model.objects.get(id=self.kwargs['id'])
+        return render(request, self.template_name, {"entrada": entrada, "padre": padre})
+
 
 class PedidoEditView(CreateView):
     template_name = 'edit_pedido.html'
@@ -238,27 +247,21 @@ class PedidoEditView(CreateView):
         return render(request, self.template_name, {"form": form, 'entrada': entrada, 'padre': padre})
 
 
-
-
 def deletePedido(request, **kwargs):
-
     model = Pedido
     redirect_to = 'pedidos'
 
     entrada = model.objects.get(id=kwargs['id'])
     entrada.delete()
 
-    return redirect(redirect_to,  entrada.proveedor.nombre_slug)
+    return redirect(redirect_to, entrada.proveedor.nombre_slug)
 
 
 def searchPedido(request, **kwargs):
-
     model = Pedido
     model_padre = Proveedor
 
-
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
         padre = model_padre.objects.get(nombre_slug=kwargs['nombre_slug'])
 
@@ -276,7 +279,8 @@ class AnalisisTableView(CreateView):
     order_by = 'id'
 
     def get(self, request, *args, **kwargs):
-        entradas = self.model.objects.filter(cliente__nombre_slug__exact=self.kwargs['nombre_slug']).order_by(self.order_by)
+        entradas = self.model.objects.filter(cliente__nombre_slug__exact=self.kwargs['nombre_slug']).order_by(
+            self.order_by)
         padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
         page = request.GET.get('page', 1)
         paginator = Paginator(entradas, 15)
@@ -287,6 +291,17 @@ class AnalisisTableView(CreateView):
         except EmptyPage:
             entradas = paginator.page(paginator.num_pages)
         return render(request, self.template_name, {"entradas": entradas, "padre": padre})
+
+
+class DetalleAnalisisView(CreateView):
+    template_name = 'detail_analisis.html'
+    model_padre = Cliente
+    model = Analisis
+
+    def get(self, request, *args, **kwargs):
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
+        entrada = self.model.objects.get(id=self.kwargs['id'])
+        return render(request, self.template_name, {"entrada": entrada, "padre": padre})
 
 
 class AddAnalisisView(CreateView):
@@ -300,10 +315,11 @@ class AddAnalisisView(CreateView):
         form = self.model_form()
         padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
 
-        return render(request, self.template_name, {"form": form, 'padre':padre})
+        return render(request, self.template_name, {"form": form, 'padre': padre})
 
     def post(self, request, *args, **kwargs):
 
+        padre = self.model_padre.objects.get(nombre_slug=self.kwargs['nombre_slug'])
         form = self.model_form(request.POST, request.FILES)
 
         if request.method == 'POST':
@@ -314,10 +330,11 @@ class AddAnalisisView(CreateView):
                 entrada.save()
 
                 return redirect(self.redirec_to, self.kwargs['nombre_slug'])
-            else:
-                return render(request, self.template_name, {"form": form})
 
-        return render(request, self.template_name, {})
+            return render(request, self.template_name, {"form": form, 'padre': padre})
+
+
+
 
 class AnalisisEditView(PedidoEditView):
     template_name = 'edit_analisis.html'
@@ -328,24 +345,20 @@ class AnalisisEditView(PedidoEditView):
 
 
 def deleteAnalisis(request, **kwargs):
-
     model = Analisis
     redirect_to = 'analisis'
 
     entrada = model.objects.get(id=kwargs['id'])
     entrada.delete()
 
-    return redirect(redirect_to,  entrada.cliente.nombre_slug)
+    return redirect(redirect_to, entrada.cliente.nombre_slug)
 
 
 def searchAnalisis(request, **kwargs):
-
     model = Analisis
     model_padre = Cliente
 
-
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
         padre = model_padre.objects.get(nombre_slug=kwargs['nombre_slug'])
 
@@ -354,5 +367,3 @@ def searchAnalisis(request, **kwargs):
         )
 
         return render(request, 'analisis.html', {"entradas": entradas, 'padre': padre})
-
-

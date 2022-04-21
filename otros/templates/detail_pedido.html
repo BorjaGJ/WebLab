@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static tags_web qr_code %}
+
+
+{% block content %}
+
+
+    <div style="margin-left: 3%"></div>
+
+    <section id="layoutSidenav_content">
+        <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
+
+            <h1 class="mt-0">{{ entrada.nombre }}</h1>
+
+            <ol class="breadcrumb mb-4 col-lg-12" style="background-color: white!important;">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">Material</li>
+                <li class="breadcrumb-item active">
+                    <a href="{% url 'analisis' padre.nombre_slug %}" style="text-decoration: none">Análisis
+                        de {{ padre }}</a>
+                </li>
+                <li class="breadcrumb-item">{{ entrada.nombre }}</li>
+            </ol>
+
+            <div class="card border-dark">
+                <div class="card-body container col-lg-12">
+                    <div class="text-center" style="padding: 2%">
+                        <table class="table table-hover table-bordered text-center table-responsive-lg">
+                            <thead class="text-white mybg">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha de pedido</th>
+                                <th>Fecha estimada</th>
+                                <th>Fecha recibido</th>
+                                <th>Puntuación</th>
+                                <th>Albarán</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    {{ entrada.nombre }}
+                                </td>
+                                <td>
+                                    {{ entrada.fecha_pedido }}
+                                </td>
+                                {% if entrada.fecha_recibido %}
+                                    <td>{{ entrada.fecha_recibido }}</td>
+                                {% else %}
+                                    <td>Sin registrar</td>
+                                {% endif %}
+                                {% if entrada.fecha_espera %}
+                                    <td>{{ entrada.fecha_espera }}</td>
+                                {% else %}
+                                    <td>No hay fecha estimada</td>
+                                {% endif %}
+                                <td>
+                                    {{ entrada.puntuacion }}
+                                </td>
+                                {% if entrada.albaran %}
+                                    <td>
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.albaran }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                            </tr>
+                            </tbody>
+                        </table>
+                     <table class="table table-hover table-bordered text-center table-responsive-lg">
+                            <thead class="text-white mybg">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Página web</th>
+                                <th>Nota</th>
+                                <th>Pedidos guardados</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ padre.nombre }}</td>
+                                    {% if padre.telefono %}
+                                        <td>{{ padre.telefono }}</td>
+                                    {% else %}
+                                        <td>N/A</td>
+                                    {% endif %}
+                                    <td>{{ padre.email }}</td>
+                                    {% if padre.pagina_web %}
+                                        <td>{{ padre.pagina_web }}</td>
+                                    {% else %}
+                                        <td>N/A</td>
+                                    {% endif %}
+                                    <td>{{ padre.nota }}</td>
+                                    <td>{{ entrada.total_pedidos_proveedor }}</td>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-lg-4 p-2">
+                                <div class="card">
+                                    <div class="card-header"><h4>Código QR</h4></div>
+                                    {% get_pased_text_from_2 '/otros/clientes/' padre.nombre_slug '/pedidos/detalle/' entrada.id as parsed %}
+                                    <div id='{{ entrada.id }}'>
+                                        <img src="{% qr_url_from_text parsed %}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2 col-lg-8">
+                                <div class="card">
+                                    <div class="card-header"><h4>Muestra</h4></div>
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            {{ entrada.contenido | safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="space col-lg-4"></div>
+                            <div class="pt-5 col-lg-2">
+                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'pedidos' padre.nombre_slug %}">
+                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                        Volver a la lista
+                                    </a>
+                                </button>
+                            </div>
+                            {% get_permisos request.user as permisos %}
+                            {% if permisos.can_edit %}
+                                <div class="pt-5 col-lg-2">
+                                    <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
+                                            onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
+                                        <a class="text-white text-decoration-none"
+                                           href="{% url 'pedido_edit' padre.nombre_slug entrada.id %}">
+                                            <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                            Editar la entrada
+                                        </a>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+{% endblock content %}

@@ -83,15 +83,30 @@
                             </div>
                         </div>
                         <div class="row p-2">
-                            <div class="col-lg-3"></div>
-                            <div class="pt-5">
-                                <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3" type="reset"
-                                        onclick="window.location.href='{% url 'volumetrico' %}' ">
-                                    <a class="text-white text-decoration-none" href="{% url 'volumetrico' %}"> Salir
+                            <div class="space col-lg-4"></div>
+                            <div class="pt-5 col-lg-2">
+                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'miscelanea' %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'miscelanea' %}">
                                         <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                        Volver a la lista
                                     </a>
                                 </button>
                             </div>
+                            {% get_permisos request.user as permisos %}
+                            {% if permisos.can_edit %}
+                            <div class="pt-5 col-lg-2">
+                                <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'miscelanea_edit' entrada.codigo_slug %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'miscelanea_edit' entrada.codigo_slug %}">
+                                        <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                        Editar la entrada
+                                    </a>
+                                </button>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

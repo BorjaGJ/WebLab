@@ -119,5 +119,6 @@ class AnalisisForm(ModelForm):
         self.fields['factura'].label = "Factura"
         self.fields['nombre'].widget.attrs['class'] = 'form-control'
         self.fields['codigo'].widget.attrs['class'] = 'form-control'
-
-
+        self.fields['factura'].widget.attrs['class'] = 'form-control'
+        self.fields['resguardo'].widget.attrs['class'] = 'form-control'
+        self.fields['resultado'].widget.attrs['class'] = 'form-control'

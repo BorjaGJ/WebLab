@@ -33,6 +33,8 @@ urlpatterns = [
         name='pedido_search'),
     url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/(?P<id>[-\w]+)$', login_required(views.PedidoEditView.as_view()),
         name='pedido_edit'),
+    url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/detalle/(?P<id>[-\w]+)$', login_required(views.DetallePedidoView.as_view()),
+        name='pedido_detalle'),
     url(r'^proveedores/(?P<nombre_slug>[-\w]+)/pedidos/(?P<id>[-\w]+)/delete$', login_required(views.deletePedido),
         name='pedido_delete'),
 
@@ -42,11 +44,11 @@ urlpatterns = [
         name='analisis_add'),
     url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/search$', login_required(views.searchAnalisis),
         name='analisis_search'),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/detalle/(?P<id>[-\w]+)$',
+        login_required(views.DetalleAnalisisView.as_view()), name='analisis_detalle'),
     url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/(?P<id>[-\w]+)$', login_required(views.AnalisisEditView.as_view()),
         name='analisis_edit'),
     url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/(?P<id>[-\w]+)/delete$', login_required(views.deleteAnalisis),
         name='analisis_delete'),
-
-
 
 ]

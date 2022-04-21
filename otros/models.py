@@ -31,7 +31,7 @@ class Evento(models.Model):
                 lista_eventos.append(instrumento.proxima_revision.day)
 
         except Evento.DoesNotExist:
-             pass
+            pass
 
         return lista_eventos
 
@@ -67,10 +67,10 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
 
+
     def save(self, *args, **kwargs):
         self.nombre_slug = slugify(self.nombre)
         super(Proveedor, self).save(*args, **kwargs)
-
 
 
 class Persona(models.Model):
@@ -107,18 +107,18 @@ class Pedido(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
     puntuacion = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=10)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True)
+    contenido = RichTextUploadingField(default='Material de laboratorio')
 
     def __str__(self):
         return self.nombre + " de " + self.proveedor.nombre
-
 
     def save(self, *args, **kwargs):
         proveedor = Proveedor.objects.get(nombre=self.proveedor.nombre)
         pedidos = Pedido.objects.filter(proveedor=self.proveedor)
 
         proveedor.nota = pedidos.aggregate(Avg('puntuacion'))['puntuacion__avg']
-        print(proveedor.nota)
         proveedor.save()
+
         evento = self.evento
 
         configuracion = ConfiguracionEventos.objects.all().last()
@@ -141,6 +141,11 @@ class Pedido(models.Model):
 
         super(Pedido, self).save(*args, **kwargs)
 
+    @property
+    def total_pedidos_proveedor(self):
+
+        return Pedido.objects.filter(proveedor=self.proveedor).__len__()
+
 
 class Analisis(models.Model):
     nombre = models.CharField(max_length=100)
@@ -157,38 +162,25 @@ class Analisis(models.Model):
 
     def save(self, *args, **kwargs):
 
-            evento = self.evento
+        evento = self.evento
 
-            configuracion = ConfiguracionEventos.objects.all().last()
+        configuracion = ConfiguracionEventos.objects.all().last()
 
-            if configuracion is None:
-                configuracion = ConfiguracionEventos.objects.create()
+        if configuracion is None:
+            configuracion = ConfiguracionEventos.objects.create()
 
-            if evento is None:
-                evento = Evento.objects.create(
-                    nombre='Expiración analisis' + self.nombre, fecha=self.fecha_expiracion,
-                    color=configuracion.color_analisis
-                )
-                self.evento = evento
-
-
-            else:
-                evento.fecha = self.fecha_expiracion
-                evento.nombre = self.nombre
-                evento.color = configuracion.color_analisis
-                evento.save()
-
-            super(Analisis, self).save(*args, **kwargs)
+        if evento is None:
+            evento = Evento.objects.create(
+                nombre='Expiración analisis' + self.nombre, fecha=self.fecha_expiracion,
+                color=configuracion.color_analisis
+            )
+            self.evento = evento
 
 
+        else:
+            evento.fecha = self.fecha_expiracion
+            evento.nombre = self.nombre
+            evento.color = configuracion.color_analisis
+            evento.save()
 
-
-
-
-
-
-
-
-
-
-
+        super(Analisis, self).save(*args, **kwargs)

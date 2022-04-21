@@ -28,9 +28,9 @@
                       action="" method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                            <div class="col-lg-4" style="padding: 1%">
-                                {{ field | as_crispy_field }}
-                            </div>
+                        <div class="col-lg-4" style="padding: 1%">
+                            {{ field | as_crispy_field }}
+                        </div>
                     {% endfor %}
                     <div class="text-center" style="padding: 2%">
                         <button type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
@@ -39,7 +39,7 @@
                             </a>
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3" type="reset"
-                        onclick="window.location.href='{% url 'proveedores' %}' ">
+                                onclick="window.location.href='{% url 'proveedores' %}' ">
                             <a class="text-white text-decoration-none" href="{% url 'proveedores' %}"> Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
@@ -49,7 +49,7 @@
             </div>
         </main>
     </div>
-   <script src="{% static 'js/jscolor.min.js' %}"></script>
+    <script src="{% static 'js/jscolor.min.js' %}"></script>
     {% block extrajs %}{% endblock extrajs %}
 
 {% endblock content %}

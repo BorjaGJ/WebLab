@@ -41,6 +41,7 @@
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.name == "muestra" %}
+                            <h4>Información de la muestra*</h4>
                             <div class="col-xs-6" style="padding: 1%">
                                 <div class="text-center">{{ field | safe }}</div>
                             </div>
@@ -57,7 +58,7 @@
                             </a>
                         </button>
                         <button class="btn btn-danger px-3 waves-effect waves-light col-lg-3" type="reset"
-                        onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
+                                onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
                             <a class="text-white text-decoration-none" href="{% url 'analisis' padre.nombre_slug %}">
                                 Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>

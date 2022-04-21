@@ -6,5 +6,3 @@ admin.site.register(models.Cliente)
 admin.site.register(models.Pedido)
 admin.site.register(models.Analisis)
 admin.site.register(models.Evento)
-
-

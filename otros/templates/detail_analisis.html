@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static tags_web qr_code %}
+
+
+{% block content %}
+
+
+    <div style="margin-left: 3%"></div>
+
+    <section id="layoutSidenav_content">
+        <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
+
+            <h1 class="mt-0">{{ entrada.nombre }}</h1>
+
+            <ol class="breadcrumb mb-4 col-lg-12" style="background-color: white!important;">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">Análisis</li>
+                <li class="breadcrumb-item active">
+                    <a href="{% url 'analisis' padre.nombre_slug %}" style="text-decoration: none">Análisis
+                        de {{ padre }}</a>
+                </li>
+                <li class="breadcrumb-item">{{ entrada.nombre }}</li>
+            </ol>
+
+            <div class="card border-dark">
+                <div class="card-body container col-lg-12">
+                    <div class="text-center" style="padding: 2%">
+                        <table class="table table-hover table-bordered text-center table-responsive-lg">
+                            <thead class="text-white mybg">
+                            <tr>
+                                <th>Nombre del análisis</th>
+                                <th>Fecha de pedido</th>
+                                <th>Fecha de expiración</th>
+                                <th>Fecha de entrega</th>
+                                <th>Código</th>
+                                <th>Resguardo</th>
+                                <th>Resultado</th>
+                                <th>Factura</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    {{ entrada.nombre }}
+                                </td>
+                                <td>
+                                    {{ entrada.fecha_pedido }}
+                                </td>
+                                {% if entrada.fecha_expiracion %}
+                                    <td>{{ entrada.fecha_expiracion }}</td>
+                                {% else %}
+                                    <td>Sin registrar</td>
+                                {% endif %}
+                                {% if entrada.fecha_terminado %}
+                                    <td>{{ entrada.fecha_terminado }}</td>
+                                {% else %}
+                                    <td>Sin terminar</td>
+                                {% endif %}
+                                <td>
+                                    {{ entrada.codigo }}
+                                </td>
+                                {% if entrada.resguardo %}
+                                    <td>
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.resguardo }}">
+                                                <i class="fas fa-file-alt text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                                {% if entrada.resultado %}
+                                    <td>
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.resultado }}">
+                                                <i class="fas fa-poll text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                                {% if entrada.factura %}
+                                    <td>
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.factura }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-hover table-bordered text-center table-responsive-lg">
+                            <thead class="text-white mybg">
+                            <tr>
+                                <th>Cliente</th>
+                                <th>DNI</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Cp</th>
+                                <th>Poblacion</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ padre.nombre }}</td>
+                                <td>
+                                    {{ padre.dni }}
+                                </td>
+                                <td>{{ padre.telefono }}</td>
+                                <td>{{ padre.email }}</td>
+                                <td>{{ padre.cp }}</td>
+                                <td>{{ padre.poblacion }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-lg-4 p-2">
+                                <div class="card">
+                                    <div class="card-header"><h4>Código QR</h4></div>
+                                    {% get_pased_text_from_2 '/otros/clientes/' padre.nombre_slug '/analisis/detalle/' entrada.id as parsed %}
+                                    <div id='{{ entrada.id }}'>
+                                        <img src="{% qr_url_from_text parsed %}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2 col-lg-8">
+                                <div class="card">
+                                    <div class="card-header"><h4>Muestra</h4></div>
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            {{ entrada.muestra | safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="space col-lg-4"></div>
+                            <div class="pt-5 col-lg-2">
+                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'analisis' padre.nombre_slug %}">
+                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                        Volver a análisis
+                                    </a>
+                                </button>
+                            </div>
+                            {% get_permisos request.user as permisos %}
+                            {% if permisos.can_edit %}
+                                <div class="pt-5 col-lg-2">
+                                    <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
+                                            onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
+                                        <a class="text-white text-decoration-none"
+                                           href="{% url 'analisis' padre.nombre_slug %}">
+                                            <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                            Editar el analisis
+                                        </a>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+{% endblock content %}

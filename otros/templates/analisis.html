@@ -47,9 +47,9 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Fecha de pedido</th>
-                                <th>Fecha de expiracion</th>
+                                <th>Fecha de expiración</th>
                                 <th>Fecha de entrega</th>
-                                <th>QR</th>
+                                <th>Código</th>
                                 <th>Resguardo</th>
                                 <th>Resultado</th>
                                 <th>Factura</th>
@@ -64,7 +64,12 @@
                             <tbody>
                             {% for analisis in entradas %}
                                 <tr>
-                                    <td>{{ analisis.nombre }}</td>
+                                    <td>
+                                        <a class="text-decoration-none text-black"
+                                           href="{% url 'analisis_detalle' padre.nombre_slug analisis.id %}">
+                                            {{ analisis.nombre }}
+                                        </a>
+                                    </td>
                                     <td>
                                         {{ analisis.fecha_pedido }}
                                     </td>
@@ -78,14 +83,15 @@
                                     {% else %}
                                         <td>Sin terminar</td>
                                     {% endif %}
-                                     <td>
-                                        <div class="text-center px-4">
+                                    <td>
+                                        {{ analisis.codigo }}
+                                        <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer('qr{{ analisis.id }}')">
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                         {% get_pased_text_from_2 '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/' analisis.id as parsed %}
+                                        {% get_pased_text_from_2 '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/' analisis.id as parsed %}
                                         <div class="d-none" id='qr{{ analisis.id }}'>
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
@@ -126,7 +132,7 @@
                                     {% if permisos.can_edit %}
                                         <td>
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                            onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug analisis.id %}'">
+                                                    onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug analisis.id %}'">
                                                 <a href="{% url 'analisis_edit' padre.nombre_slug analisis.id %}">
                                                     <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                                 </a>
@@ -148,7 +154,7 @@
                                                     <div class="col-lg-4 pt-1">
                                                         <button type="button"
                                                                 class="btn btn-danger p-2 waves-effect waves-light"
-                                                        onclick="window.location.href='{% url 'analisis_delete' padre.nombre_slug analisis.id %}'">
+                                                                onclick="window.location.href='{% url 'analisis_delete' padre.nombre_slug analisis.id %}'">
                                                             <a class="text-white text-decoration-none"
                                                                href="{% url 'analisis_delete' padre.nombre_slug analisis.id %}">Borrar
                                                                 <i class="fas fa-trash-alt text-white"
