@@ -59,9 +59,9 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if material.metodo_calibracion %}
+                                    {% if entrada.metodo_calibracion %}
                                         <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a target="_blank" href="/media/{{ material.metodo_calibracion }}">
+                                            <a target="_blank" href="/media/{{ entrada.metodo_calibracion }}">
                                                 <i class="fas fa-file text-white" aria-hidden="true"></i>
                                             </a>
                                         </button>
@@ -76,7 +76,7 @@
                             <div class="col-lg-4 p-2">
                                 <div class="card">
                                     <div class="card-header"><h4>Código QR</h4></div>
-                                    {% get_pased_text '/material/instrumento/detalle/' material.codigo_slug as parsed %}
+                                    {% get_pased_text '/material/instrumento/detalle/' entrada.codigo_slug as parsed %}
                                     <div class="card-body" id='QR'>
                                         <img src="{% qr_url_from_text parsed %}">
                                     </div>

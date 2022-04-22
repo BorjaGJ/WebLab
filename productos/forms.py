@@ -22,7 +22,7 @@ class ReactivoForm(ModelForm):
         self.fields['CAS'].label = "CAS"
         self.fields['codigo_laboratorio'].label = "Código de laboratorio"
         self.fields['organico'].label = "Orgánico"
-        self.fields['cantidad'].label = "Cantidad"
+        self.fields['cantidad'].label = "Volumen"
         self.fields['proveedor'].label = "Proveedor"
         self.fields['fecha_caducidad'].label = "Fecha de caducidad"
         self.fields['ficha_seguridad'].label = "Ficha de seguridad"

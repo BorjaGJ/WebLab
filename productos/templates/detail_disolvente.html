@@ -16,9 +16,9 @@
                 <li class="breadcrumb-item">
                     <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">Material</li>
+                <li class="breadcrumb-item">Productos</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'miscelanea' %}" style="text-decoration: none">Miscelaneas</a>
+                    <a href="{% url 'disolventes' %}" style="text-decoration: none">Disolventes</a>
                 </li>
                 <li class="breadcrumb-item">{{ entrada.nombre }}</li>
             </ol>
@@ -31,25 +31,28 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Código de laboratorio</th>
-                                <th>Próxima revisión</th>
+                                <th>CAS</th>
+                                <th>Polaridad</th>
+                                <th>Volumen</th>
                                 <th>Proveedor</th>
+                                <th>Ficha de seguridad</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        {{ entrada.nombre }}
-                                    </td>
+                                    <td>{{ entrada.nombre }}</td>
                                     <td>
                                         {{ entrada.codigo_laboratorio }}
                                     </td>
+                                    <td>{{ entrada.CAS }}</td>
                                     <td>
-                                        {% if entrada.proxima_revision %}
-                                            {{ entrada.proxima_revision }}
+                                        {% if entrada.organico %}
+                                            Orgánico
                                         {% else %}
-                                            N/A
+                                            Inorgánico
                                         {% endif %}
                                     </td>
+                                    <td>{{ entrada.cantidad }}</td>
                                     <td>
                                         {% if entrada.proveedor %}
                                             {{ entrada.proveedor }}
@@ -57,15 +60,25 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                    <td>
+                                        {% if entrada.ficha_seguridad %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ entrada.ficha_seguridad }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
                         <div class="row">
                             <div class="col-lg-4 p-2">
                                 <div class="card">
                                     <div class="card-header"><h4>Código QR</h4></div>
-                                    {% get_pased_text '/material/miscelania/detalle/' entrada.codigo_slug as parsed %}
+                                    {% get_pased_text '/producto/disolventes/detalle/' entrada.codigo_slug as parsed %}
                                     <div class="card-body" id='QR'>
                                         <img src="{% qr_url_from_text parsed %}">
                                     </div>
@@ -86,9 +99,9 @@
                             <div class="space col-lg-4"></div>
                             <div class="pt-5 col-lg-2">
                                 <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'miscelanea' %}' ">
+                                        onclick="window.location.href='{% url 'disolventes' %}' ">
                                     <a class="text-white text-decoration-none"
-                                       href="{% url 'miscelanea' %}">
+                                       href="{% url 'disolventes' %}">
                                         <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                                         Volver a la lista
                                     </a>
@@ -98,9 +111,9 @@
                             {% if permisos.can_edit %}
                             <div class="pt-5 col-lg-2">
                                 <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'miscelanea_edit' entrada.codigo_slug %}' ">
+                                        onclick="window.location.href='{% url 'disolvente_edit' entrada.codigo_slug %}' ">
                                     <a class="text-white text-decoration-none"
-                                       href="{% url 'miscelanea_edit' entrada.codigo_slug %}">
+                                       href="{% url 'disolvente_edit' entrada.codigo_slug %}">
                                         <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                         Editar la entrada
                                     </a>

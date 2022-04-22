@@ -15,8 +15,14 @@ class ReactivoTableView(views_utils.TableView):
 class ReactivoEditView(views_utils.EditView):
     pass
 
+
 class ReactivoAddView(views_utils.AddView):
     pass
+
+
+class DetalleReactivoView(views_utils.DetalleView):
+    template_name = 'detail_reactivo.html'
+    model = Reactivo
 
 
 def deleteReactivo(request, **kwargs):
@@ -52,17 +58,24 @@ class DisolventeView(views_utils.TableView):
     model = Disolvente
 
 
+class DetalleDisolventeView(views_utils.DetalleView):
+    template_name = 'detail_disolvente.html'
+    model = Disolvente
+
+
 class DisolventeAddView(views_utils.AddView):
     template_name = 'add_disolvente.html'
     model = Disolvente
     redirect_to = 'disolventes'
     model_form = DisolventeForm
 
+
 class DisolventeEditView(views_utils.EditView):
     template_name = 'edit_disolvente.html'
     model = Disolvente
     model_form = DisolventeForm
     redirect_to = 'disolventes'
+
 
 def deleteDisolvente(request, **kwargs):
 
@@ -73,6 +86,7 @@ def deleteDisolvente(request, **kwargs):
     entrada.delete()
 
     return redirect(redirect_to)
+
 
 def searchDisolvente(request):
 
@@ -89,18 +103,24 @@ def searchDisolvente(request):
         return render(request, 'disolventes.html', {"entradas": entradas})
 
 
-
 # Vistas de patrones
 
 class PatronesView(views_utils.TableView):
     template_name = 'patrones.html'
     model = Patron
 
+
 class PatronAddView(views_utils.AddView):
     template_name = 'add_patron.html'
     model = Patron
     model_form = PatronForm
     redirect_to = 'patrones'
+
+
+class DetallePatronView(views_utils.DetalleView):
+    template_name = 'detail_patron.html'
+    model = Patron
+
 
 class PatronEditView(views_utils.EditView):
     template_name = 'edit_patron.html'
@@ -118,6 +138,7 @@ def deletePatron(request, **kwargs):
     entrada.delete()
 
     return redirect(redirect_to)
+
 
 def searchPatron(request):
 

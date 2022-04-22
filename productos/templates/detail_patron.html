@@ -16,9 +16,9 @@
                 <li class="breadcrumb-item">
                     <a href="{% url 'index' %}" style="text-decoration: none">Inicio</a>
                 </li>
-                <li class="breadcrumb-item">Material</li>
+                <li class="breadcrumb-item">Productos</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'miscelanea' %}" style="text-decoration: none">Miscelaneas</a>
+                    <a href="{% url 'patrones' %}" style="text-decoration: none">Patrones</a>
                 </li>
                 <li class="breadcrumb-item">{{ entrada.nombre }}</li>
             </ol>
@@ -26,30 +26,26 @@
             <div class="card border-dark">
                 <div class="card-body container col-lg-12">
                     <div class="text-center" style="padding: 2%">
-                        <table class="table table-hover table-bordered text-center table-responsive-lg">
+                    <table class="table table-hover table-bordered text-center table-responsive-lg">
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Código de laboratorio</th>
-                                <th>Próxima revisión</th>
+                                <th>CAS</th>
+                                <th>Concentracion</th>
                                 <th>Proveedor</th>
+                                <th>Ficha de seguridad</th>
+                                <th>Certificado</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        {{ entrada.nombre }}
-                                    </td>
+                                    <td>{{ entrada.nombre }}</td>
                                     <td>
                                         {{ entrada.codigo_laboratorio }}
                                     </td>
-                                    <td>
-                                        {% if entrada.proxima_revision %}
-                                            {{ entrada.proxima_revision }}
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ entrada.CAS }}</td>
+                                    <td>{{ entrada.concentracion }}</td>
                                     <td>
                                         {% if entrada.proveedor %}
                                             {{ entrada.proveedor }}
@@ -57,15 +53,36 @@
                                             N/A
                                         {% endif %}
                                     </td>
+                                    <td>
+                                        {% if entrada.ficha_seguridad %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ entrada.ficha_seguridad }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if entrada.certificado %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ entrada.certificado }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
                         <div class="row">
                             <div class="col-lg-4 p-2">
                                 <div class="card">
                                     <div class="card-header"><h4>Código QR</h4></div>
-                                    {% get_pased_text '/material/miscelania/detalle/' entrada.codigo_slug as parsed %}
+                                    {% get_pased_text '/producto/patron/detalle/' entrada.codigo_slug as parsed %}
                                     <div class="card-body" id='QR'>
                                         <img src="{% qr_url_from_text parsed %}">
                                     </div>
@@ -86,9 +103,9 @@
                             <div class="space col-lg-4"></div>
                             <div class="pt-5 col-lg-2">
                                 <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'miscelanea' %}' ">
+                                        onclick="window.location.href='{% url 'patrones' %}' ">
                                     <a class="text-white text-decoration-none"
-                                       href="{% url 'miscelanea' %}">
+                                       href="{% url 'patrones' %}">
                                         <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                                         Volver a la lista
                                     </a>
@@ -98,9 +115,9 @@
                             {% if permisos.can_edit %}
                             <div class="pt-5 col-lg-2">
                                 <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'miscelanea_edit' entrada.codigo_slug %}' ">
+                                        onclick="window.location.href='{% url 'patron_edit' entrada.codigo_slug %}' ">
                                     <a class="text-white text-decoration-none"
-                                       href="{% url 'miscelanea_edit' entrada.codigo_slug %}">
+                                       href="{% url 'patron_edit' entrada.codigo_slug %}">
                                         <i class="fas fa-edit text-white" aria-hidden="true"></i>
                                         Editar la entrada
                                     </a>

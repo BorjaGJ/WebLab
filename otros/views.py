@@ -363,7 +363,7 @@ def searchAnalisis(request, **kwargs):
         padre = model_padre.objects.get(nombre_slug=kwargs['nombre_slug'])
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado)
+            Q(nombre__icontains=buscado) | Q(codigo__icontains=buscado)
         )
 
         return render(request, 'analisis.html', {"entradas": entradas, 'padre': padre})
