@@ -8,7 +8,7 @@ from material.models import Instrumento
 
 class MyHTMLCalendar(HTMLCalendar):
 
-    cssclass_month = 'calendar table-responsive-lg'
+    cssclass_month = 'calendar table-responsive-xl'
     cssclass_month_head = 'calendar-month-head'
     cssclasses_weekday_head = 'calendar-weekday-head'
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
@@ -43,7 +43,7 @@ class MyHTMLCalendar(HTMLCalendar):
 
         else:
              # cualquier otro dia
-            return '<td class="%s">%d<br><strong class="text-white">No hay Eventos</strong></td>' % ('calendar-day', day)
+            return '<td class="%s">%d<br><strong class="text-white">O Eventos</strong></td>' % ('calendar-day', day)
 
     def formatweekday(self, day):
         """
