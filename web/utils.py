@@ -43,7 +43,7 @@ class MyHTMLCalendar(HTMLCalendar):
 
         else:
              # cualquier otro dia
-            return '<td class="%s">%d<br><strong class="text-white">O Eventos</strong></td>' % ('calendar-day', day)
+            return '<td class="%s">%d<br><strong class="text-white">00Eventos</strong></td>' % ('calendar-day', day)
 
     def formatweekday(self, day):
         """
