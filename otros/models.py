@@ -128,7 +128,7 @@ class Pedido(models.Model):
 
         if evento is None:
             evento = Evento.objects.create(
-                nombre='LLega pedido ' + self.nombre, fecha=self.fecha_espera, color=configuracion.color_pedidos
+                nombre='LLegada ' + self.nombre, fecha=self.fecha_espera, color=configuracion.color_pedidos
             )
             self.evento = evento
 
@@ -171,7 +171,7 @@ class Analisis(models.Model):
 
         if evento is None:
             evento = Evento.objects.create(
-                nombre='Expiración analisis' + self.nombre, fecha=self.fecha_expiracion,
+                nombre='Expiración análisis ' + self.nombre, fecha=self.fecha_expiracion,
                 color=configuracion.color_analisis
             )
             self.evento = evento

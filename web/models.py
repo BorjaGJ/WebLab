@@ -38,21 +38,21 @@ class ConfiguracionEventos(models.Model):
 
         if modelEventoColorHasChanged(Instrumento, self.color_instrumentos):
             instrumentos = Instrumento.objects.all()
-            for reactivo in instrumentos:
-                reactivo.evento.color = self.color_instrumentos
-                reactivo.save()
+            for instrumento in instrumentos:
+                instrumento.evento.color = self.color_instrumentos
+                instrumento.save()
 
         if modelEventoColorHasChanged(Volumetrico, self.color_volumetricos):
             volumetricos = Volumetrico.objects.all()
-            for patron in volumetricos:
-                patron.evento.color = self.color_volumetricos
-                patron.save()
+            for volumetrico in volumetricos:
+                volumetrico.evento.color = self.color_volumetricos
+                volumetrico.save()
 
         if modelEventoColorHasChanged(Miscelanea, self.color_miscelaneas):
             miscelaneas = Miscelanea.objects.all()
-            for disolvente in miscelaneas:
-                disolvente.evento.color = self.color_miscelaneas
-                disolvente.save()
+            for miscelanea in miscelaneas:
+                miscelanea.evento.color = self.color_miscelaneas
+                miscelanea.save()
 
         if modelEventoColorHasChanged(Reactivo, self.color_reactivos):
             reactivos = Reactivo.objects.all()
@@ -88,16 +88,15 @@ class ConfiguracionEventos(models.Model):
 
 def modelEventoColorHasChanged(Model, color_configuracion):
 
-    entrada = get_object_or_None(Model, id=1)
-    devolver = False
-
-    print(entrada)
+    entrada = Model.objects.last()
 
     if entrada is None:
         devolver = False
 
     else:
         devolver = entrada.evento.color != color_configuracion
+
+    print(devolver)
 
     return devolver
 

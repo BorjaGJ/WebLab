@@ -2,7 +2,7 @@ from annoying.functions import get_object_or_None
 from django import  template
 from django.contrib.auth.models import User
 
-from web.models import CustomPermisos
+from web.models import CustomPermisos, ConfiguracionEventos
 
 register = template.Library()
 
@@ -34,4 +34,11 @@ def get_parsed_text(escrito, variable):
 @register.simple_tag(name='get_pased_text_from_2')
 def get_parsed_text_from_2(escrito, variable, escrito2, variable2):
     return str(escrito) + str(variable) + str(escrito2) + str(variable2)
+
+@register.simple_tag(name='get_color_conf')
+def get_color_conf():
+    return ConfiguracionEventos.objects.first()
+
+
+
 
