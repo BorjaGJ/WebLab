@@ -29,14 +29,19 @@ class MyHTMLCalendar(HTMLCalendar):
 
         elif self.lista_dias_eventos.__contains__(day):
             # dia con evento
-            return '<td class="calendar-day" style="background-color:%s;background-image:linear-gradient(to right, %s)">' \
-                   '<a class="text-black text-decoration-none" href="calendario/eventos/%d/%d">' \
-                   '%d<br><strong>%s %s</strong></a></td>' \
+            return '<td class="calendar-day" style="background-color:%s;' \
+                   'background-image:linear-gradient(to right, %s)">' \
+                   '<a class="text-black text-decoration-none"></a>%d <br>' \
+                   '<a class="" ><i class="fa fa-angle-left fa-lg"></i></a>' \
+                   '<a class="font-weight-bold text-decoration-none text-black" ' \
+                   'href="calendario/eventos/%d/%d" class="active">%s %s </a>' \
+                   ' <a class="" ><i class="fa fa-angle-right fa-lg"></i></a>' \
+                   '</td>' \
                    % \
                    (
+                    get_eventos_colores(month=self.hoy.month, day=day)[0:7],
                     get_eventos_colores(month=self.hoy.month, day=day),
-                    get_eventos_colores(month=self.hoy.month, day=day),
-                    self.hoy.month, day, day,
+                    day, self.hoy.month, day,
                     get_total_eventos(day=day, month=self.hoy.month),
                     has_s_evento(day, month=self.hoy.month)
                     )
@@ -87,4 +92,6 @@ def get_eventos_colores(day, month):
     usable = lista_colores.__str__().replace("'", "")
 
     return usable[1:-1]
+
+
 

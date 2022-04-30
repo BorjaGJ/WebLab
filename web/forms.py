@@ -8,8 +8,6 @@ from web.models import ConfiguracionEventos, CustomPermisos
 
 
 class WebLabLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super(WebLabLoginForm, self).__init__(*args, **kwargs)
 
     username = UsernameField(label='Usuario', widget=forms.TextInput(
         attrs={
