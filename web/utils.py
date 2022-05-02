@@ -32,7 +32,7 @@ class MyHTMLCalendar(HTMLCalendar):
             return '<td class="calendar-day" style="background-color:%s;' \
                    'background-image:linear-gradient(to right, %s)">' \
                    '<a class="text-black text-decoration-none"></a>%d <br>'  \
-                   '<a class="font-weight-bold text-decoration-none" ' \
+                   '<a class="font-weight-bold text-decoration-none text-black" ' \
                    'href="calendario/eventos/%d/%d" class="active">%s %s </a>' \
                    '</td>' \
                    % \
