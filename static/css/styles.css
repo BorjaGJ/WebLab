@@ -8149,4 +8149,23 @@ body {
 
 }
 
+.glow {
+  color: black;
+  text-align: center;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
+                 0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
+  }
+
+  to {
+    text-shadow: 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff,
+                 0 0 70px #fff, 0 0 80px #fff, 0 0 90px #fff;
+  }
+}
+
+
 
