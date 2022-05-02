@@ -28,16 +28,17 @@
                     <li class="breadcrumb-item">Material</li>
                     <li class="breadcrumb-item active">Instrumentos</li>
                 </ol>
-            {% get_permisos request.user as permisos %}
+                {% get_permisos request.user as permisos %}
 
                 {#        Tabla dentro de carta#}
                 <div class="card mb-4">
                     <div class="card-header">
                         {% if permisos.can_add %}
-                        <i class="fa fa-plus content-desktop"></i>
-                        <button class="btn btn-primary col-lg-2" onclick="window.location.href='{% url 'add_instrumento' %}'">
-                            <a class="text-decoration-none text-white" href="{% url 'add_instrumento' %}">Añadir</a>
-                        </button>
+                            <i class="fa fa-plus content-desktop"></i>
+                            <button class="btn btn-primary col-lg-2"
+                                    onclick="window.location.href='{% url 'add_instrumento' %}'">
+                                <a class="text-decoration-none text-white" href="{% url 'add_instrumento' %}">Añadir</a>
+                            </button>
                         {% endif %}
                     </div>
                     <div class="card-body container">
@@ -50,10 +51,10 @@
                                 <th>Proveedor</th>
                                 <th class="content-desktop">Método de calibración</th>
                                 {% if permisos.can_edit %}
-                                <th>Editar</th>
+                                    <th>Editar</th>
                                 {% endif %}
                                 {% if permisos.can_delete %}
-                                <th>Eliminar</th>
+                                    <th>Eliminar</th>
                                 {% endif %}
                             </tr>
                             </thead>
@@ -74,7 +75,7 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                         {% get_pased_text '/material/instrumento/detalle/' material.codigo_slug as parsed %}
+                                        {% get_pased_text '/material/instrumento/detalle/' material.codigo_slug as parsed %}
                                         <div class="d-none" id={{ material.id }}>
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>
@@ -94,62 +95,62 @@
                                         {% endif %}
                                     </td>
                                     <td class="content-desktop">
-                                         {% if material.metodo_calibracion %}
-                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                            <a target="_blank" href="/media/{{ material.metodo_calibracion }}">
-                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
+                                        {% if material.metodo_calibracion %}
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                                <a target="_blank" href="/media/{{ material.metodo_calibracion }}">
+                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
                                         {% else %}
                                             N/A
                                         {% endif %}
                                     </td>
                                     {% if permisos.can_edit %}
-                                    <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                        onclick="window.location.href='{% url 'instrumento_edit' material.codigo_slug %}'">
-                                            <a href="{% url 'instrumento_edit' material.codigo_slug %}">
-                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                    </td>
-                                   {% endif %}
-                                    {% if permisos.can_delete  %}
-                                    <td>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>
-                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                        </button>
+                                        <td>
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                                    onclick="window.location.href='{% url 'instrumento_edit' material.codigo_slug %}'">
+                                                <a href="{% url 'instrumento_edit' material.codigo_slug %}">
+                                                    <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    {% endif %}
+                                    {% if permisos.can_delete %}
+                                        <td>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                    onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
 
-                                        <div class="d-none mb-2" id={{ material.codigo_laboratorio }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_instrumento' material.codigo_laboratorio %}"
-                                                           onclick="window.location.href='{% url 'delete_instrumento' material.codigo_laboratorio%}'">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
+                                            <div class="d-none mb-2" id={{ material.codigo_laboratorio }}>
+                                                <p class="bold mt-3">¿Estás seguro de <br>
+                                                    eliminar esta entrada?</p>
+                                                <div class="row">
+                                                    <div class="col-lg-2"></div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light">
+                                                            <a class="text-white text-decoration-none"
+                                                               href="{% url 'delete_instrumento' material.codigo_laboratorio %}"
+                                                               onclick="window.location.href='{% url 'delete_instrumento' material.codigo_laboratorio %}'">Borrar
+                                                                <i class="fas fa-trash-alt text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-lg-4 pt-1">
+                                                        <button type="button"
+                                                                class="btn btn-danger p-2 waves-effect waves-light ">
+                                                            <a onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>Volver
+                                                                <i class="fas fa-backspace text-white"
+                                                                   aria-hidden="true"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                 {% endif %}
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>
@@ -157,28 +158,31 @@
                             </tbody>
                         </table>
                         {% if entradas.has_other_pages %}
-                            <ul class="pagination">
-                                {% if entradas.has_previous %}
-                                    <li><a class="text-black page-link"
-                                           href="?page={{ entradas.previous_page_number }}">&laquo;</a></li>
-                                {% else %}
-                                    <li class="disabled"><span></span></li>
-                                {% endif %}
-                                {% for i in entradas.paginator.page_range %}
-                                    {% if entradas.number == i %}
-                                        <li class="active page-link"><span>{{ i }} <span class="sr-only">(current)
-                                        </span></span></li>
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {% if entradas.has_previous %}
+                                        <li><a class="text-black page-link"
+                                               href="?page={{ entradas.previous_page_number }}">&laquo;</a></li>
                                     {% else %}
-                                        <li><a class="text-black page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                        <li class="disabled"><span></span></li>
                                     {% endif %}
-                                {% endfor %}
-                                {% if entradas.has_next %}
-                                    <li><a class="text-black page-link" href="?page={{ entradas.next_page_number }}">&raquo;</a>
-                                    </li>
-                                {% else %}
-                                    <li class="disabled"><span></span></li>
-                                {% endif %}
-                            </ul>
+                                    {% for i in entradas.paginator.page_range %}
+                                        {% if entradas.number == i %}
+                                            <li class="active page-link"><span>{{ i }} <span class="sr-only">(current)
+                                        </span></span></li>
+                                        {% else %}
+                                            <li><a class="text-black page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if entradas.has_next %}
+                                        <li><a class="text-black page-link"
+                                               href="?page={{ entradas.next_page_number }}">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="disabled"><span></span></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
