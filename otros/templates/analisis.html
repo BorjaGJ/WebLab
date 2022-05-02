@@ -33,7 +33,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         {% if permisos.can_add %}
-                            <i class="fa fa-plus me-1"></i>
+                            <i class="fa fa-plus me-1 content-desktop"></i>
                             <button class="btn btn-primary col-lg-2" style="margin-right: 2%"
                                     onclick="window.location.href='{% url 'analisis_add' padre.nombre_slug %}'">
                                 <a class="text-decoration-none text-white"
@@ -50,9 +50,9 @@
                                 <th>Fecha de expiración</th>
                                 <th>Fecha de entrega</th>
                                 <th>Código</th>
-                                <th>Resguardo</th>
-                                <th>Resultado</th>
-                                <th>Factura</th>
+                                <th class="content-desktop">Resguardo</th>
+                                <th class="content-desktop">Resultado</th>
+                                <th class="content-desktop">Factura</th>
                                 {% if permisos.can_edit %}
                                     <th>Editar</th>
                                 {% endif %}
@@ -97,7 +97,7 @@
                                         </div>
                                     </td>
                                     {% if analisis.resguardo %}
-                                        <td>
+                                        <td class="content-desktop">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                                 <a target="_blank" href="/media/{{ analisis.resguardo }}">
                                                     <i class="fas fa-file-alt text-white" aria-hidden="true"></i>
@@ -105,10 +105,10 @@
                                             </button>
                                         </td>
                                     {% else %}
-                                        <td>N/A</td>
+                                        <td class="content-desktop">N/A</td>
                                     {% endif %}
                                     {% if analisis.resultado %}
-                                        <td>
+                                        <td class="content-desktop">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                                 <a target="_blank" href="/media/{{ analisis.resultado }}">
                                                     <i class="fas fa-poll text-white" aria-hidden="true"></i>
@@ -116,10 +116,10 @@
                                             </button>
                                         </td>
                                     {% else %}
-                                        <td>N/A</td>
+                                        <td class="content-desktop">N/A</td>
                                     {% endif %}
                                     {% if analisis.factura %}
-                                        <td>
+                                        <td class="content-desktop">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
                                                 <a target="_blank" href="/media/{{ analisis.factura }}">
                                                     <i class="fas fa-file text-white" aria-hidden="true"></i>
@@ -127,7 +127,7 @@
                                             </button>
                                         </td>
                                     {% else %}
-                                        <td>N/A</td>
+                                        <td class="content-desktop">N/A</td>
                                     {% endif %}
                                     {% if permisos.can_edit %}
                                         <td>

@@ -14,16 +14,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="{% static "css/styles.css" %}" rel="stylesheet"/>
     <link href="{% static "css/calendar.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {% block extracss %}{% endblock extracss %}
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <div>
-        <a class="navbar-brand m-5" href="{% url 'index' %}"><i class="fa fa-calendar-alt"></i>&nbsp;&nbsp;WebLab</a>
-        <button class="btn btn-link btn-sm" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars fa-2x"></i></button>
+    <div class="p-2">
+        <button class="btn btn-link btn-sm m-3" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars fa-2x"></i>
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}"
+           style="font-family: 'Tangerine', serif;font-size: 34px;">
+            <img class="pb-2" height="90%" width="90%" src="{% static 'logo.png' %}">
+            WebLab
+        </a>
     </div>
     <!-- Sidebar Toggle-->
 
@@ -129,7 +136,7 @@
     {% block content %}
 
         <section id="layoutSidenav_content">
-            <main class="container row col-lg-12">
+            <main class="row col-lg-12">
                 <div class="card mt-3">
 
                     <div class="card-header text-center mt-2 mb-2 col-lg-12">
@@ -145,7 +152,7 @@
                 </div>
             </main>
             {% get_color_conf as conf %}
-            <main class="p-5">
+            <main class="py-5" style="margin-right: 8%; margin-left: 4%">
                 <div class="card text-center">
                     <div class="card-header"><h5>Leyenda de colores del calendario</h5></div>
                     <div class="card-body container">
