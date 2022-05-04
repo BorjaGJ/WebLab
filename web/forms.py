@@ -12,7 +12,7 @@ class WebLabLoginForm(AuthenticationForm):
     username = UsernameField(label='Usuario', widget=forms.TextInput(
         attrs={
             'class': 'input-field mb-3',
-            'placeholder': 'Nombre de usuario',
+            'placeholder': 'Usuario',
             'id': 'user',
             'label': 'usuario'
         }))
