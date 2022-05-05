@@ -93,7 +93,7 @@
                                         </div>
                                         {% get_pased_text_from_2 request '/otros/clientes/' analisis.cliente.nombre_slug '/analisis/detalle/' analisis.id as parsed %}
                                         <div class="d-none" id='qr{{ analisis.id }}'>
-                                            <img src="{% qr_url_from_text parsed %}">
+                                            <img width="100%" height="100%" src="{% qr_url_from_text parsed %}">
                                         </div>
                                     </td>
                                     {% if analisis.resguardo %}
