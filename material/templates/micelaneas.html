@@ -67,7 +67,7 @@
                                     </td>
                                     <td>
                                         {{ material.codigo_laboratorio }}
-                                         {% get_pased_text '/material/miscelaneas/detalle/' material.codigo_slug as parsed %}
+                                         {% get_pased_text request '/material/miscelaneas/detalle/' material.codigo_slug as parsed %}
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer({{ material.id }})">

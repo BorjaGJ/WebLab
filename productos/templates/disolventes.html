@@ -74,7 +74,7 @@
                                                 <i class="fas fa-qrcode" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        {% get_pased_text '/productos/disolventes/detalle/' producto.codigo_slug as parsed %}
+                                        {% get_pased_text request '/productos/disolventes/detalle/' producto.codigo_slug as parsed %}
                                         <div id={{ producto.id }} class="d-none">
                                             <img src="{% qr_url_from_text parsed %}">
                                         </div>

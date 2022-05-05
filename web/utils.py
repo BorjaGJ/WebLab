@@ -1,9 +1,7 @@
 from calendar import HTMLCalendar
-from datetime import date, datetime
-from django.shortcuts import get_object_or_404
+from datetime import datetime
 
 from otros.models import Evento
-from material.models import Instrumento
 
 
 class MyHTMLCalendar(HTMLCalendar):

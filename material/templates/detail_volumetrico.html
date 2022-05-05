@@ -74,7 +74,7 @@
                             <div class="col-lg-4 p-2">
                                 <div class="card">
                                     <div class="card-header"><h4>Código QR</h4></div>
-                                    {% get_pased_text '/material/volumetricos/detalle/' entrada.codigo_slug as parsed %}
+                                    {% get_pased_text request '/material/volumetricos/detalle/' entrada.codigo_slug as parsed %}
                                     <div class="card-body" id='QR'>
                                         <img src="{% qr_url_from_text parsed %}">
                                     </div>

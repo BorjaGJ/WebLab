@@ -27,13 +27,13 @@ def get_permisos(usuario):
 
 
 @register.simple_tag(name='get_pased_text')
-def get_parsed_text(escrito, variable):
-    return str(escrito) + str(variable)
+def get_parsed_text(request, escrito, variable):
+    return 'https://' + request.get_host() + str(escrito) + str(variable)
 
 
 @register.simple_tag(name='get_pased_text_from_2')
-def get_parsed_text_from_2(escrito, variable, escrito2, variable2):
-    return str(escrito) + str(variable) + str(escrito2) + str(variable2)
+def get_parsed_text_from_2(request, escrito, variable, escrito2, variable2):
+    return 'https://' + request.get_host() + str(escrito) + str(variable) + str(escrito2) + str(variable2)
 
 @register.simple_tag(name='get_color_conf')
 def get_color_conf():
