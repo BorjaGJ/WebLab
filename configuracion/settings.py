@@ -30,12 +30,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_eg)$l@t9%y1uz&1a7e)$)-s*vxlcw4asdfaso@4ndxy&4p(%5092'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Application definition
 
