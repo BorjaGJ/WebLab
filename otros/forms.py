@@ -5,6 +5,7 @@ from otros.models import Evento, Cliente, Proveedor, Pedido, Analisis
 
 
 class EventoForm(ModelForm):
+
     class Meta:
         model = Evento
         exclude = {}
