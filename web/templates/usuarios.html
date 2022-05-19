@@ -50,7 +50,7 @@
                             {% for usuario in usuarios %}
                                 {% get_permisos usuario as permisos %}
                                 <tr>
-                                    <td>{{ usuario.username }}</td>
+                                    <td id="nombre{{ usuario.id }}">{{ usuario.username }}</td>
                                     <td>
                                         {% if permisos.can_add %}
                                             Si
@@ -98,27 +98,9 @@
                                     {% if userpermit.can_user %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ usuario.id }}")'>
+                                                onclick='SweetDeleteId("{{ usuario.id }}","/usuarios/delete/")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
-
-                                         <div class="d-none mb-2" id={{ usuario.id }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_usuario' usuario.id %}">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                 {% endif %}
                                 </tr>
