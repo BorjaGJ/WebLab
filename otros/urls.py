@@ -48,7 +48,7 @@ urlpatterns = [
         login_required(views.DetalleAnalisisView.as_view()), name='analisis_detalle'),
     url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/editar/(?P<id>[-\w]+)$', login_required(views.AnalisisEditView.as_view()),
         name='analisis_edit'),
-    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/(?P<id>[-\w]+)/delete$', login_required(views.deleteAnalisis),
+    url(r'^clientes/(?P<nombre_slug>[-\w]+)/analisis/delete/(?P<id>[-\w]+)$', login_required(views.deleteAnalisis),
         name='analisis_delete'),
 
 ]

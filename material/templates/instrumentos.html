@@ -62,13 +62,13 @@
                             {% for material in entradas %}
                                 <tr>
                                     <td>
-                                        <a class="text-black text-decoration-none"
+                                        <a id="nombre{{ material.id }}" class="text-black text-decoration-none"
                                            href="{% url 'instrumento_detalle' material.codigo_slug %}">
                                             {{ material.nombre }}
                                         </a>
                                     </td>
                                     <td>
-                                        {{ material.codigo_laboratorio }}
+                                        <a id="id{{ material.id }}">{{ material.codigo_laboratorio }}</a>
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer({{ material.id }})">
@@ -118,37 +118,9 @@
                                     {% if permisos.can_delete %}
                                         <td>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                    onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>
+                                                    onclick='SweetDeleteCodigo("{{ material.id }}","/material/delete/instrumento/")'>
                                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                             </button>
-
-                                            <div class="d-none mb-2" id={{ material.codigo_laboratorio }}>
-                                                <p class="bold mt-3">¿Estás seguro de <br>
-                                                    eliminar esta entrada?</p>
-                                                <div class="row">
-                                                    <div class="col-lg-2"></div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light">
-                                                            <a class="text-white text-decoration-none"
-                                                               href="{% url 'delete_instrumento' material.codigo_laboratorio %}"
-                                                               onclick="window.location.href='{% url 'delete_instrumento' material.codigo_laboratorio %}'">Borrar
-                                                                <i class="fas fa-trash-alt text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light ">
-                                                            <a onclick='AparecerDelete("{{ material.codigo_laboratorio }}")'>Volver
-                                                                <i class="fas fa-backspace text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                     {% endif %}
                                 </tr>

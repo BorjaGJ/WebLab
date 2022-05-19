@@ -59,7 +59,7 @@
                             <tbody>
                             {% for proveedor in entradas %}
                                 <tr>
-                                    <td>{{ proveedor.nombre }}</td>
+                                    <td id="nombre{{ proveedor.id }}">{{ proveedor.nombre }}</td>
                                     {% if proveedor.telefono %}
                                     <td>{{ proveedor.telefono }}</td>
                                     {% else %}
@@ -92,37 +92,9 @@
                                 {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ proveedor.id }}")'>
+                                                onclick='SweetDeleteId("{{ proveedor.id }}","/otros/proveedores/delete/")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
-
-                                        <div class="d-none mb-2" id={{ proveedor.id }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light"
-                                                    onclick="window.location.href='{% url 'delete_proveedor' proveedor.id %}'">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_proveedor' proveedor.id %}">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ proveedor.id }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                 {% endif %}
                                 </tr>

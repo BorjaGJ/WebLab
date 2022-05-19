@@ -65,7 +65,7 @@
                             {% for pedido in entradas %}
                                 <tr>
                                     <td>
-                                        <a class="text-black text-decoration-none"
+                                        <a id="nombre{{ pedido.id }}" class="text-black text-decoration-none"
                                            href="{% url 'pedido_detalle' padre.nombre_slug pedido.id %}">
                                             {{ pedido.nombre }}
                                         </a>
@@ -110,37 +110,9 @@
                                     {% if permisos.can_delete %}
                                         <td>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                    onclick='AparecerDelete("{{ pedido.id }}")'>
+                                                    onclick='SweetDeleteId("{{ pedido.id }}","pedidos/delete/")'>
                                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                             </button>
-
-                                            <div class="d-none mb-2" id={{ pedido.id }}>
-                                                <p class="bold mt-3">¿Estás seguro de <br>
-                                                    eliminar esta entrada?</p>
-                                                <div class="row">
-                                                    <div class="col-lg-2"></div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light"
-                                                                onclick="window.location.href('{% url 'pedido_delete'  padre.nombre_slug pedido.id %}')">
-                                                            <a class="text-white text-decoration-none"
-                                                               href="{% url 'pedido_delete' padre.nombre_slug pedido.id %}">Borrar
-                                                                <i class="fas fa-trash-alt text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light ">
-                                                            <a onclick='AparecerDelete("{{ pedido.id }}")'>Volver
-                                                                <i class="fas fa-backspace text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                     {% endif %}
                                 </tr>

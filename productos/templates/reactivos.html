@@ -62,13 +62,13 @@
                             {% for producto in entradas %}
                                 <tr>
                                     <td>
-                                        <a class="text-black text-decoration-none"
+                                        <a id="nombre{{ producto.id }}" class="text-black text-decoration-none"
                                            href="{% url 'reactivo_detalle' producto.codigo_slug %}">
                                             {{ producto.nombre }}
                                         </a>
                                     </td>
                                     <td>
-                                        {{ producto.codigo_laboratorio }}
+                                        <a id="id{{ producto.id }}">{{ producto.codigo_laboratorio }}</a>
                                         <div class="float-end px-4">
                                             <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
                                                     onclick="Aparecer({{ producto.id }})">
@@ -119,36 +119,9 @@
                                 {% if permisos.can_delete %}
                                     <td>
                                         <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>
+                                                onclick='SweetDeleteCodigo("{{ producto.id }}","/productos/delete/reactivo/")'>
                                             <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                         </button>
-
-                                        <div class="d-none mb-2" id={{ producto.codigo_laboratorio }}>
-                                            <p class="bold mt-3">¿Estás seguro de <br>
-                                                eliminar esta entrada?</p>
-                                            <div class="row">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light">
-                                                        <a class="text-white text-decoration-none"
-                                                           href="{% url 'delete_reactivo' producto.codigo_laboratorio %}">Borrar
-                                                            <i class="fas fa-trash-alt text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div class="col-lg-4 pt-1">
-                                                    <button type="button"
-                                                            class="btn btn-danger p-2 waves-effect waves-light ">
-                                                        <a onclick='AparecerDelete("{{ producto.codigo_laboratorio }}")'>Volver
-                                                            <i class="fas fa-backspace text-white"
-                                                               aria-hidden="true"></i>
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                 {% endif %}
                                 </tr>

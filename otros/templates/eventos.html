@@ -63,7 +63,7 @@
                             <tbody>
                             {% for evento in entradas %}
                                 <tr>
-                                    <td>{{ evento.nombre }}</td>
+                                    <td id="nombre{{ evento.id }}">{{ evento.nombre }}</td>
                                     <td>
                                         {{ evento.fecha }}
                                     </td>
@@ -80,36 +80,9 @@
                                     {% if permisos.can_delete %}
                                         <td>
                                             <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                    onclick='AparecerDelete("{{ evento.id }}")'>
+                                                    onclick='SweetDeleteId("{{ evento.id }}","/otros/eventos/delete/")'>
                                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                             </button>
-
-                                            <div class="d-none mb-2" id={{ evento.id }}>
-                                                <p class="bold mt-3">¿Estás seguro de <br>
-                                                    eliminar esta entrada?</p>
-                                                <div class="row">
-                                                    <div class="col-lg-2"></div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light">
-                                                            <a class="text-white text-decoration-none"
-                                                               href="{% url 'delete_evento' evento.id %}">Borrar
-                                                                <i class="fas fa-trash-alt text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-lg-4 pt-1">
-                                                        <button type="button"
-                                                                class="btn btn-danger p-2 waves-effect waves-light ">
-                                                            <a onclick='AparecerDelete("{{ evento.id }}")'>Volver
-                                                                <i class="fas fa-backspace text-white"
-                                                                   aria-hidden="true"></i>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                     {% endif %}
                                 </tr>
