@@ -8150,6 +8150,13 @@ body {
 
 }
 
+@media screen and (max-width: 768px) {
+
+.pad-movil{padding: 5%}
+
+}
+
+
 .glow {
   color: black;
   text-align: center;

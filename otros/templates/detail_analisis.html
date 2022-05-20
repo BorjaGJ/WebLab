@@ -141,29 +141,25 @@
                         </div>
 
                         <div class="row p-2">
-                            <div class="space col-lg-4"></div>
-                            <div class="pt-5 col-lg-2">
-                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
-                                    <a class="text-white text-decoration-none"
-                                       href="{% url 'analisis' padre.nombre_slug %}">
-                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
-                                        Volver a análisis
-                                    </a>
-                                </button>
-                            </div>
+                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                    onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'analisis' padre.nombre_slug %}">
+                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    Volver a análisis
+                                </a>
+                            </button>
+                            <div class="d-block d-md-none py-2"></div>
                             {% get_permisos request.user as permisos %}
                             {% if permisos.can_edit %}
-                                <div class="pt-5 col-lg-2">
-                                    <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
-                                            onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
-                                        <a class="text-white text-decoration-none"
-                                           href="{% url 'analisis' padre.nombre_slug %}">
-                                            <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            Editar el analisis
-                                        </a>
-                                    </button>
-                                </div>
+                                <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'analisis' padre.nombre_slug %}">
+                                        <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                        Editar el analisis
+                                    </a>
+                                </button>
                             {% endif %}
                         </div>
                     </div>

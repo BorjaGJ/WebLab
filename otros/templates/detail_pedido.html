@@ -70,7 +70,7 @@
                             </tr>
                             </tbody>
                         </table>
-                     <table class="table table-hover table-bordered text-center table-responsive-lg">
+                        <table class="table table-hover table-bordered text-center table-responsive-lg">
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>
@@ -82,21 +82,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>{{ padre.nombre }}</td>
-                                    {% if padre.telefono %}
-                                        <td>{{ padre.telefono }}</td>
-                                    {% else %}
-                                        <td>N/A</td>
-                                    {% endif %}
-                                    <td>{{ padre.email }}</td>
-                                    {% if padre.pagina_web %}
-                                        <td>{{ padre.pagina_web }}</td>
-                                    {% else %}
-                                        <td>N/A</td>
-                                    {% endif %}
-                                    <td>{{ padre.nota }}</td>
-                                    <td>{{ entrada.total_pedidos_proveedor }}</td>
+                            <tr>
+                                <td>{{ padre.nombre }}</td>
+                                {% if padre.telefono %}
+                                    <td>{{ padre.telefono }}</td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                                <td>{{ padre.email }}</td>
+                                {% if padre.pagina_web %}
+                                    <td>{{ padre.pagina_web }}</td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                                <td>{{ padre.nota }}</td>
+                                <td>{{ entrada.total_pedidos_proveedor }}</td>
                             </tbody>
                         </table>
                         <div class="row">
@@ -115,29 +115,25 @@
                         </div>
 
                         <div class="row p-2">
-                            <div class="space col-lg-4"></div>
-                            <div class="pt-5 col-lg-2">
-                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
-                                    <a class="text-white text-decoration-none"
-                                       href="{% url 'pedidos' padre.nombre_slug %}">
-                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
-                                        Volver a la lista
-                                    </a>
-                                </button>
-                            </div>
+                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                    onclick="window.location.href='{% url 'analisis' padre.nombre_slug %}' ">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'pedidos' padre.nombre_slug %}">
+                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    Volver a la lista
+                                </a>
+                            </button>
+                            <div class="d-block d-md-none py-2"></div>
                             {% get_permisos request.user as permisos %}
                             {% if permisos.can_edit %}
-                                <div class="pt-5 col-lg-2">
-                                    <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
-                                            onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
-                                        <a class="text-white text-decoration-none"
-                                           href="{% url 'pedido_edit' padre.nombre_slug entrada.id %}">
-                                            <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            Editar la entrada
-                                        </a>
-                                    </button>
-                                </div>
+                                <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
+                                        onclick="window.location.href='{% url 'analisis_edit' padre.nombre_slug entrada.id %}' ">
+                                    <a class="text-white text-decoration-none"
+                                       href="{% url 'pedido_edit' padre.nombre_slug entrada.id %}">
+                                        <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                        Editar la entrada
+                                    </a>
+                                </button>
                             {% endif %}
                         </div>
                     </div>

@@ -33,4 +33,7 @@ urlpatterns = [
         name='delete_miscelanea'),
     url(r'^search/instrumento$', login_required(views.searchMiscelanea), name='search_miscelanea'),
 
-    ]
+    url(r'verificar$', login_required(views.Verificar.as_view()), name='verificar'),
+
+
+]

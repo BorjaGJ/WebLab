@@ -23,7 +23,7 @@
             <div class="card border-dark">
                 <div class="card-body container col-lg-12">
                     <div class="text-center" style="padding: 2%">
-                    <table class="table table-hover table-bordered text-center table-responsive-lg">
+                        <table class="table table-hover table-bordered text-center table-responsive-lg">
                             <thead class="text-white mybg">
                             <tr>
                                 <th>Nombre</th>
@@ -36,43 +36,43 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>{{ entrada.nombre }}</td>
-                                    <td>
-                                        {{ entrada.codigo_laboratorio }}
-                                    </td>
-                                    <td>{{ entrada.CAS }}</td>
-                                    <td>{{ entrada.concentracion }}</td>
-                                    <td>
-                                        {% if entrada.proveedor %}
-                                            {{ entrada.proveedor }}
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if entrada.ficha_seguridad %}
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                                <a target="_blank" href="/media/{{ entrada.ficha_seguridad }}">
-                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if entrada.certificado %}
-                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
-                                                <a target="_blank" href="/media/{{ entrada.certificado }}">
-                                                    <i class="fas fa-file text-white" aria-hidden="true"></i>
-                                                </a>
-                                            </button>
-                                        {% else %}
-                                            N/A
-                                        {% endif %}
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>{{ entrada.nombre }}</td>
+                                <td>
+                                    {{ entrada.codigo_laboratorio }}
+                                </td>
+                                <td>{{ entrada.CAS }}</td>
+                                <td>{{ entrada.concentracion }}</td>
+                                <td>
+                                    {% if entrada.proveedor %}
+                                        {{ entrada.proveedor }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entrada.ficha_seguridad %}
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.ficha_seguridad }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entrada.certificado %}
+                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light">
+                                            <a target="_blank" href="/media/{{ entrada.certificado }}">
+                                                <i class="fas fa-file text-white" aria-hidden="true"></i>
+                                            </a>
+                                        </button>
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                         <div class="row">
@@ -97,20 +97,17 @@
                             </div>
                         </div>
                         <div class="row p-2">
-                            <div class="space col-lg-4"></div>
-                            <div class="pt-5 col-lg-2">
-                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'patrones' %}' ">
-                                    <a class="text-white text-decoration-none"
-                                       href="{% url 'patrones' %}">
-                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
-                                        Volver a la lista
-                                    </a>
-                                </button>
-                            </div>
+                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                    onclick="window.location.href='{% url 'patrones' %}' ">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'patrones' %}">
+                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    Volver a la lista
+                                </a>
+                            </button>
+                            <div class="d-block d-md-none py-2"></div>
                             {% get_permisos request.user as permisos %}
                             {% if permisos.can_edit %}
-                            <div class="pt-5 col-lg-2">
                                 <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
                                         onclick="window.location.href='{% url 'patron_edit' entrada.codigo_slug %}' ">
                                     <a class="text-white text-decoration-none"
@@ -119,7 +116,6 @@
                                         Editar la entrada
                                     </a>
                                 </button>
-                            </div>
                             {% endif %}
                         </div>
                     </div>

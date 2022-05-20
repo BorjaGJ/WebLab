@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import redirect, render
+from django.views.generic import CreateView
 
 from material.forms import VolumetricoForm, InstrumentoForm, MiscelaneaForm
 from material.models import Volumetrico, Instrumento, Miscelanea
@@ -29,8 +30,15 @@ class VolumetricoAddView(views_utils.AddView):
     model_form = VolumetricoForm
     redirect_to = 'volumetrico'
 
-def deleteVolumetrico(request, **kwargs):
 
+class Verificar(CreateView):
+    template_name = 'verificar.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
+
+
+def deleteVolumetrico(request, **kwargs):
     model = Volumetrico
     redirect_to = 'volumetrico'
 
@@ -41,11 +49,9 @@ def deleteVolumetrico(request, **kwargs):
 
 
 def searchVolumetrico(request):
-
     model = Volumetrico
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
@@ -78,8 +84,8 @@ class InstrumentoAddView(views_utils.AddView):
     model_form = InstrumentoForm
     redirect_to = 'instrumento'
 
-def deleteInstrumento(request, **kwargs):
 
+def deleteInstrumento(request, **kwargs):
     model = Instrumento
     redirect_to = 'instrumento'
 
@@ -90,11 +96,9 @@ def deleteInstrumento(request, **kwargs):
 
 
 def searchInstrumento(request):
-
     model = Instrumento
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
@@ -129,7 +133,6 @@ class MiscelaneaAddView(views_utils.AddView):
 
 
 def deleteMiscelanea(request, **kwargs):
-
     model = Miscelanea
     redirect_to = 'miscelanea'
 
@@ -140,15 +143,13 @@ def deleteMiscelanea(request, **kwargs):
 
 
 def searchMiscelanea(request):
-
     model = Miscelanea
 
     if request.method == 'GET':
-
         buscado = request.GET.get('buscar')
 
         entradas = model.objects.filter(
-            Q(nombre__icontains=buscado)  |
+            Q(nombre__icontains=buscado) |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
         return render(request, 'instrumentos.html', {"entradas": entradas})

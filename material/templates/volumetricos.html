@@ -35,10 +35,20 @@
                     <div class="card-header">
                         {% if permisos.can_add %}
                             <i class="fa fa-plus me-1 content-desktop"></i>
-                            <button class="btn btn-primary col-lg-2" onclick="window.location.href='{% url 'add_volumetrico' %}'">
-                                <a class="text-decoration-none text-white" href="{% url 'add_volumetrico' %}">Añadir</a>
+                            <button class="btn btn-primary col-lg-2" style="margin-right: 2%"
+                                    onclick="window.location.href='{% url 'add_volumetrico' %}'">
+                                <a class="text-decoration-none text-white"
+                                   href="{% url 'add_volumetrico' %}">Añadir</a>
                             </button>
                         {% endif %}
+                        <div class="d-block d-md-none py-2"></div>
+                        <i class="fa fa-check-circle me-1 content-desktop"></i>
+                        <button class="btn btn-primary col-lg-2"
+                                onclick="window.location.href='{% url 'verificar' %}'">
+                            <a class="text-decoration-none text-white" href="{% url 'verificar' %}">
+                                Realizar verificación
+                            </a>
+                        </button>
                     </div>
                     <div class="card-body container">
                         <table class="table table-hover table-bordered text-center table-responsive-lg">
@@ -97,23 +107,23 @@
                                         {% endif %}
                                     </td>
                                     {% if permisos.can_edit %}
-                                    <td>
-                                        <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
-                                        onclick="window.location.href='{% url 'volumetrico_edit' material.codigo_slug %}'">
-                                            <a href="{% url 'volumetrico_edit' material.codigo_slug %}">
-                                                <i class="fas fa-edit text-white" aria-hidden="true"></i>
-                                            </a>
-                                        </button>
-                                    </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary px-3 waves-effect waves-light"
+                                                    onclick="window.location.href='{% url 'volumetrico_edit' material.codigo_slug %}'">
+                                                <a href="{% url 'volumetrico_edit' material.codigo_slug %}">
+                                                    <i class="fas fa-edit text-white" aria-hidden="true"></i>
+                                                </a>
+                                            </button>
+                                        </td>
                                     {% endif %}
                                     {% if permisos.can_delete %}
-                                    <td>
-                                        <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
-                                                onclick='SweetDeleteCodigo("{{ material.id }}","/material/delete/volumetrico/")'>
-                                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                {% endif %}
+                                        <td>
+                                            <button type="button" class="btn btn-danger px-3 waves-effect waves-light"
+                                                    onclick='SweetDeleteCodigo("{{ material.id }}","/material/delete/volumetrico/")'>
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% empty %}
                                 <h1 class="px-4 mb-5 mt-3">No hay resultados</h1>

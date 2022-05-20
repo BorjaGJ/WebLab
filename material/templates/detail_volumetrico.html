@@ -91,21 +91,18 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="row p-2">
-                            <div class="space col-lg-4"></div>
-                            <div class="pt-5 col-lg-2">
-                                <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                        onclick="window.location.href='{% url 'volumetrico' %}' ">
-                                    <a class="text-white text-decoration-none"
-                                       href="{% url 'volumetrico' %}">
-                                        <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
-                                        Volver a la lista
-                                    </a>
-                                </button>
-                            </div>
+                        <div class="row p-2">
+                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                    onclick="window.location.href='{% url 'volumetrico' %}' ">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'volumetrico' %}">
+                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    Volver a la lista
+                                </a>
+                            </button>
+                            <div class="d-block d-md-none py-2"></div>
                             {% get_permisos request.user as permisos %}
                             {% if permisos.can_edit %}
-                            <div class="pt-5 col-lg-2">
                                 <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
                                         onclick="window.location.href='{% url 'volumetrico_edit' entrada.codigo_slug %}' ">
                                     <a class="text-white text-decoration-none"
@@ -114,7 +111,6 @@
                                         Editar la entrada
                                     </a>
                                 </button>
-                            </div>
                             {% endif %}
                         </div>
                     </div>
