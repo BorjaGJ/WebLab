@@ -13,7 +13,7 @@
                 </li>
                 <li class="breadcrumb-item">Material</li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url 'instrumento' %}" style="text-decoration: none">Volumétrico</a>
+                    <a href="{% url 'volumetrico' %}" style="text-decoration: none">Volumétrico</a>
                 </li>
                 <li class="breadcrumb-item active">Verificar</li>
             </ol>
@@ -33,7 +33,7 @@
                         <input id="medida3" type="number" class="form-control" required>
                     </div>
                     <div class="col-lg-4" style="padding: 1%">
-                        <label for="temperatura">Temperatura (ºC)*</label>
+                        <label for="temperatura">Temperatura (°C)*</label>
                         <input id="temperatura" type="number" class="form-control" required>
                     </div>
                          <div class="col-lg-4" style="padding: 1%">
@@ -45,15 +45,15 @@
                         <input id="volumen" type="number" class="form-control" required>
                     </div>
                     <div class="text-center" style="padding: 2%">
-                        <button name="add" type="submit" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
-                            <a> Guardar
-                                <i class="fas fa-save text-white" aria-hidden="true"></i>
+                        <button name="add" class="btn btn-primary px-3 waves-effect waves-light col-lg-3">
+                            <a> Verificar
+                                <i class="fas fa-check-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>
                         <div class="d-block d-md-none py-2"></div>
                         <button name="back" type="reset" class="btn btn-danger px-3 waves-effect waves-light col-lg-3"
-                                onclick="window.location.href='{% url 'instrumento' %}' ">
-                            <a class="text-white text-decoration-none" href="{% url 'instrumento' %}"> Salir sin guardar
+                                onclick="window.location.href='{% url 'volumetrico' %}' ">
+                            <a class="text-white text-decoration-none" href="{% url 'volumetrico' %}"> Salir sin guardar
                                 <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
                             </a>
                         </button>
@@ -62,5 +62,16 @@
             </div>
         </main>
     </section>
-
 {% endblock %}
+
+<script>
+
+    function densisdadAgua(temperatura, presion) {
+
+        let d1 = 999.8;
+
+        var densidad2 = d1/()
+
+    }
+
+</script>
