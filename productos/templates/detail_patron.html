@@ -7,7 +7,7 @@
     <section id="layoutSidenav_content">
         <main class="container row col-lg-12 bg-white" STYLE="padding: 2%">
 
-            <h1 class="mt-0">{{ entrada.nombre }}</h1>
+            <h2 class="mt-0"><i class="fas fa-calculator"></i>&nbsp;{{ entrada.nombre }}</h2>
 
             <ol class="breadcrumb mb-4 col-lg-12" style="background-color: white!important;">
                 <li class="breadcrumb-item">
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row p-2">
+                        <div class="text-center">
                             <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
                                     onclick="window.location.href='{% url 'patrones' %}' ">
                                 <a class="text-white text-decoration-none"
