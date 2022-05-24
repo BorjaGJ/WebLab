@@ -3520,6 +3520,7 @@ progress {
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
+
 .nav-link:hover, .nav-link:focus {
     color: #0a58ca;
 }
@@ -8101,8 +8102,7 @@ body {
     background-color: #e9ecef;
 }
 
-
-.mybg{
+.mybg {
     background-color: #212529;
     margin: auto;
 }
@@ -8142,37 +8142,61 @@ body {
     color: #a94442;
 }
 
-@media screen and (max-width: 768px) {
+.evento-calendario {
 
-.content-desktop {display: none;}
-.content-mobile {display: unset;}
-#layoutSidenav {padding-left: 3%!important;}
+    color: white;
+    text-shadow:
+        0.05em 0 black,
+        0 0.05em black,
+        -0.05em 0 black,
+        0 -0.05em black,
+        -0.05em -0.05em black,
+        -0.05em 0.05em black,
+        0.05em -0.05em black,
+        0.05em 0.05em black;
 
 }
 
 @media screen and (max-width: 768px) {
 
-.pad-movil{padding: 5%}
+    .content-desktop {
+        display: none;
+    }
+
+    .content-mobile {
+        display: unset;
+    }
+
+    #layoutSidenav {
+        padding-left: 3% !important;
+    }
 
 }
 
+@media screen and (max-width: 768px) {
+
+    .pad-movil {
+        padding: 5%
+    }
+
+}
 
 .glow {
-  color: black;
-  text-align: center;
-  animation: glow 2s ease-in-out infinite alternate;
+    color: black;
+    text-align: center;
+    animation: glow 2s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
-                 0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
-  }
+    from {
+        text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff,
+        0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
+    }
 
-  to {
-    text-shadow: 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff,
-                 0 0 70px #fff, 0 0 80px #fff, 0 0 90px #fff;
-  }
+    to {
+        text-shadow: 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff,
+        0 0 70px #fff, 0 0 80px #fff, 0 0 90px #fff;
+    }
 }
 
 
