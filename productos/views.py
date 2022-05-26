@@ -8,7 +8,7 @@ from productos.models import Reactivo, Disolvente, Patron
 
 # Vistas de reactivos
 
-class ReactivoTableView(views_utils.TableView):
+class ReactivosView(views_utils.TableView):
     pass
 
 
@@ -20,7 +20,7 @@ class ReactivoAddView(views_utils.AddView):
     pass
 
 
-class DetalleReactivoView(views_utils.DetalleView):
+class DetailReactivoView(views_utils.DetailView):
     template_name = 'detail_reactivo.html'
     model = Reactivo
 
@@ -53,12 +53,12 @@ def searchReactivo(request):
 
 #Vistas de disolventes
 
-class DisolventeView(views_utils.TableView):
+class DisolventesView(views_utils.TableView):
     template_name = 'disolventes.html'
     model = Disolvente
 
 
-class DetalleDisolventeView(views_utils.DetalleView):
+class DetailDisolventeView(views_utils.DetailView):
     template_name = 'detail_disolvente.html'
     model = Disolvente
 
@@ -117,7 +117,7 @@ class PatronAddView(views_utils.AddView):
     redirect_to = 'patrones'
 
 
-class DetallePatronView(views_utils.DetalleView):
+class DetailPatronView(views_utils.DetailView):
     template_name = 'detail_patron.html'
     model = Patron
 

@@ -12,7 +12,7 @@ class VolumetricosView(views_utils.TableView):
     model = Volumetrico
 
 
-class DetalleVolumetricoView(views_utils.DetalleView):
+class DetailVolumetricoView(views_utils.DetailView):
     template_name = 'detail_volumetrico.html'
     model = Volumetrico
 
@@ -66,7 +66,7 @@ class InstrumentosView(views_utils.TableView):
     model = Instrumento
 
 
-class DetalleInstrumentoView(views_utils.DetalleView):
+class DetailInstrumentoView(views_utils.DetailView):
     template_name = 'detail_instrumento.html'
     model = Instrumento
 
@@ -113,7 +113,7 @@ class MiscelaneasView(views_utils.TableView):
     model = Miscelanea
 
 
-class DetalleMiscelaneaView(views_utils.DetalleView):
+class DetailMiscelaneaView(views_utils.DetailView):
     template_name = 'detail_miscelanea.html'
     model = Miscelanea
 

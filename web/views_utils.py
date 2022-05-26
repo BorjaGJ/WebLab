@@ -30,7 +30,7 @@ class TableView(CreateView):
         return render(request, self.template_name, {"entradas": entradas})
 
 
-class DetalleView(CreateView):
+class DetailView(CreateView):
     template_name = ''
     model = Reactivo
 

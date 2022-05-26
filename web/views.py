@@ -14,7 +14,7 @@ from web.utils import MyHTMLCalendar
 from web.views_utils import AddView
 
 
-class Index(CreateView):
+class IndexView(CreateView):
     template_name = 'base.html'
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 
@@ -105,7 +105,8 @@ class AddUserView(AddView):
 
         return render(request, self.template_name, {'form': form})
 
-class EditUser(CreateView):
+
+class EditUserView(CreateView):
     template_name = 'edit_user.html'
 
     def get(self, request, *args, **kwargs):
@@ -180,16 +181,16 @@ class LectorView(CreateView):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {})
 
-def prev_month(d):
-    first = d.replace(day=1)
-    prev_month = first - timedelta(days=1)
-    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
-    return month
-
-
-def next_month(d):
-    days_in_month = calendar.monthrange(d.year, d.month)[1]
-    last = d.replace(day=days_in_month)
-    next_month = last + timedelta(days=1)
-    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
-    return month
+# def prev_month(d):
+#     first = d.replace(day=1)
+#     prev_month = first - timedelta(days=1)
+#     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+#     return month
+#
+#
+# def next_month(d):
+#     days_in_month = calendar.monthrange(d.year, d.month)[1]
+#     last = d.replace(day=days_in_month)
+#     next_month = last + timedelta(days=1)
+#     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+#     return month

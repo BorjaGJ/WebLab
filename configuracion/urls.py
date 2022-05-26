@@ -25,7 +25,7 @@ from configuracion import settings
 from web.forms import WebLabLoginForm
 from django.contrib.auth.decorators import login_required
 
-from web.views import Index, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUser, LectorView, \
+from web.views import IndexView, EventosCalendarioView, ConfiguracionEventosView, AddUserView, EditUserView, LectorView, \
     UserListView, deleteUsuario, searchUsuario, EditPermisosUserView
 
 admin.autodiscover()
@@ -33,7 +33,7 @@ admin.autodiscover()
 urlpatterns = [
     # url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', login_required(Index.as_view()), name='index'),
+    url(r'^$', login_required(IndexView.as_view()), name='index'),
 
     url(r'^login/$', auth_views.LoginView.as_view(authentication_form=WebLabLoginForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^usuarios/add$', login_required(AddUserView.as_view()), name='add_trabajador'),
     url(r'^usuarios/delete/(?P<id>[-\d]+)$', login_required(deleteUsuario), name='delete_usuario'),
     url(r'^usuarios/search$', login_required(searchUsuario), name='search_usuario'),
-    url(r'^usuarios/mi_usuario/change_password$', login_required(EditUser.as_view()), name='edit_user'),
+    url(r'^usuarios/mi_usuario/change_password$', login_required(EditUserView.as_view()), name='edit_user'),
     url(r'^usuarios/editar/(?P<id>[-\d]+)$', login_required(EditPermisosUserView.as_view()), name='edit_permisos'),
 
 

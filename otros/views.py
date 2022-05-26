@@ -11,7 +11,7 @@ from otros.models import Evento, Cliente, Proveedor, Analisis, Pedido
 from web.views_utils import TableView, EditByIdView, AddView
 
 
-class EventosTableView(TableView):
+class EventosView(TableView):
     model = Evento
     template_name = 'eventos.html'
     order_by = 'fecha'
@@ -63,7 +63,7 @@ def delete_expired(request):
     return redirect('eventos')
 
 
-class ClienteTableView(TableView):
+class ClientesView(TableView):
     model = Cliente
     template_name = 'clientes.html'
     order_by = 'nombre'
@@ -108,20 +108,20 @@ def searchCliente(request):
         return render(request, 'clientes.html', {"entradas": entradas})
 
 
-class ProveedoresTableView(TableView):
+class ProveedoresView(TableView):
     model = Proveedor
     template_name = 'proveedores.html'
     order_by = 'id'
 
 
-class ProveedoresEditView(EditByIdView):
+class ProveedorEditView(EditByIdView):
     model = Proveedor
     redirect_to = 'proveedores'
     model_form = ProveedorForm
     template_name = 'edit_proveedor.html'
 
 
-class ProveedoresAddView(AddView):
+class ProveedorAddView(AddView):
     model = Proveedor
     redirect_to = 'proveedores'
     model_form = ProveedorForm
@@ -205,7 +205,7 @@ class AddPedidoView(CreateView):
 
 
 
-class DetallePedidoView(CreateView):
+class DetailPedidoView(CreateView):
     template_name = 'detail_pedido.html'
     model_padre = Proveedor
     model = Pedido
@@ -293,7 +293,7 @@ class AnalisisTableView(CreateView):
         return render(request, self.template_name, {"entradas": entradas, "padre": padre})
 
 
-class DetalleAnalisisView(CreateView):
+class DetailAnalisisView(CreateView):
     template_name = 'detail_analisis.html'
     model_padre = Cliente
     model = Analisis
