@@ -173,7 +173,7 @@ def searchUsuario(request):
             Q(username__icontains=buscado)
         )
 
-        return render(request, 'clientes.html', {"usuarios": usuarios})
+        return render(request, 'usuarios.html', {"usuarios": usuarios})
 
 class LectorView(CreateView):
     template_name = 'lector.html'

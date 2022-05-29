@@ -49,7 +49,7 @@ def searchEvento(request):
 
         entradas = model.objects.filter(
             Q(nombre__icontains=buscado))
-        return render(request, 'clientes.html', {"entradas": entradas})
+        return render(request, 'eventos.html', {"entradas": entradas})
 
 
 def delete_expired(request):
