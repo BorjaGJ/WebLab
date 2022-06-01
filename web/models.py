@@ -5,15 +5,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class PoliticaPrivacidad(models.Model):
-    texto = RichTextUploadingField()
-    archivo = models.FileField(blank=True, null=True)
-
-
-class Condiciones(PoliticaPrivacidad):
-    pass
-
-
 class ConfiguracionEventos(models.Model):
     color_instrumentos = ColorField(default='#0d6efd')
     color_volumetricos = ColorField(default='#0d6efd')

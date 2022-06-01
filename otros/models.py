@@ -1,6 +1,4 @@
 from datetime import datetime
-from datetime import timedelta
-from annoying.functions import get_object_or_None
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
