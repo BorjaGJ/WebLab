@@ -39,7 +39,7 @@ class Material(models.Model):
 
 
 class Volumetrico(Material):
-    OPTION_CHOICES = (("Aforado", "Aforado"), ("Graduado", "Graduado"))
+    OPTION_CHOICES = (("Aforado", "Aforado"), ("Graduado", "Graduado"), ("Ninguna", "Ninguna"))
     graduacion = models.CharField(choices=OPTION_CHOICES, max_length=10)
     volumen = models.CharField(max_length=20)
     cuantia = models.IntegerField(validators=[MinValueValidator(0)])
