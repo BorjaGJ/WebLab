@@ -91,15 +91,6 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
-                                    onclick="window.location.href='{% url 'instrumento' %}' ">
-                                <a class="text-white text-decoration-none"
-                                   href="{% url 'instrumento' %}">
-                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
-                                    Volver a la lista
-                                </a>
-                            </button>
-                            <div class="d-block d-md-none py-2"></div>
                             {% get_permisos request.user as permisos %}
                             {% if permisos.can_edit %}
                                 <button class="btn btn-primary px-3 waves-effect waves-light" type="reset"
@@ -111,6 +102,15 @@
                                     </a>
                                 </button>
                             {% endif %}
+                            <div class="d-block d-md-none py-2"></div>
+                            <button class="btn btn-danger px-3 waves-effect waves-light" type="reset"
+                                    onclick="window.location.href='{% url 'instrumento' %}' ">
+                                <a class="text-white text-decoration-none"
+                                   href="{% url 'instrumento' %}">
+                                    <i class="fas fa-times-circle text-white" aria-hidden="true"></i>
+                                    Volver a la lista
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
