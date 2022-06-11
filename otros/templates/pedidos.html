@@ -73,15 +73,13 @@
                                     <td>
                                         {{ pedido.fecha_pedido }}
                                     </td>
+                                    <td>
+                                        {{ pedido.fecha_espera }}
+                                    </td>
                                     {% if pedido.fecha_recibido %}
                                         <td>{{ pedido.fecha_recibido }}</td>
                                     {% else %}
-                                        <td>Sin registrar</td>
-                                    {% endif %}
-                                    {% if pedido.fecha_espera %}
-                                        <td>{{ pedido.fecha_espera }}</td>
-                                    {% else %}
-                                        <td>No hay fecha estimada</td>
+                                        <td>Aún no ha sido recibido</td>
                                     {% endif %}
                                     <td>
                                         {{ pedido.puntuacion }}
