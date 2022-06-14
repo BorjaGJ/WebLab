@@ -31,7 +31,7 @@ urlpatterns = [
         name='miscelanea_edit'),
     url(r'^delete/miscelanea/(?P<codigo_laboratorio>[-\w]+)$', login_required(views.deleteMiscelanea),
         name='delete_miscelanea'),
-    url(r'^search/instrumento$', login_required(views.searchMiscelanea), name='search_miscelanea'),
+    url(r'^search/miscelanea$', login_required(views.searchMiscelanea), name='search_miscelanea'),
 
     # url(r'verificar$', login_required(views.Verificar.as_view()), name='verificar'),
 
