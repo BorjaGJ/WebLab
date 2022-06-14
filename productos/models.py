@@ -17,7 +17,7 @@ class Producto(models.Model):
     organico = models.BooleanField(default=False)
     cantidad = models.CharField(max_length=50)
     ubicacion = RichTextUploadingField(default='En el laboratorio', blank=True, null=True)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, blank=True, null=True)
     fecha_caducidad = models.DateField()
     ficha_seguridad = models.FileField(blank=True, null=True)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE, blank=True, null=True)

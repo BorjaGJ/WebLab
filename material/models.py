@@ -23,7 +23,7 @@ class Material(models.Model):
     nombre = models.CharField(max_length=50)
     codigo_laboratorio = models.CharField(unique=True, max_length=100, validators=[no_space_validator, no_asciis_validator])
     codigo_slug = models.CharField(max_length=100, blank=True, null=True, editable=False)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, blank=True, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, blank=True, null=True)
     ubicacion = RichTextUploadingField(default='En el laboratorio')
     proxima_revision = models.DateField()
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE, editable=False, null=True, blank=True)
