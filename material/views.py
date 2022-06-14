@@ -152,4 +152,4 @@ def searchMiscelanea(request):
             Q(nombre__icontains=buscado) |
             Q(codigo_laboratorio__icontains=buscado) | Q(proveedor__nombre__icontains=buscado)
         )
-        return render(request, 'instrumentos.html', {"entradas": entradas})
+        return render(request, 'micelaneas.html', {"entradas": entradas})
