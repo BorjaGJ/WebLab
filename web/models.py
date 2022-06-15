@@ -1,5 +1,3 @@
-from annoying.functions import get_object_or_None
-from ckeditor_uploader.fields import RichTextUploadingField
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.db import models
